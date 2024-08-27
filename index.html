@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adjuster Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <h1>Adjuster Assistant</h1>
+    <div class="notepad">
+        <label for="callerName">Caller's Name:</label>
+        <input type="text" id="callerName" placeholder="Enter the caller's name" />
+
+        <label for="zipCode">ZIP Code:</label>
+        <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
+
+        <label for="vin">VIN:</label>
+        <input type="text" id="vin" placeholder="Enter the VIN" />
+
+        <button onclick="saveNote()">Save Note</button>
+        <button onclick="clearNote()">Clear Note</button>
+
+        <h3>Saved Note:</h3>
+        <textarea id="savedNote" rows="5" readonly></textarea>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
