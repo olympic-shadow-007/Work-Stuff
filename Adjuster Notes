@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caller Notepad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .notepad {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .notepad label {
+            display: block;
+            margin-top: 10px;
+        }
+        .notepad input, .notepad textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .notepad button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .notepad button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Caller Notepad</h1>
+    <div class="notepad">
+        <label for="callerName">Caller's Name:</label>
+        <input type="text" id="callerName" placeholder="Enter the caller's name" />
+
+        <label for="zipCode">ZIP Code:</label>
+        <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
+
+        <label for="vin">VIN:</label>
+        <input type="text" id="vin" placeholder="Enter the VIN" />
+
+        <button onclick="saveNote()">Save Note</button>
+        <button onclick="clearNote()">Clear Note</button>
+
+        <h3>Saved Note:</h3>
+        <textarea id="savedNote" rows="5" readonly></textarea>
+    </div>
+
+    <script>
+        // Load saved data from local storage on page load
+        window.onload = function() {
+            document.getElementById('callerName').value = localStorage.getItem('callerName') || '';
+            document.getElementById('zipCode').value = localStorage.getItem('zipCode') || '';
+            document.getElementById('vin').value = localStorage.getItem('vin') || '';
+            updateSavedNote();
+        };
+
+        // Function to save the note
+        function saveNote() {
+            const callerName = document.getElementById('callerName').value;
+            const zipCode = document.getElementById('zipCode').value;
+            const vin = document.getElementById('vin').value;
+
+            // Store the data in local storage
+            localStorage.setItem('callerName', callerName);
+            localStorage.setItem('zipCode', zipCode);
+            localStorage.setItem('vin', vin);
+
+            updateSavedNote();
+        }
+
+        // Function to update the displayed saved note
+        function updateSavedNote() {
+            const callerName = localStorage.getItem('callerName') || '';
+            const zipCode = localStorage.getItem('zipCode') || '';
+            const vin = localStorage.getItem('vin') || '';
+
+            document.getElementById('savedNote').value = `Caller Name: ${callerName}\nZIP Code: ${zipCode}\nVIN: ${vin}`;
+        }
+
+        // Function to clear the note
+        function clearNote() {
+            localStorage.removeItem('callerName');
+            localStorage.removeItem('zipCode');
+            localStorage.removeItem('vin');
+
+            document.getElementById('callerName').value = '';
+            document.getElementById('zipCode').value = '';
+            document.getElementById('vin').value = '';
+
+            updateSavedNote();
+        }
+    </script>
+
+</body>
+</html>
