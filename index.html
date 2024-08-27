@@ -8,7 +8,6 @@
 </head>
 <body>
 
-    <h1>Adjuster Assistant</h1>
     <div class="notepad">
         <label for="callerName">Caller's Name:</label>
         <input type="text" id="callerName" placeholder="Enter the caller's name" />
@@ -19,12 +18,16 @@
         <label for="vin">VIN:</label>
         <input type="text" id="vin" placeholder="Enter the VIN" />
 
-        <button onclick="saveNote()">Save Note</button>
-        <button onclick="clearNote()">Clear Note</button>
+        <label for="comments">Comments:</label>
+        <input type="text" id="comments" placeholder="Enter any Additional Comments">
 
-        <h3>Saved Note:</h3>
-        <textarea id="savedNote" rows="5" readonly></textarea>
+        <button onclick="clearInput()">Clear Input</button>
+
     </div>
+
+    <div class="laborNeg">
+        <button>Labor Rate Negotiation Script</button>
+    </div>>
 
     <script src="script.js"></script>
 </body>
