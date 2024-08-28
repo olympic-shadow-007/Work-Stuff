@@ -8,26 +8,60 @@
 </head>
 <body>
 
-    <div class="notepad">
-        <label for="callerName">Caller's Name:</label>
-        <input type="text" id="callerName" placeholder="Enter the caller's name" />
+    <div class="container">
+        <div class="notepad">
+            <label for="callerName">Caller's Name:</label>
+            <input type="text" id="callerName" placeholder="Enter the caller's name" />
 
-        <label for="zipCode">ZIP Code:</label>
-        <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
+            <label for="zipCode">ZIP Code:</label>
+            <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
 
-        <label for="vin">VIN:</label>
-        <input type="text" id="vin" placeholder="Enter the VIN" />
+            <label for="vin">VIN:</label>
+            <input type="text" id="vin" placeholder="Enter the VIN" />
 
-        <label for="comments">Comments:</label>
-        <input type="text" id="comments" placeholder="Enter any Additional Comments">
+            <label for="comments">Comments:</label>
+            <textarea id="comments" placeholder="Enter any additional comments"></textarea>
 
-        <button onclick="clearInput()">Clear Input</button>
+            <button onclick="clearInput()">Clear Input</button>
+        </div>
+
+        <div class="laborButton">
+            <button id="laborButton">Labor Rate Negotiation Script</button>
+        </div>
     </div>
 
-    <div class="laborButton">
-        <button id="laborButton">Labor Rate Negotiation Script</button>
-    </div>
+    <div class="calculator">
+        <input type="text" id="display" readonly />
+        
+        <div class="buttons">
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="appendOperator('+')">+</button>
 
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendOperator('-')">-</button>
+
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendOperator('*')">*</button>
+
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendOperator('/')">/</button>
+        </div>
+        
+        <div class="log-section">
+            <textarea id="resultLog" readonly></textarea>
+            <button class="clear-results-button" onclick="clearLog()">Clear Results</button>
+        </div>
+        
+    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
