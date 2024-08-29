@@ -5,10 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adjuster Assistant</title>
     <link rel="stylesheet" href="styles.css">
+    <script async src="https://cse.google.com/cse.js?cx=e1b24be6428e64fdd"></script>
 </head>
 <body>
 
     <div class="container">
+        <h1>Adjuster Assistant</h1>
+        
+        <div class="gcse-search-container">
+            <div class="gcse-search" style="width: 100%;"></div>
+        </div>
+
         <div class="notepad">
             <label for="callerName">Caller's Name:</label>
             <input type="text" id="callerName" placeholder="Enter the caller's name" />
@@ -59,7 +66,6 @@
             <textarea id="resultLog" readonly></textarea>
             <button class="clear-results-button" onclick="clearLog()">Clear Results</button>
         </div>
-        
     </div>
     
     <script src="script.js"></script>
