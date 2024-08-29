@@ -10,8 +10,13 @@ h1 {
 }
 
 .container {
+    text-align: center; 
     margin-bottom: 20px; 
-    text-align: left; 
+}
+
+.gcse-search-container {
+    width: 400px;
+    margin: 0 auto;
 }
 
 .notepad {
@@ -20,7 +25,9 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px; 
+    position: absolute; 
+    top: 10px; 
+    left: 20px; 
 }
 
 .notepad label {
@@ -59,6 +66,9 @@ h1 {
 
 .laborButton {
     margin-top: 10px; 
+    position: absolute; 
+    bottom: 20px; 
+    left: 20px;
 }
 
 .laborButton button {
@@ -71,6 +81,26 @@ h1 {
 }
 
 .laborButton button:hover {
+    background-color: #781c1c;
+}
+
+.gsc-control-cse {
+    border-color: #902424;
+}
+
+input.gsc-input {
+    border-radius: 4px;
+    padding: 5px;
+}
+
+button.gsc-search-button {
+    background-color: #902424;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+}
+
+button.gsc-search-button:hover {
     background-color: #781c1c;
 }
 
@@ -147,5 +177,4 @@ h1 {
     font-size: 14px;
     padding: 8px;
     box-sizing: border-box;
-    border-radius: 4px;
 }
