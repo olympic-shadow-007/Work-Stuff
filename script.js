@@ -72,8 +72,8 @@ document.getElementById("laborButton").addEventListener("click", function() {
         </html>
     `);
 
-    // Add the main script logic
-    newWindow.document.close(); // Important to close the document after writing
+    
+    newWindow.document.close(); 
     newWindow.onload = function() {
         let laborRate, avgLaborRate, newLaborRate;
 
@@ -99,7 +99,7 @@ document.getElementById("laborButton").addEventListener("click", function() {
         }
 
         function handleAvgLaborRate() {
-            displayQuestion("What is the average labor rate in your area?", "number", function(response) {
+            displayQuestion("What is the average labor rate in the area?", "number", function(response) {
                 avgLaborRate = parseFloat(response);
                 compareRates();
             });
