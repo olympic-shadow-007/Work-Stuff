@@ -117,7 +117,7 @@ document.getElementById("laborButton").addEventListener("click", function() {
             } else {
                 displayQuestion(`The average labor rate in your area is $${avgLaborRate}, are you able to match this? (Y/N)`, "text", function(response) {
                     if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                        const difference = laborRate - avgLaborRate;
+                        const difference = (laborRate + avgLaborRate)/2;
                         displayQuestion(`Are you able to match us at $${difference}? (Y/N)`, "text", function(response) {
                             if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
                                 newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
