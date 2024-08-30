@@ -75,7 +75,7 @@ document.getElementById("notesButton").addEventListener("click", function() {
                 });
 
                 document.getElementById("authNote").addEventListener("click", function() {
-                    copyToClipboard("This is a Auth Note");
+                    copyToClipboard("This is an auth note");
                 });
 
                 document.getElementById("laborNegNote").addEventListener("click", function() {
