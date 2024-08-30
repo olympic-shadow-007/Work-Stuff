@@ -90,7 +90,9 @@ document.getElementById("notesButton").addEventListener("click", function() {
                 });
 
                 document.getElementById("laborNegNote").addEventListener("click", function() {
-                    copyToClipboard("This is a Labor Neg Note");
+                    copyToClipboard('Posted Labor Rate: ' + 
+                    'Avg Labor Rate: ' +
+                    'Negotiated Rate: ');
                 });
             </script>
         </body>
