@@ -33,12 +33,12 @@ h1 {
 
 .notepad {
     width: 220px;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    top: 20px;
+    top: 200px;
     left: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -112,14 +112,14 @@ button.gsc-search-button:hover {
 }
 
 .calculator {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     width: 220px;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    top: 200px;
+    right: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -198,8 +198,8 @@ button.gsc-search-button:hover {
 .laborButton {
     margin-top: 10px;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    top: 150px;
+    right: 30px;
 }
 
 .laborButton button {
@@ -220,8 +220,8 @@ button.gsc-search-button:hover {
 .notesButton {
     margin-top: 10px;
     position: absolute;
-    bottom: 70px;
-    right: 20px;
+    top: 110px;
+    right: 30px;
 }
 
 .notesButton button {
