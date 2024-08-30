@@ -62,11 +62,22 @@ document.getElementById("notesButton").addEventListener("click", function() {
             <script>
                 // Function to copy text to the clipboard
                 function copyToClipboard(text) {
-                    navigator.clipboard.writeText(text).then(function() {
+                    if (!navigator.clipboard) {
+                        // Fallback for browsers that don't support navigator.clipboard
+                        const textArea = document.createElement("textarea");
+                        textArea.value = text;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(textArea);
                         alert("Copied to clipboard: " + text);
-                    }).catch(function(error) {
-                        alert("Failed to copy: " + error);
-                    });
+                    } else {
+                        navigator.clipboard.writeText(text).then(function() {
+                            alert("Copied to clipboard: " + text);
+                        }).catch(function(error) {
+                            alert("Failed to copy: " + error);
+                        });
+                    }
                 }
 
                 // Attach event listeners to the buttons
