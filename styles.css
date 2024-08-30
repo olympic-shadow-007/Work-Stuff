@@ -4,8 +4,8 @@ body {
     padding: 0;
     background: url('callCenter.jpg') no-repeat center center fixed;
     background-size: cover; 
-    background-position: center; 
-    color: #902424;
+    background-position: center;
+    color: #fff;
 }
 
 .container, .calculator, .notepad {
@@ -129,7 +129,7 @@ button.gsc-search-button:hover {
 }
 
 #display {
-    background-color: darkgray;
+    background-color: rgba(255, 255, 255, 0.5);
     width: 100%;
     height: 40px;
     text-align: right;
@@ -169,7 +169,7 @@ button.gsc-search-button:hover {
 
 .clear-results-button {
     background-color: #902424;
-    color: white;
+    color: #fff;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -185,7 +185,7 @@ button.gsc-search-button:hover {
 }
 
 #resultLog {
-    background-color: darkgray;
+    background-color: rgba(255, 255, 255, .5);
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
