@@ -75,7 +75,19 @@ document.getElementById("notesButton").addEventListener("click", function() {
                 });
 
                 document.getElementById("authNote").addEventListener("click", function() {
-                    copyToClipboard("This is an auth note");
+                    copyToClipboard("What type of contract 
+                    Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snapshot) 
+                    Adjuster must list what was covered by the contract 
+                    Adjuster must list any PNLC items 
+                    Adjuster must note what part was used and why 
+                    Adjuster must note how labor was verified 
+                    Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snapshot) 
+                    Adjuster must note if claim history has been reviewed 
+                    Adjuster must note if SR are needed or has been reviewed 
+                    Adjuster must note if there are any related TSB's 
+                    Adjuster must note any OOP Costs and list the cost difference 
+                    Adjuster must note they made the attempt to contact the CH about oop cost if unsuccessful adjuster must note a task has been perfromed 
+                    Adjuster must note who auth'd number where given too and list payment method");
                 });
 
                 document.getElementById("laborNegNote").addEventListener("click", function() {
