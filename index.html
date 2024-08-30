@@ -25,6 +25,15 @@
 
             <label for="vin">VIN:</label>
             <input type="text" id="vin" placeholder="Enter the VIN" />
+            
+            <label for="laborRate">Labor Rate:</label>
+            <input type="text" id="laborRate" placeholder="What is the current labor rate?">
+
+            <label for="avgLaborRate">Average Labor Rate:</label>
+            <input type="text" id="avgLaborRate" placeholder="What is the average labor rate?">
+
+            <label for="negRate">Negotiated Rate:</label>
+            <input type="text" id="negRate" placeholder="What is the negotiated rate?">
 
             <label for="comments">Comments:</label>
             <textarea id="comments" placeholder="Enter any additional comments"></textarea>
@@ -32,9 +41,6 @@
             <button onclick="clearInput()">Clear Input</button>
         </div>
 
-        <div class="laborButton">
-            <button id="laborButton">Labor Rate Negotiation Script</button>
-        </div>
     </div>
 
     <div class="calculator">
@@ -66,6 +72,15 @@
             <textarea id="resultLog" readonly></textarea>
             <button class="clear-results-button" onclick="clearLog()">Clear Results</button>
         </div>
+
+    </div>
+
+    <div class="laborButton">
+        <button id="laborButton">Labor Rate Negotiation Script</button>
+    </div>
+
+    <div class="notesButton">
+        <button id="notesButton">Quick Notes</button>
     </div>
     
     <script src="script.js"></script>
