@@ -25,6 +25,9 @@
 
             <label for="vin">VIN:</label>
             <input type="text" id="vin" placeholder="Enter the VIN" />
+
+            <label for="vehicleMileage:">Vehicle Mileage</label>
+            <input type="text" id="vehicleMileage" placeholder="Enter the mileage">
             
             <label for="laborRate">Labor Rate:</label>
             <input type="text" id="laborRate" placeholder="Enter the current labor rate">
@@ -35,6 +38,12 @@
             <label for="negRate">Negotiated Rate:</label>
             <input type="text" id="negRate" placeholder="Enter the negotiated rate">
 
+            <label for="msrp">Part MSRP:</label>
+            <input type="text" id="msrp" placeholder="Enter the MSRP">
+
+            <label for="partCost">Part Cost:</label>
+            <input type="text" id="partCost" placeholder="Enter part cost">
+
             <label for="comments">Comments:</label>
             <textarea id="comments" placeholder="Enter any additional comments"></textarea>
 
@@ -44,7 +53,7 @@
     </div>
 
     <div class="calculator">
-        <input type="text" id="display" readonly placeholder="Click Here to Use Keypad "/>
+        <input type="text" id="display" readonly placeholder="Click Here to Use Keypad  "/>
         
         <div class="buttons">
             <button onclick="appendNumber('7')">7</button>
@@ -75,14 +84,24 @@
 
     </div>
 
-    <div class="laborButton">
-        <button id="laborButton">Labor Rate Negotiation Script</button>
+    <div class="authNoteButton">
+        <button id="authButton">Auth Note</button>
     </div>
 
-    <div class="notesButton">
-        <button id="notesButton">Quick Notes</button>
+    <div class="statusNoteButton">
+        <button id="statusButton">Status Note</button>
     </div>
-    
+
+    <div class="laborNoteButton">
+        <button id="laborButton">Labor Negotiation Note</button>
+    </div>
+
+    <div class="laborNegButton">
+        <button id="laborNegButton">Labor Rate Negotiation Script</button>
+    </div>
+
     <script src="script.js"></script>
+
 </body>
+
 </html>
