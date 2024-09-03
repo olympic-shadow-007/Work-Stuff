@@ -1,22 +1,11 @@
-// Function to clear the input fields in the notepad
-function clearInput() {
-    document.getElementById('callerName').value = '';
-    document.getElementById('zipCode').value = '';
-    document.getElementById('vin').value = '';
-    document.getElementById('laborRate').value = '';
-    document.getElementById('avgLaborRate').value = '';
-    document.getElementById('negRate').value = '';
-    document.getElementById('comments').value = '';
-}
-
-// Function to create a popup window with notes options
-document.getElementById("notesButton").addEventListener("click", function() {
-    const width = 400;
-    const height = 400;
+// Function to create a popup window with the authorize note
+document.getElementById("authButton").addEventListener("click", function() {
+    const width = 500;
+    const height = 700;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Notes", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -36,6 +25,11 @@ document.getElementById("notesButton").addEventListener("click", function() {
                     text-align: center;
                     margin-bottom: 20px;
                 }
+                p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 10px;
+                }
                 button {
                     display: block;
                     width: 100%;
@@ -46,7 +40,7 @@ document.getElementById("notesButton").addEventListener("click", function() {
                     border: none;
                     border-radius: 5px;
                     cursor: pointer;
-                    margin-bottom: 10px;
+                    margin-top: 20px;
                 }
                 button:hover {
                     background-color: #781c1c;
@@ -54,47 +48,21 @@ document.getElementById("notesButton").addEventListener("click", function() {
             </style>
         </head>
         <body>
-            <h1>Select a Note</h1>
-            <button id="statusNote">Status Note</button>
-            <button id="authNote">Auth Note</button>
-            <button id="laborNegNote">Labor Neg Note</button>
-
-            <script>
-                // Function to copy text to the clipboard
-                function copyToClipboard(text) {
-                    if (!navigator.clipboard) {
-                        // Fallback for browsers that don't support navigator.clipboard
-                        const textArea = document.createElement("textarea");
-                        textArea.value = text;
-                        document.body.appendChild(textArea);
-                        textArea.select();
-                        document.execCommand("copy");
-                        document.body.removeChild(textArea);
-                        alert("Copied to clipboard: " + text);
-                    } else {
-                        navigator.clipboard.writeText(text).then(function() {
-                            alert("Copied to clipboard: " + text);
-                        }).catch(function(error) {
-                            alert("Failed to copy: " + error);
-                        });
-                    }
-                }
-
-                // Attach event listeners to the buttons
-                document.getElementById("statusNote").addEventListener("click", function() {
-                    copyToClipboard("This is a status note");
-                });
-
-                document.getElementById("authNote").addEventListener("click", function() {
-                    copyToClipboard("This is an auth note");
-                });
-
-                document.getElementById("laborNegNote").addEventListener("click", function() {
-                    copyToClipboard('Posted Labor Rate: ' + 
-                    'Avg Labor Rate: ' +
-                    'Negotiated Rate: ');
-                });
-            </script>
+            <h1>Authorize Note</h1>
+            <p>What type of contract</p>
+            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot)</p>
+            <p>Adjuster must list what was covered by the contract</p>
+            <p>Adjuster must list any PNLC items</p>
+            <p>Adjuster must note what part was used and why</p>
+            <p>Adjuster must note how labor was verified</p>
+            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot)</p>
+            <p>Adjuster must note if claim history has been reviewed</p>
+            <p>Adjuster must note if SR are needed or has been reviewed</p>
+            <p>Adjuster must note if there are any related TSB's</p>
+            <p>Adjuster must note any OOP Costs and list the cost difference</p>
+            <p>Adjuster must note they made the attempt to contact the CH about oop cost; if unsuccessful, adjuster must note a task has been performed</p>
+            <p>Adjuster must note who auth'd number was given to and list payment method</p>
+            <button onclick="window.close()">Close</button>
         </body>
         </html>
     `);
@@ -102,83 +70,137 @@ document.getElementById("notesButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-// Calculator Functions
-let display = document.getElementById('display');
-let resultLog = document.getElementById('resultLog');
-let currentInput = '';
+// Function to create a popup window with the status note
+document.getElementById("statusButton").addEventListener("click", function() {
+    const width = 400;
+    const height = 350;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
 
-function appendNumber(number) {
-    currentInput += number;
-    display.value = currentInput;
-}
+    let newWindow = window.open("", "Status Note", `width=${width},height=${height},top=${top},left=${left}`);
 
-function appendOperator(operator) {
-    if (currentInput === '') return;
-    if (isOperator(currentInput.slice(-1))) {
-        currentInput = currentInput.slice(0, -1);
-    }
-    currentInput += operator;
-    display.value = currentInput;
-}
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Status Note</h1>
+            <p>Why is claim delayed?</p>
+            <p>Is CH aware of delay?</p>
+            <p>What is needed from CH or RF?</p>
+            <p>What are the next steps in the process?</p>
+            <p>Any conversations that need to happen?</p>
+            <p>What have you completed already?</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
 
-function isOperator(char) {
-    return ['+', '-', '*', '/'].includes(char);
-}
+    newWindow.document.close();
+});
 
-function clearDisplay() {
-    currentInput = '';
-    display.value = '';
-}
+// Function to create a popup window with the labor negotiation note
+document.getElementById("laborButton").addEventListener("click", function() {
+    const width = 400;
+    const height = 300;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
 
-function calculateResult() {
-    try {
-        const result = eval(currentInput);
-        display.value = result;
-        logResult(`${currentInput} = ${result}`);
-        currentInput = result.toString();
-    } catch (error) {
-        display.value = 'Error';
-        currentInput = '';
-    }
-}
+    let newWindow = window.open("", "Labor Negotiation Note", `width=${width},height=${height},top=${top},left=${left}`);
 
-function logResult(entry) {
-    resultLog.value += entry + "\n";
-    resultLog.scrollTop = resultLog.scrollHeight;
-}
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Labor Negotiation Note</h1>
+            <p>Current labor rate:</p>
+            <p>Flexible on rate?</p>
+            <p>Avg labor rate:</p>
+            <p>Distance used?</p>
+            <p>How many reports?</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
 
-function clearLog() {
-    resultLog.value = '';
-}
-
-function handleKeyPress(event) {
-    const key = event.key;
-
-    if (!isNaN(key)) {
-        appendNumber(key);
-    } else if (isOperator(key)) {
-        appendOperator(key);
-    } else if (key === 'Enter') {
-        calculateResult();
-    } else if (key === 'Backspace') {
-        currentInput = currentInput.slice(0, -1);
-        display.value = currentInput;
-    } else if (key === 'Escape') {
-        clearDisplay();
-    } else if (key === '.') {
-        appendNumber(key);
-    }
-}
-
-// Attach the keydown event listener to the window
-window.addEventListener('keydown', function(event) {
-    if (document.activeElement.id === 'display') {
-        handleKeyPress(event);
-    }
+    newWindow.document.close();
 });
 
 // Function to launch labor rate negotiation script
-document.getElementById("laborButton").addEventListener("click", function() {
+document.getElementById("laborNegButton").addEventListener("click", function() {
     const width = 400;
     const height = 300;
     const left = (window.innerWidth / 2) - (width / 2);
@@ -316,4 +338,90 @@ document.getElementById("laborButton").addEventListener("click", function() {
 
         handleLaborRate();
     };
+});
+
+// Function to clear the input fields in the notepad
+function clearInput() {
+    document.getElementById('callerName').value = '';
+    document.getElementById('zipCode').value = '';
+    document.getElementById('vin').value = '';
+    document.getElementById('laborRate').value = '';
+    document.getElementById('avgLaborRate').value = '';
+    document.getElementById('negRate').value = '';
+    document.getElementById('comments').value = '';
+}
+
+// Calculator Functions
+let display = document.getElementById('display');
+let resultLog = document.getElementById('resultLog');
+let currentInput = '';
+
+function appendNumber(number) {
+    currentInput += number;
+    display.value = currentInput;
+}
+
+function appendOperator(operator) {
+    if (currentInput === '') return;
+    if (isOperator(currentInput.slice(-1))) {
+        currentInput = currentInput.slice(0, -1);
+    }
+    currentInput += operator;
+    display.value = currentInput;
+}
+
+function isOperator(char) {
+    return ['+', '-', '*', '/'].includes(char);
+}
+
+function clearDisplay() {
+    currentInput = '';
+    display.value = '';
+}
+
+function calculateResult() {
+    try {
+        const result = eval(currentInput);
+        display.value = result;
+        logResult(`${currentInput} = ${result}`);
+        currentInput = result.toString();
+    } catch (error) {
+        display.value = 'Error';
+        currentInput = '';
+    }
+}
+
+function logResult(entry) {
+    resultLog.value += entry + "\n";
+    resultLog.scrollTop = resultLog.scrollHeight;
+}
+
+function clearLog() {
+    resultLog.value = '';
+}
+
+function handleKeyPress(event) {
+    const key = event.key;
+
+    if (!isNaN(key)) {
+        appendNumber(key);
+    } else if (isOperator(key)) {
+        appendOperator(key);
+    } else if (key === 'Enter') {
+        calculateResult();
+    } else if (key === 'Backspace') {
+        currentInput = currentInput.slice(0, -1);
+        display.value = currentInput;
+    } else if (key === 'Escape') {
+        clearDisplay();
+    } else if (key === '.') {
+        appendNumber(key);
+    }
+}
+
+// Attach the keydown event listener to the window
+window.addEventListener('keydown', function(event) {
+    if (document.activeElement.id === 'display') {
+        handleKeyPress(event);
+    }
 });
