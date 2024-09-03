@@ -49,19 +49,19 @@ document.getElementById("authButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Authorize Note</h1>
-            <p>What type of contract</p>
-            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot)</p>
-            <p>Adjuster must list what was covered by the contract</p>
-            <p>Adjuster must list any PNLC items</p>
-            <p>Adjuster must note what part was used and why</p>
-            <p>Adjuster must note how labor was verified</p>
-            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot)</p>
-            <p>Adjuster must note if claim history has been reviewed</p>
-            <p>Adjuster must note if SR are needed or has been reviewed</p>
-            <p>Adjuster must note if there are any related TSB's</p>
-            <p>Adjuster must note any OOP Costs and list the cost difference</p>
-            <p>Adjuster must note they made the attempt to contact the CH about oop cost; if unsuccessful, adjuster must note a task has been performed</p>
-            <p>Adjuster must note who auth'd number was given to and list payment method</p>
+            <p>What type of contract?</p>
+            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot):</p>
+            <p>Adjuster must list what was covered by the contract:</p>
+            <p>Adjuster must list any PNLC items:</p>
+            <p>Adjuster must note what part was used and why?</p>
+            <p>Adjuster must note how labor was verified:</p>
+            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot):</p>
+            <p>Adjuster must note if claim history has been reviewed:</p>
+            <p>Adjuster must note if SR are needed or has been reviewed:</p>
+            <p>Adjuster must note if there are any related TSB's:</p>
+            <p>Adjuster must note any OOP Costs and list the cost difference:</p>
+            <p>Adjuster must note they made the attempt to contact the CH about oop cost; if unsuccessful, adjuster must note a task has been performed:</p>
+            <p>Adjuster must note who auth'd number was given to and list payment method:</p>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -187,10 +187,10 @@ document.getElementById("laborButton").addEventListener("click", function() {
         <body>
             <h1>Labor Negotiation Note</h1>
             <p>Current labor rate:</p>
-            <p>Flexible on rate?</p>
+            <p>Flexible on rate:</p>
             <p>Avg labor rate:</p>
-            <p>Distance used?</p>
-            <p>How many reports?</p>
+            <p>Distance used:</p>
+            <p>How many reports:</p>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
