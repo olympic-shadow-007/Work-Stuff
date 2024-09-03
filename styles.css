@@ -5,7 +5,7 @@ body {
     background: url('callCenter.jpg') no-repeat center center fixed;
     background-size: cover; 
     background-position: center;
-    color: #ffffff;
+    color: rgb(255, 255, 255);
 }
 
 .container, .calculator, .notepad {
@@ -17,7 +17,7 @@ body {
 
 h1 {
     text-align: center;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.7);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -31,15 +31,130 @@ h1 {
     margin: 0 auto;
 }
 
+.gsc-control-cse {
+    border-color: #902424;
+}
+
+input.gsc-input {
+    border-radius: 4px;
+    padding: 5px;
+    border: 1px solid #902424;
+    transition: box-shadow 0.3s;
+}
+
+input.gsc-input:focus {
+    box-shadow: 0 0 8px rgba(144, 36, 36, 0.4);
+}
+
+button.gsc-search-button {
+    background-color: #902424;
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+button.gsc-search-button:hover {
+    background-color: #781c1c;
+}
+
+.authNoteButton {
+    top: 20px;
+    right: 30px;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.authNoteButton button {
+    padding: 10px 15px;
+    background-color: #902424;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.authNoteButton button:hover {
+    background-color: #781c1c;
+    transform: translateY(-2px);
+}
+
+.statusNoteButton {
+    top: 60px;
+    right: 30px;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.statusNoteButton button {
+    padding: 10px 15px;
+    background-color: #902424;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.statusNoteButton button:hover {
+    background-color: #781c1c;
+    transform: translateY(-2px);
+}
+
+.laborNoteButton {
+    top: 100px;
+    right: 30px;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.laborNoteButton button {
+    padding: 10px 15px;
+    background-color: #902424;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.laborNoteButton button:hover {
+    background-color: #781c1c;
+    transform: translateY(-2px);
+}
+
+.laborNegButton {
+    top: 140px;
+    right: 30px;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.laborNegButton button {
+    padding: 10px 15px;
+    background-color: #902424;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.laborNegButton button:hover {
+    background-color: #781c1c;
+    transform: translateY(-2px);
+}
+
 .notepad {
     width: 220px;
+    top: 200px;
+    left: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    top: 200px;
-    left: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -61,18 +176,20 @@ h1 {
     border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .notepad textarea {
     height: 100px;
     resize: vertical;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .notepad button {
     margin-top: 20px;
     padding: 10px 15px;
     background-color: #902424;
-    color: white;
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -84,42 +201,15 @@ h1 {
     transform: translateY(-2px);
 }
 
-.gsc-control-cse {
-    border-color: #902424;
-}
-
-input.gsc-input {
-    border-radius: 4px;
-    padding: 5px;
-    border: 1px solid #902424;
-    transition: box-shadow 0.3s;
-}
-
-input.gsc-input:focus {
-    box-shadow: 0 0 8px rgba(144, 36, 36, 0.4);
-}
-
-button.gsc-search-button {
-    background-color: #902424;
-    color: white;
-    border-radius: 4px;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
-}
-
-button.gsc-search-button:hover {
-    background-color: #781c1c;
-}
-
 .calculator {
     width: 220px;
+    top: 200px;
+    right: 20px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    top: 200px;
-    right: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -129,7 +219,7 @@ button.gsc-search-button:hover {
 }
 
 #display {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.7);
     width: 100%;
     height: 40px;
     text-align: right;
@@ -149,7 +239,7 @@ button.gsc-search-button:hover {
 .buttons button {
     padding: 15px;
     font-size: 18px;
-    background-color: rgba(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.9);
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 4px;
@@ -185,7 +275,7 @@ button.gsc-search-button:hover {
 }
 
 #resultLog {
-    background-color: rgba(255, 255, 255, .5);
+    background-color: rgba(255, 255, 255, 0.5);
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
@@ -193,48 +283,4 @@ button.gsc-search-button:hover {
     font-size: 14px;
     padding: 8px;
     box-sizing: border-box;
-}
-
-.laborButton {
-    margin-top: 10px;
-    position: absolute;
-    top: 150px;
-    right: 30px;
-}
-
-.laborButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.laborButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
-}
-
-.notesButton {
-    margin-top: 10px;
-    position: absolute;
-    top: 110px;
-    right: 30px;
-}
-
-.notesButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.notesButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
 }
