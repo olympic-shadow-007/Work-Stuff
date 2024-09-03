@@ -345,9 +345,12 @@ function clearInput() {
     document.getElementById('callerName').value = '';
     document.getElementById('zipCode').value = '';
     document.getElementById('vin').value = '';
+    document.getElementById('vehicleMileage').value ='';
     document.getElementById('laborRate').value = '';
     document.getElementById('avgLaborRate').value = '';
     document.getElementById('negRate').value = '';
+    document.getElementById('msrp').value = '';
+    document.getElementById('partCost').value = '';
     document.getElementById('comments').value = '';
 }
 
