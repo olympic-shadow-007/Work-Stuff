@@ -401,6 +401,7 @@ function logResult(entry) {
 
 function clearLog() {
     resultLog.value = '';
+    clearDisplay();
 }
 
 function handleKeyPress(event) {
