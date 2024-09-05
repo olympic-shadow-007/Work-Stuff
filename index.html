@@ -16,9 +16,12 @@
             <div class="gcse-search" style="width: 100%;"></div>
         </div>
 
-        <div class="notepad">
+        <div class="callerNotepad">
             <label for="callerName">Caller's Name:</label>
             <input type="text" id="callerName" placeholder="Enter the caller's name" />
+
+            <label for="email">Email:</label>
+            <input type="text" id="email" placeholder="Enter the email for payment" />
 
             <label for="zipCode">ZIP Code:</label>
             <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
@@ -38,51 +41,46 @@
             <label for="negRate">Negotiated Rate:</label>
             <input type="text" id="negRate" placeholder="Enter the negotiated rate">
 
-            <label for="msrp">Part MSRP:</label>
-            <input type="text" id="msrp" placeholder="Enter the MSRP">
-
-            <label for="partCost">Part Cost:</label>
-            <input type="text" id="partCost" placeholder="Enter part cost">
-
             <label for="comments">Comments:</label>
-            <textarea id="comments" placeholder="Enter any additional comments"></textarea>
+            <textarea id="acomments" placeholder="Enter any additional comments"></textarea>
 
-            <button onclick="clearInput()">Clear Input</button>
+            <button onclick="clearInputcaller()">Clear Input</button>
         </div>
 
     </div>
 
-    <div class="calculator">
-        <input type="text" id="display" readonly placeholder="Click Here to Use Keypad "/>
+    <div class="partNotepad">
+        <label for="contractType">Contract Type:</label>
+        <input type="text" id="contractType" placeholder="What type of contract?">
+
+        <label for="claimNo">Claim No:</label>
+        <input type="text" id="claimNo" placeholder="What is the claim number?">
+
+        <label for="msrp">Part MSRP:</label>
+        <input type="text" id="msrp" placeholder="Enter the MSRP">
+
+        <label for="partCost">Part Cost:</label>
+        <input type="text" id="partCost" placeholder="Enter part cost">
         
-        <div class="buttons">
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button class="operator" onclick="appendOperator('+')">+</button>
+        <label for="comments">Comments:</label>
+        <textarea id="bcomments" placeholder="Enter any additional comments"></textarea>
 
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button class="operator" onclick="appendOperator('-')">-</button>
-
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button class="operator" onclick="appendOperator('*')">*</button>
-
-            <button class="clearButton" onclick="clearDisplay()">C</button>
-            <button onclick="appendNumber('0')">0</button>
-            <button class="equals-button" onclick="calculateResult()">=</button>
-            <button class="operator" onclick="appendOperator('/')">/</button>
-        </div>
+        <button onclick="clearInputPart()">Clear Input</button>
         
-        <div class="log-section">
-            <textarea id="resultLog" readonly></textarea>
-            <button class="clear-results-button" onclick="clearLog()">Clear Results</button>
-        </div>
+        <label for="partEmail">Parts Email:</label>
+        <label for="partEmailAdd">payments@americanautoshield.com</label>
+
+        <label for="partsFax">Parts Fax No:</label>
+        <label for="partsFax">303-456-1039</label>
+
+        <label for="partsAddress">Parts Address:</label>
+        <label for="partsAddress">14033 Denver West Parkway</label>
+        <label for="partsAddress">Suite 200</label>
+        <label for="partsAddress">Lakewood, CO </label>
 
     </div>
+
+</div>
 
     <div class="authNoteButton">
         <button id="authButton">Auth Note</button>
