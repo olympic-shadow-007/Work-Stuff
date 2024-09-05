@@ -220,7 +220,9 @@ button.gsc-search-button:hover {
 
 .partNotepad label {
     display: block;
+    width: 100%;
     margin-top: 10px;
+    text-align: center;
 }
 
 .partNotepad input,
