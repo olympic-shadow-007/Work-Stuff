@@ -1,7 +1,7 @@
 // Function to create a popup window with the authorize note
 document.getElementById("authButton").addEventListener("click", function() {
-    const width = 500;
-    const height = 700;
+    const width = 450;
+    const height = 420;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -25,10 +25,8 @@ document.getElementById("authButton").addEventListener("click", function() {
                     text-align: center;
                     margin-bottom: 20px;
                 }
-                p {
-                    font-size: 14px;
-                    line-height: 1.5;
-                    margin-bottom: 10px;
+                div {
+                    margin: 0;
                 }
                 button {
                     display: block;
@@ -49,19 +47,21 @@ document.getElementById("authButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Authorize Note</h1>
-            <p>What type of contract?</p>
-            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot):</p>
-            <p>Adjuster must list what was covered by the contract:</p>
-            <p>Adjuster must list any PNLC items:</p>
-            <p>Adjuster must note what part was used and why?</p>
-            <p>Adjuster must note how labor was verified:</p>
-            <p>Adjuster must state how failure was verified, I.E. inspection, photos, RF Diag (brief snap shot):</p>
-            <p>Adjuster must note if claim history has been reviewed:</p>
-            <p>Adjuster must note if SR are needed or has been reviewed:</p>
-            <p>Adjuster must note if there are any related TSB's:</p>
-            <p>Adjuster must note any OOP Costs and list the cost difference:</p>
-            <p>Adjuster must note they made the attempt to contact the CH about oop cost; if unsuccessful, adjuster must note a task has been performed:</p>
-            <p>Adjuster must note who auth'd number was given to and list payment method:</p>
+            <div>What is the type of contract:</div>
+            <div>How was failure was verified:</div>
+            <div>What was covered by the contract:</div>
+            <div>List any PNLC items:</div>
+            <div>What part was used and why:</div>
+            <div>How was labor verified:</div>
+            <div>Has claim history been reviewed:</div>
+            <div>Is SR needed or been reviewed:</div>
+            <div>Are there are any related TSB's:</div>
+            <div>Are there any OOP Costs?</div> 
+            <div>List the cost difference:</div>
+            <div>Did we attempt to contact the CH about OOP cost:</div>
+            <div>If unsuccessful, has note and task been set:</div>
+            <div>Who was auth number given to:</div>
+            <div>List payment method:</div>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -72,8 +72,8 @@ document.getElementById("authButton").addEventListener("click", function() {
 
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
-    const width = 400;
-    const height = 350;
+    const width = 350;
+    const height = 250;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -97,10 +97,8 @@ document.getElementById("statusButton").addEventListener("click", function() {
                     text-align: center;
                     margin-bottom: 20px;
                 }
-                p {
-                    font-size: 14px;
-                    line-height: 1.5;
-                    margin-bottom: 10px;
+                div {
+                    margin: 0;
                 }
                 button {
                     display: block;
@@ -121,12 +119,12 @@ document.getElementById("statusButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Status Note</h1>
-            <p>Why is claim delayed?</p>
-            <p>Is CH aware of delay?</p>
-            <p>What is needed from CH or RF?</p>
-            <p>What are the next steps in the process?</p>
-            <p>Any conversations that need to happen?</p>
-            <p>What have you completed already?</p>
+            <div>Why is claim delayed:</div>
+            <div>Is CH aware of delay:</div>
+            <div>What is needed from CH or RF:</div>
+            <div>What are the next steps in the process:</div>
+            <div>Any conversations that need to happen:</div>
+            <div>What have you completed already:</div>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -137,8 +135,8 @@ document.getElementById("statusButton").addEventListener("click", function() {
 
 // Function to create a popup window with the labor negotiation note
 document.getElementById("laborButton").addEventListener("click", function() {
-    const width = 400;
-    const height = 300;
+    const width = 350;
+    const height = 250;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -162,10 +160,8 @@ document.getElementById("laborButton").addEventListener("click", function() {
                     text-align: center;
                     margin-bottom: 20px;
                 }
-                p {
-                    font-size: 14px;
-                    line-height: 1.5;
-                    margin-bottom: 10px;
+                div {
+                    margin: 0;
                 }
                 button {
                     display: block;
@@ -186,11 +182,11 @@ document.getElementById("laborButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Labor Negotiation Note</h1>
-            <p>Current labor rate:</p>
-            <p>Flexible on rate:</p>
-            <p>Avg labor rate:</p>
-            <p>Distance used:</p>
-            <p>How many reports:</p>
+            <div>Current labor rate:</div>
+            <div>Avg labor rate:</div>
+            <div>Flexible on rate:</div>
+            <div>Distance used:</div>
+            <div>How many reports:</div>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -341,91 +337,22 @@ document.getElementById("laborNegButton").addEventListener("click", function() {
 });
 
 // Function to clear the input fields in the notepad
-function clearInput() {
+function clearInputcaller() {
     document.getElementById('callerName').value = '';
+    document.getElementById('email').value = '';
     document.getElementById('zipCode').value = '';
     document.getElementById('vin').value = '';
     document.getElementById('vehicleMileage').value ='';
     document.getElementById('laborRate').value = '';
     document.getElementById('avgLaborRate').value = '';
     document.getElementById('negRate').value = '';
+    document.getElementById('acomments').value = '';
+}
+
+function clearInputPart() {
+    document.getElementById('contractType').value = '';
+    document.getElementById('claimNo').value = '';
     document.getElementById('msrp').value = '';
     document.getElementById('partCost').value = '';
-    document.getElementById('comments').value = '';
+    document.getElementById('bcomments').value = '';
 }
-
-// Calculator Functions
-let display = document.getElementById('display');
-let resultLog = document.getElementById('resultLog');
-let currentInput = '';
-
-function appendNumber(number) {
-    currentInput += number;
-    display.value = currentInput;
-}
-
-function appendOperator(operator) {
-    if (currentInput === '') return;
-    if (isOperator(currentInput.slice(-1))) {
-        currentInput = currentInput.slice(0, -1);
-    }
-    currentInput += operator;
-    display.value = currentInput;
-}
-
-function isOperator(char) {
-    return ['+', '-', '*', '/'].includes(char);
-}
-
-function clearDisplay() {
-    currentInput = '';
-    display.value = '';
-}
-
-function calculateResult() {
-    try {
-        const result = eval(currentInput);
-        display.value = result;
-        logResult(`${currentInput} = ${result}`);
-        currentInput = result.toString();
-    } catch (error) {
-        display.value = 'Error';
-        currentInput = '';
-    }
-}
-
-function logResult(entry) {
-    resultLog.value += entry + "\n";
-    resultLog.scrollTop = resultLog.scrollHeight;
-}
-
-function clearLog() {
-    resultLog.value = '';
-    clearDisplay();
-}
-
-function handleKeyPress(event) {
-    const key = event.key;
-
-    if (!isNaN(key)) {
-        appendNumber(key);
-    } else if (isOperator(key)) {
-        appendOperator(key);
-    } else if (key === 'Enter') {
-        calculateResult();
-    } else if (key === 'Backspace') {
-        currentInput = currentInput.slice(0, -1);
-        display.value = currentInput;
-    } else if (key === 'Escape') {
-        clearDisplay();
-    } else if (key === '.') {
-        appendNumber(key);
-    }
-}
-
-// Attach the keydown event listener to the window
-window.addEventListener('keydown', function(event) {
-    if (document.activeElement.id === 'display') {
-        handleKeyPress(event);
-    }
-});
