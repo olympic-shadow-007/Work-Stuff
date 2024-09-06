@@ -65,41 +65,11 @@ button.gsc-search-button:hover {
     position: absolute;
 }
 
-.authNoteButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.authNoteButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
-}
-
 .statusNoteButton {
     top: 60px;
     left: 30px;
     margin-top: 10px;
     position: absolute;
-}
-
-.statusNoteButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.statusNoteButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
 }
 
 .laborNoteButton {
@@ -109,41 +79,11 @@ button.gsc-search-button:hover {
     position: absolute;
 }
 
-.laborNoteButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.laborNoteButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
-}
-
 .laborNegButton {
     top: 140px;
     left: 30px;
     margin-top: 10px;
     position: absolute;
-}
-
-.laborNegButton button, .launchButton button, .paymentInfoButton button {
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.laborNegButton button:hover, .launchButton button:hover, .paymentInfoButton button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
 }
 
 .launchButton {
@@ -158,6 +98,23 @@ button.gsc-search-button:hover {
     left: 260px;
     margin-top: 10px;
     position: absolute;
+}
+
+.authNoteButton button, .statusNoteButton button, .laborNoteButton button, .laborNegButton button, 
+.launchButton button, .paymentInfoButton button {
+    padding: 10px 15px;
+    background-color: #902424;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.authNoteButton button:hover, .statusNoteButton button:hover, .laborNoteButton button:hover, 
+.laborNegButton button:hover, .launchButton button:hover, .paymentInfoButton button:hover {
+    background-color: #781c1c;
+    transform: translateY(-2px);
 }
 
 .callerNotepad {
@@ -251,7 +208,7 @@ button.gsc-search-button:hover {
 }
 
 .partNotepad textarea {
-    height: 140px;
+    height: 80px;
     resize: vertical;
     background-color: rgba(255, 255, 255, 0.7);
 }
