@@ -257,6 +257,7 @@ document.getElementById("paymentInfoButton").addEventListener("click", function(
             <li>CH Signature</li>
             <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
             <p>If recieved after 3pm MT payment will be made next day</p>
+            <p>Don't forget to use Auth # in subject line</p>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -269,11 +270,11 @@ document.getElementById("paymentInfoButton").addEventListener("click", function(
 document.getElementById('launchButton').addEventListener('click', function() {
     // Array of URLs you want to open
     let urls = [
-        'https://www.prodemand.com/#|||||||||||||||||/Home',
-        'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
-        'https://plq.fortedata.com/',
+        'https://lemonsquad.com/login',
         'https://www.faxvin.com/vin-decoder',
-        'https://lemonsquad.com/login'
+        'https://plq.fortedata.com/',
+        'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
+        'https://www.prodemand.com/#|||||||||||||||||/Home'
     ];
 
     // Loop through each URL and open it in a new tab
