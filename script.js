@@ -195,6 +195,91 @@ document.getElementById("laborButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
+// Function to create a popup window with the authorize note
+document.getElementById("paymentInfoButton").addEventListener("click", function() {
+    const width = 450;
+    const height = 450;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Payment Info", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Info Needed for Payment</h1>
+            <h2>Payments email or fax</h2>
+            <p>Advise final invoice will need to include:</p>
+            <li>CH Name</li>
+            <li>Full VIN</li>
+            <li>Year/Make/Model</li>
+            <li>Vehicle mileage</li>
+            <li>RF name and address</li>
+            <li>Parts and labor breakdown</li>
+            <li>CH Signature</li>
+            <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
+            <p>If recieved after 3pm MT payment will be made next day</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+//Function to launch main websites
+document.getElementById('launchButton').addEventListener('click', function() {
+    // Array of URLs you want to open
+    let urls = [
+        'https://www.google.com',
+        'https://prodemand.com',
+        'https://duckduckgo.com'
+    ];
+
+    // Loop through each URL and open it in a new tab
+    urls.forEach(function(url) {
+        window.open(url, '_blank');
+    });
+});
+
 // Function to launch labor rate negotiation script
 document.getElementById("laborNegButton").addEventListener("click", function() {
     const width = 400;
