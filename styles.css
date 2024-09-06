@@ -131,7 +131,7 @@ button.gsc-search-button:hover {
     position: absolute;
 }
 
-.laborNegButton button, .getStartedButton button {
+.laborNegButton button, .launchButton button, .paymentInfoButton button {
     padding: 10px 15px;
     background-color: #902424;
     color: white;
@@ -141,14 +141,21 @@ button.gsc-search-button:hover {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.laborNegButton button:hover, .getStartedButton button:hover {
+.laborNegButton button:hover, .launchButton button:hover, .paymentInfoButton button:hover {
     background-color: #781c1c;
     transform: translateY(-2px);
 }
 
-.getStartedButton {
+.launchButton {
     top: 90px;
     right: 100px;
+    margin-top: 10px;
+    position: absolute;
+}
+
+.paymentInfoButton {
+    top: 20px;
+    left: 260px;
     margin-top: 10px;
     position: absolute;
 }
