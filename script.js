@@ -269,11 +269,11 @@ document.getElementById("paymentInfoButton").addEventListener("click", function(
 document.getElementById('launchButton').addEventListener('click', function() {
     // Array of URLs you want to open
     let urls = [
-        'https://lemonsquad.com/login',
-        'https://www.faxvin.com/vin-decoder',
-        'https://plq.fortedata.com/',
+        'https://www.prodemand.com/#|||||||||||||||||/Home',
         'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
-        'https://www.prodemand.com/#|||||||||||||||||/Home'
+        'https://plq.fortedata.com/',
+        'https://www.faxvin.com/vin-decoder',
+        'https://lemonsquad.com/login'
     ];
 
     // Loop through each URL and open it in a new tab
