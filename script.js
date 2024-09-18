@@ -198,7 +198,7 @@ document.getElementById("laborButton").addEventListener("click", function() {
 // Function to create a popup window with the authorize note
 document.getElementById("paymentInfoButton").addEventListener("click", function() {
     const width = 450;
-    const height = 450;
+    const height = 475;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -443,4 +443,8 @@ function clearInputPart() {
     document.getElementById('msrp').value = '';
     document.getElementById('partCost').value = '';
     document.getElementById('bcomments').value = '';
+}
+
+function clearInputscratch() {
+    document.getElementById('bottomComments').value = '';
 }
