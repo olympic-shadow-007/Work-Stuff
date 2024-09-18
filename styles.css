@@ -232,13 +232,15 @@ button.gsc-search-button:hover {
 
 .scratchPad {
     width: 800px;
-    top: 750px;
-    left: 350px;
+    margin: 0 auto; /* Centers the element horizontally */
     background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
+    top: 750px; /* This keeps the vertical positioning */
+    left: 0;
+    right: 0;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
