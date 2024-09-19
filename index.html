@@ -29,7 +29,7 @@
             <label for="vin">VIN:</label>
             <input type="text" id="vin" placeholder="Enter the VIN" />
 
-            <label for="vehicleMileage:">Vehicle Mileage</label>
+            <label for="vehicleMileage">Vehicle Mileage:</label>
             <input type="text" id="vehicleMileage" placeholder="Enter the mileage">
             
             <label for="laborRate">Labor Rate:</label>
@@ -47,76 +47,75 @@
             <button onclick="clearInputcaller()">Clear Input</button>
         </div>
 
+        <div class="partNotepad">
+            <label for="contractType">Contract Type:</label>
+            <input type="text" id="contractType" placeholder="Enter the contract type">
+
+            <label for="claimNo">Claim No:</label>
+            <input type="text" id="claimNo" placeholder="Enter the claim number">
+
+            <label for="msrp">Part MSRP:</label>
+            <input type="text" id="msrp" placeholder="Enter the MSRP">
+
+            <label for="partCost">Part Cost:</label>
+            <input type="text" id="partCost" placeholder="Enter part cost">
+            
+            <label for="comments">Comments:</label>
+            <textarea id="bcomments" placeholder="Enter any additional comments"></textarea>
+
+            <button onclick="clearInputPart()">Clear Input</button>
+            
+            <label>Payments Email:</label>
+            <span>payments@americanautoshield.com</span>
+
+            <label>Payments Fax No:</label>
+            <span>303-456-1039</span>
+
+            <label>Payments Address:</label>
+            <span>14033 Denver West Parkway</span><br>
+            <span>Suite 200</span><br>
+            <span>Lakewood, CO 80401</span>
+
+            <label>AAS Claims Dept:</label>
+            <span>1-800-531-1925</span>
+        </div>
+
     </div>
 
-    <div class="partNotepad">
-        <label for="contractType">Contract Type:</label>
-        <input type="text" id="contractType" placeholder="Enter the contract type">
+    <div class="buttonContainer">
+        <div class="authNoteButton">
+            <button id="authButton">Auth Note</button>
+        </div>
 
-        <label for="claimNo">Claim No:</label>
-        <input type="text" id="claimNo" placeholder="Enter the claim number">
+        <div class="statusNoteButton">
+            <button id="statusButton">Status Note</button>
+        </div>
 
-        <label for="msrp">Part MSRP:</label>
-        <input type="text" id="msrp" placeholder="Enter the MSRP">
+        <div class="laborNoteButton">
+            <button id="laborButton">Labor Negotiation Note</button>
+        </div>
 
-        <label for="partCost">Part Cost:</label>
-        <input type="text" id="partCost" placeholder="Enter part cost">
-        
-        <label for="comments">Comments:</label>
-        <textarea id="bcomments" placeholder="Enter any additional comments"></textarea>
+        <div class="laborNegButton">
+            <button id="laborNegButton">Labor Rate Negotiation Script</button>
+        </div>
 
-        <button onclick="clearInputPart()">Clear Input</button>
-        
-        <label for="paymentsEmail">Payments Email:</label>
-        <label for="paymentsEmail">payments@americanautoshield.com</label>
+        <div class="launchButton">
+            <button id="launchButton">LAUNCH!!!</button>
+        </div>
 
-        <label for="paymentsFax">Payments Fax No:</label>
-        <label for="paymentsFax">303-456-1039</label>
-
-        <label for="paymentsAddress">Payments Address:</label>
-        <label for="paymentsAddress">14033 Denver West Parkway</label>
-        <label for="paymentsAddress">Suite 200</label>
-        <label for="paymentsAddress">Lakewood, CO 80401</label>
-
-        <label for="aasPhoneNumber">AAS Claims Dept:</label>
-        <label for="aasPhoneNumber">1-800-531-1925</label>
-
+        <div class="paymentInfoButton">
+            <button id="paymentInfoButton">Payments Info</button>
+        </div>
     </div>
 
-</div>
-
-    <div class="authNoteButton">
-        <button id="authButton">Auth Note</button>
-    </div>
-
-    <div class="statusNoteButton">
-        <button id="statusButton">Status Note</button>
-    </div>
-
-    <div class="laborNoteButton">
-        <button id="laborButton">Labor Negotiation Note</button>
-    </div>
-
-    <div class="laborNegButton">
-        <button id="laborNegButton">Labor Rate Negotiation Script</button>
-    </div>
-
-    <div class="launchButton">
-        <button id="launchButton">LAUNCH!!!</button>
-    </div>
-
-    <div class="paymentInfoButton">
-        <button id="paymentInfoButton">Payments Info</button>
-    </div>
-
-    <script src="script.js"></script>
-
-<div class="scratchPad">
+    <div class="scratchPad">
         <label for="bottomComments">Scratch Pad:</label>
         <textarea id="bottomComments"></textarea>
     
         <button onclick="clearInputScratch()">Clear Input</button>
-</div>
+    </div>
     
+    <script src="script.js"></script>
+
 </body>
 </html>
