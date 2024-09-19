@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,24 +9,26 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.container, .callerNotepad, .partNotepad {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-}
-
 h1 {
     text-align: center;
     color: rgba(255, 255, 255, 0.7);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Container Styles */
 .container {
     text-align: center;
     margin-bottom: 20px;
 }
 
+.container, .callerNotepad, .partNotepad, .scratchPad {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+
+/* Search Container */
 .gcse-search-container {
     width: 400px;
     margin: 0 auto;
@@ -46,62 +49,8 @@ input.gsc-input:focus {
     box-shadow: 0 0 8px rgba(144, 36, 36, 0.4);
 }
 
-button.gsc-search-button {
-    background-color: #902424;
-    color: rgba(255, 255, 255, 0.7);
-    border-radius: 4px;
-    padding: 5px 10px;
-    transition: background-color 0.3s;
-}
-
-button.gsc-search-button:hover {
-    background-color: #781c1c;
-}
-
-.authNoteButton {
-    top: 20px;
-    left: 30px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.statusNoteButton {
-    top: 60px;
-    left: 30px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.laborNoteButton {
-    top: 100px;
-    left: 30px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.laborNegButton {
-    top: 140px;
-    left: 30px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.launchButton {
-    top: 90px;
-    right: 100px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.paymentInfoButton {
-    top: 20px;
-    left: 260px;
-    margin-top: 10px;
-    position: absolute;
-}
-
-.authNoteButton button, .statusNoteButton button, .laborNoteButton button, .laborNegButton button, 
-.launchButton button, .paymentInfoButton button {
+/* Button Styles */
+button {
     padding: 10px 15px;
     background-color: #902424;
     color: white;
@@ -111,17 +60,27 @@ button.gsc-search-button:hover {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.authNoteButton button:hover, .statusNoteButton button:hover, .laborNoteButton button:hover, 
-.laborNegButton button:hover, .launchButton button:hover, .paymentInfoButton button:hover {
+button:hover {
     background-color: #781c1c;
     transform: translateY(-2px);
 }
 
-.callerNotepad {
+/* Button Positioning */
+.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton {
+    position: absolute;
+}
+
+.authNoteButton { top: 30px; left: 30px; }
+.statusNoteButton { top: 70px; left: 30px; }
+.laborNoteButton { top: 110px; left: 30px; }
+.laborNegButton { top: 150px; left: 30px; }
+.launchButton { top: 90px; right: 100px; }
+.paymentInfoButton { top: 30px; left: 260px; }
+
+/* Notepad Styles */
+.callerNotepad, .partNotepad {
     width: 250px;
     top: 200px;
-    left: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -129,73 +88,22 @@ button.gsc-search-button:hover {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.callerNotepad:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+.callerNotepad { left: 20px; }
+.callerNotepad:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
 }
 
-.callerNotepad label {
+.partNotepad { right: 20px; }
+
+.partNotepad label, .callerNotepad label {
     display: block;
     margin-top: 10px;
 }
 
+/* Input Styles for Notepads */
 .callerNotepad input,
-.callerNotepad textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.callerNotepad textarea {
-    height: 100px;
-    resize: vertical;
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-.callerNotepad button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #902424;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.callerNotepad button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
-}
-
-.partNotepad {
-    width: 250px;
-    top: 200px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    position: absolute;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.partNotepad:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-}
-
-.partNotepad label {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    text-align: center;
-}
-
+.callerNotepad textarea,
 .partNotepad input,
 .partNotepad textarea {
     width: 100%;
@@ -207,15 +115,19 @@ button.gsc-search-button:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
-.partNotepad textarea {
-    height: 80px;
+.callerNotepad textarea {
+    height: 100px;
     resize: vertical;
-    background-color: rgba(255, 255, 255, 0.7);
 }
 
-.partNotepad button {
-    display: block;
-    margin: 20px auto 0 auto;
+.partNotepad textarea {
+    height: 145px;
+    resize: vertical;
+}
+
+/* Button Styles for Notepads */
+.callerNotepad button, .partNotepad button {
+    margin-top: 20px;
     padding: 10px 15px;
     background-color: #902424;
     color: #ffffff;
@@ -225,52 +137,45 @@ button.gsc-search-button:hover {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.partNotepad button:hover {
+.callerNotepad button:hover, .partNotepad button:hover {
     background-color: #781c1c;
     transform: translateY(-2px);
 }
 
+/* Scratch Pad Styles */
 .scratchPad {
-    width: 800px;
-    margin: 0 auto; /* Centers the element horizontally */
-    background-color: rgba(0, 0, 0, 0.7);
+    width: 1000px;
+    margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: absolute;
-    top: 750px; /* This keeps the vertical positioning */
+    top: 750px; 
     left: 0;
     right: 0;
     transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.scratchPad:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-}
-
-.scratchPad label {
-    width: 100%;
-    margin-top: 10px;
     text-align: center;
 }
 
-.scratchPad input,
+.scratchPad label {
+    display: block;
+    margin-top: 10px;
+}
+
 .scratchPad textarea {
     width: 100%;
-    height: 100px;
-    resize: vertical; 
+    height: 150px;
     padding: 8px;
     margin-top: 5px;
     border-radius: 4px;
     border: 1px solid #ccc;
     box-sizing: border-box;
     background-color: rgba(255, 255, 255, 0.7);
-    overflow-y: auto; 
-    vertical-align: top; 
 }
 
+/* Button Styles for Scratch Pad */
 .scratchPad button {
+    display: inline-block;
     margin-top: 20px;
     padding: 10px 15px;
     background-color: #902424;
