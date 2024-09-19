@@ -92,7 +92,7 @@ button:hover {
 
 .partNotepad { right: 20px; }
 
-.callerNotepad:hover, partNotepad:hover, .scratchPad:hover { 
+.callerNotepad:hover, .partNotepad:hover, .scratchPad:hover { 
     transform: translateY(-5px); 
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
 }
