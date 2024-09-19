@@ -89,12 +89,13 @@ button:hover {
 }
 
 .callerNotepad { left: 20px; }
-.callerNotepad:hover { 
+
+.partNotepad { right: 20px; }
+
+.callerNotepad:hover, partNotepad:hover, .scratchPad:hover { 
     transform: translateY(-5px); 
     box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
 }
-
-.partNotepad { right: 20px; }
 
 .partNotepad label, .callerNotepad label {
     display: block;
