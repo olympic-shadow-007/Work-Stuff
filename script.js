@@ -199,7 +199,7 @@ document.getElementById("laborButton").addEventListener("click", function() {
             </div>
             <div>
                 Flexible on rate:<br>
-                <input type="text" id="flexibleRate" placeholder="Enter flexibility on rate">
+                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
             </div>
             <div>
                 Distance used:<br>
