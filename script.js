@@ -136,7 +136,7 @@ document.getElementById("statusButton").addEventListener("click", function() {
 // Function to create a popup window with the labor negotiation note
 document.getElementById("laborButton").addEventListener("click", function() {
     const width = 350;
-    const height = 600; 
+    const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -222,23 +222,20 @@ document.getElementById("laborButton").addEventListener("click", function() {
                     const reportsCount = document.getElementById('reportsCount').value;
 
                     const allInfo = 
-                        "Current labor rate: " + laborRate + "\n" +
-                        "Avg labor rate: " + avgLaborRate + "\n" +
-                        "Flexible on rate: " + flexibleRate + "\n" +
-                        "Distance used: " + distanceUsed + "\n" +
+                        "Current labor rate: " + laborRate + "\\n" +
+                        "Avg labor rate: " + avgLaborRate + "\\n" +
+                        "Flexible on rate: " + flexibleRate + "\\n" +
+                        "Distance used: " + distanceUsed + "\\n" +
                         "How many reports: " + reportsCount;
 
-                    // Debugging alert to check what will be copied
-                    alert('Attempting to copy: ' + allInfo);
-
-                    // Using the Clipboard API
+                    // Use the navigator.clipboard API to copy the text
                     navigator.clipboard.writeText(allInfo)
                         .then(() => {
                             alert('Information copied to clipboard!');
                         })
                         .catch(err => {
-                            console.error('Error copying text: ', err);
-                            alert('Failed to copy. Please check browser settings.');
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
                         });
                 });
             </script>
