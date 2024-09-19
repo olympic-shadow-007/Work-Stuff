@@ -136,7 +136,7 @@ document.getElementById("statusButton").addEventListener("click", function() {
 // Function to create a popup window with the labor negotiation note
 document.getElementById("laborButton").addEventListener("click", function() {
     const width = 350;
-    const height = 700; 
+    const height = 550; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
