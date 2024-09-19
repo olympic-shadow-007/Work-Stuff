@@ -424,7 +424,7 @@ document.getElementById("laborNegButton").addEventListener("click", function() {
     };
 });
 
-// Function to clear the input fields in the notepad
+// Function to clear the input fields in the notepads
 function clearInputcaller() {
     document.getElementById('callerName').value = '';
     document.getElementById('email').value = '';
@@ -445,6 +445,6 @@ function clearInputPart() {
     document.getElementById('bcomments').value = '';
 }
 
-function clearInputscratch() {
+function clearInputScratch() {
     document.getElementById('bottomComments').value = '';
 }
