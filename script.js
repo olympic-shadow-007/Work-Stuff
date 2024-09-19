@@ -136,7 +136,7 @@ document.getElementById("statusButton").addEventListener("click", function() {
 // Function to create a popup window with the labor negotiation note
 document.getElementById("laborButton").addEventListener("click", function() {
     const width = 350;
-    const height = 250;
+    const height = 600; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -161,7 +161,14 @@ document.getElementById("laborButton").addEventListener("click", function() {
                     margin-bottom: 20px;
                 }
                 div {
-                    margin: 0;
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
                 }
                 button {
                     display: block;
@@ -182,12 +189,59 @@ document.getElementById("laborButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Labor Negotiation Note</h1>
-            <div>Current labor rate:</div>
-            <div>Avg labor rate:</div>
-            <div>Flexible on rate:</div>
-            <div>Distance used:</div>
-            <div>How many reports:</div>
+            <div>
+                Current labor rate:<br>
+                <input type="text" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
+            </div>
+            <div>
+                Avg labor rate:<br>
+                <input type="text" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
+            </div>
+            <div>
+                Flexible on rate:<br>
+                <input type="text" id="flexibleRate" placeholder="Enter flexibility on rate">
+            </div>
+            <div>
+                Distance used:<br>
+                <input type="text" id="distanceUsed" placeholder="Enter distance used">
+            </div>
+            <div>
+                How many reports:<br>
+                <input type="text" id="reportsCount" placeholder="Enter number of reports">
+            </div>
+            <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const laborRate = document.getElementById('laborRate').value;
+                    const avgLaborRate = document.getElementById('avgLaborRate').value;
+                    const flexibleRate = document.getElementById('flexibleRate').value;
+                    const distanceUsed = document.getElementById('distanceUsed').value;
+                    const reportsCount = document.getElementById('reportsCount').value;
+
+                    const allInfo = 
+                        "Current labor rate: " + laborRate + "\n" +
+                        "Avg labor rate: " + avgLaborRate + "\n" +
+                        "Flexible on rate: " + flexibleRate + "\n" +
+                        "Distance used: " + distanceUsed + "\n" +
+                        "How many reports: " + reportsCount;
+
+                    // Debugging alert to check what will be copied
+                    alert('Attempting to copy: ' + allInfo);
+
+                    // Using the Clipboard API
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Error copying text: ', err);
+                            alert('Failed to copy. Please check browser settings.');
+                        });
+                });
+            </script>
         </body>
         </html>
     `);
