@@ -433,7 +433,7 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
             <li>Blend door actuator check - 0.3</li>
             <li>Reprogram radio/LCD - 0.3</li>
             <li>Wiring repair for covered components - 0.2 per wire</li>
-            <span>Only for covered components WITH harness coverage</span>
+            <span>Only for covered components AND HAS harness coverage</span>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
