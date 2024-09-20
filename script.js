@@ -246,7 +246,7 @@ document.getElementById("laborButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-// Function to create a popup window with the authorize note
+// Function to create a popup window with the payment info
 document.getElementById("paymentInfoButton").addEventListener("click", function() {
     const width = 450;
     const height = 475;
@@ -309,6 +309,205 @@ document.getElementById("paymentInfoButton").addEventListener("click", function(
             <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
             <p>If recieved after 3pm MT payment will be made next day</p>
             <p>Don't forget to use Auth # in subject line</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with the other diag references
+document.getElementById("otherDiag").addEventListener("click", function() {
+    const width = 450;
+    const height = 200;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin: 0;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Diag We Can Help With</h1>
+            <li>Noise isolation (chassis ears) - 0.2</li> 
+            <li>M-Bar testing - 0.5-1.0</li>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with electrical diag references
+document.getElementById("electricalDiag").addEventListener("click", function() {
+    const width = 450;
+    const height = 350;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin: 0;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Diag We Can Help With</h1>
+            <li>Scan System for codes - 0.3</li>
+            <li>Electrical diag - 0.3</li>
+            <li>Electrical circuit testing - 0.5</li>
+            <li>Electronics reset - 0.3</li>
+            <li>Starting/Charging voltage tests - 0.5</li>
+            <li>Blend door actuator check - 0.3</li>
+            <li>Reprogram radio/LCD - 0.3</li>
+            <li>Wiring repair for covered components - 0.2 per wire</li>
+            <span>Only for covered components AND harness coverage</span>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with the chemical diag references
+document.getElementById("chemDiagRef").addEventListener("click", function() {
+    const width = 450;
+    const height = 500;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin: 0;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Diag We Can Help With</h1>
+            <li>Scan System for codes - 0.3</li>
+            <li>Coolant pressure test - 0.4</li>
+            <li>Radiator drain/flush - 1.4</li>
+            <li>Cooling system flush after WP R&R - 0.5</li>
+            <li>Evac/recharge (A/C) - 1.4</li>
+            <li>Partial charge (A/C) - 0.6</li>
+            <li>Dye test (A/C) - 0.6</li>
+            <li>Pressure test (A/C) - 0.3</li>
+            <li>Sniffer test (A/C) - 0.5</li>
+            <li>Flushing lines - 0.5</li>
+            <li>Bleeding lines (steering, brakes) - 0.8</li>
+            <li>Smoke test of emissions system - 0.6</li>
+            <li>Fuel pressure test - 0.5</li>
+            <li>Drain and fill of fuel tank - 0.5</li>
+            <span>Unless Identifix shows otherwise</span>
+            <li>Dye Test (oil, A/C, etc) - 0.5-1.0</li>
+            <span>Dependent on vehicle and type of test</span>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
