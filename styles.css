@@ -162,8 +162,10 @@ button:hover {
 }
 
 .scratchPad label {
+    font-size: 24px;
     display: block;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .scratchPad textarea {
