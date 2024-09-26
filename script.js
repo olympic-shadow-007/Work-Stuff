@@ -1,6 +1,6 @@
 // Function to create a popup window with the auth note
 document.getElementById("authButton").addEventListener("click", function() {
-    const width = 550;
+    const width = 350;
     const height = 800; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -181,7 +181,7 @@ document.getElementById("authButton").addEventListener("click", function() {
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
     const width = 350;
-    const height = 550; 
+    const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
