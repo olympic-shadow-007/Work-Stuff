@@ -1,7 +1,7 @@
-// Function to create a popup window with the authorize note
+// Function to create a popup window with the auth note
 document.getElementById("authButton").addEventListener("click", function() {
-    const width = 450;
-    const height = 420;
+    const width = 550;
+    const height = 800; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -26,7 +26,14 @@ document.getElementById("authButton").addEventListener("click", function() {
                     margin-bottom: 20px;
                 }
                 div {
-                    margin: 0;
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
                 }
                 button {
                     display: block;
@@ -47,37 +54,138 @@ document.getElementById("authButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Authorize Note</h1>
-            <div>What is the type of contract:</div>
-            <div>How was failure was verified:</div>
-            <div>What was covered by the contract:</div>
-            <div>List any PNLC items:</div>
-            <div>What part was used and why:</div>
-            <div>How was labor verified:</div>
-            <div>Has claim history been reviewed:</div>
-            <div>Is SR needed or been reviewed:</div>
-            <div>Are there are any related TSB's:</div>
-            <div>Are there any OOP Costs?</div> 
-            <div>List the cost difference:</div>
-            <div>Did we attempt to contact the CH about OOP cost:</div>
-            <div>If unsuccessful, has note and task been set:</div>
-            <div>Who was auth number given to:</div>
-            <div>List payment method:</div>
+            <div>
+                What is the type of contract: <br>
+                <input type="text" id="contractType" placeholder="What is the type of contract?">
+            </div>
+            <div>
+                How was failure was verified: <br>
+                <input type="text" id="testPerformed" placeholder="What tests were performed?">
+            </div>
+            <div>
+                What was covered by the contract: <br>
+                <input type="text" id="coveredParts" placeholder="What parts were covered by the contract?">
+            </div>
+            <div>
+                List any PNLC items:<br>
+                <input type="text" id="PNLC" placeholder="List any PNLC items">
+            </div>
+            <div>
+                What part was used and why: <br>
+                <input type="text" id="whosPart" placeholder="Who's part was used and why?">
+            </div>
+            <div>
+                How was labor verified: <br>
+                <input type="text" id="verifyLabor" placeholder="Did you use Prodemand or Forte?">
+            </div>
+            <div>
+                Has claim history been reviewed: <br>
+                <input type="text" id="historyReview" placeholder="Did you review the claim history?">
+            </div>
+            <div>
+                Is SR needed or been reviewed: <br>
+                <input type="text" id="serviceReview" placeholder="Is there a SR that needs reviewed?">
+            </div>
+            <div>
+                Are there are any related TSB's: <br>
+                <input type="text" id="relatedTSB" placeholder="Are there any TSBs? For what?">
+            </div>
+            <div>
+                Are there any OOP Costs: <br>
+                <input type="text" id="oopCosts" placeholder="Are there any OOP Costs?">
+            </div>
+            <div>
+                List the part difference: <br>
+                <input type="text" id="partsDifference" placeholder="How much is the part OOP?">
+            </div>
+            <div>
+                List the labor difference: <br>
+                <input type="text" id="laborDifference" placeholder="What is the labor OOP?">
+            </div>
+            <div>
+                Did we attempt to contact the CH about OOP cost: <br>
+                <input type="text" id="oopAttempt" placeholder="Did we attempt to contact the CH about OOP cost?">
+            </div>
+            <div>
+                If unsuccessful, has note and task been set: <br>
+                <input type="text" id="taskSet" placeholder="If unsuccessful, has note and task been set?">
+            </div>
+            <div>
+                Who was auth number given to: <br>
+                <input type="text" id="saName" placeholder="What is the name of SA?">
+            </div>
+            <div>
+                List payment method: <br>
+                <input type="text" id="paymentMethod" placeholder="What is RF payment method?">
+            </div>
+            <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const contractType = document.getElementById('contractType').value;
+                    const testPerformed = document.getElementById('testPerformed').value;
+                    const coveredParts = document.getElementById('coveredParts').value;
+                    const PNLC = document.getElementById('PNLC').value;
+                    const whosPart = document.getElementById('whosPart').value;
+                    const verifyLabor = document.getElementById('verifyLabor').value;
+                    const historyReview = document.getElementById('historyReview').value;
+                    const serviceReview = document.getElementById('serviceReview').value;
+                    const relatedTSB = document.getElementById('relatedTSB').value;
+                    const oopCosts = document.getElementById('oopCosts').value;
+                    const partsDifference = document.getElementById('partsDifference').value;
+                    const laborDifference = document.getElementById('laborDifference').value;
+                    const oopAttempt = document.getElementById('oopAttempt').value;
+                    const taskSet = document.getElementById('taskSet').value;
+                    const saName = document.getElementById('saName').value;
+                    const paymentMethod = document.getElementById('paymentMethod').value;
+
+                    const allInfo = 
+                        "Type of contract: " + contractType + "\\n" +
+                        "The failure was verified by " + testPerformed + "\\n" +
+                        "The contract covered " + coveredParts + "\\n" +
+                        "List of PNLC items: " + PNLC + "\\n" +
+                        "We are using " + whosPart + " because it was verified MCE under $250 or OE/OES " + "\\n" +
+                        "Labor was verified using " + verifyLabor + "\\n" +
+                        "The claim history has been reviewed: " + historyReview + "\\n" +
+                        "Is SR needed or been reviewed: " + serviceReview + "\\n" +
+                        "The related TSB's: " + relatedTSB + "\\n" +
+                        "The OOP cost difference is " + oopCosts + "\\n" +
+                        "List the cost difference: " + "\\n" +
+                        "Parts - " + partsDifference + "\\n" +
+                        "Labor - " + laborDifference + "\\n" +
+                        "Did we attempt to contact the CH about OOP cost? " + oopAttempt + "\\n" +
+                        "If unsuccessful, has note and task been set? " + taskSet + "\\n" +
+                        "Auth number was given to " + saName + "\\n" +
+                        "Their payment method is " + paymentMethod;
+
+                    // Use the navigator.clipboard API to copy the text
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
+                        });
+                });
+            </script>
         </body>
         </html>
     `);
 
     newWindow.document.close();
 });
-
+       
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
     const width = 350;
-    const height = 250;
+    const height = 550; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Status Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Labor Negotiation Note", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -98,7 +206,14 @@ document.getElementById("statusButton").addEventListener("click", function() {
                     margin-bottom: 20px;
                 }
                 div {
-                    margin: 0;
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
                 }
                 button {
                     display: block;
@@ -119,13 +234,68 @@ document.getElementById("statusButton").addEventListener("click", function() {
         </head>
         <body>
             <h1>Status Note</h1>
-            <div>Why is claim delayed:</div>
-            <div>Is CH aware of delay:</div>
-            <div>What is needed from CH or RF:</div>
-            <div>What are the next steps in the process:</div>
-            <div>Any conversations that need to happen:</div>
-            <div>What have you completed already:</div>
+            <div>
+                Why is claim delayed:<br>
+                <input type="text" id="claimDelay" placeholder="What are we waiting on?">
+            </div>
+            <div>
+                Is CH aware of delay:<br>
+                <input type="text" id="chAware" placeholder="Is CH aware of delay?">
+            </div>
+            <div>
+                What is needed from CH:<br>
+                <input type="text" id="chDocs" placeholder="What is needed from the CH?">
+            </div>
+            <div>
+                What is needed from RF:<br>
+                <input type="text" id="rfDocs" placeholder="What is needed from the RF?">
+            </div>
+            <div>
+                What are the next steps in the process:<br>
+                <input type="text" id="nextSteps" placeholder="What are the next steps?">
+            </div>
+            <div>
+                Any conversations that need to happen:<br>
+                <input type="text" id="convos" placeholder="Who do we need to call and why?">
+            </div>
+            <div>
+                What have you completed already:<br>
+                <input type="text" id="completed" placeholder="What have you completed already:">
+            </div>
+            <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const claimDelay = document.getElementById('claimDelay').value;
+                    const chAware = document.getElementById('chAware').value;
+                    const chDocs = document.getElementById('chDocs').value;
+                    const rfDocs = document.getElementById('rfDocs').value;
+                    const nextSteps = document.getElementById('nextSteps').value;
+                    const convos = document.getElementById('convos').value;
+                    const completed = document.getElementById('completed').value;
+
+                    const allInfo = 
+                        "The claim is delayed because " + claimDelay + "\\n" +
+                        "The CH is aware of the delay:  " + chAware + "\\n" +
+                        "The CH needs to send us " + chDocs + "\\n" +
+                        "The RF needs to send us " + rfDocs + "\\n" +
+                        "The next steps are to " + nextSteps + "\\n" +
+                        "Who do we need to talk to:  " + convos + "\\n" +
+                        "I have already " + completed + "\\n";
+
+                    // Use the navigator.clipboard API to copy the text
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
+                        });
+                });
+            </script>
         </body>
         </html>
     `);
@@ -433,7 +603,7 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
             <li>Blend door actuator check - 0.3</li>
             <li>Reprogram radio/LCD - 0.3</li>
             <li>Wiring repair for covered components - 0.2 per wire</li>
-            <span>Only for covered components AND HAS harness coverage</span>
+            <span>Only for covered components AND harness coverage</span>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
