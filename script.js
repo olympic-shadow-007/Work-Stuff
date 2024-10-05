@@ -1,6 +1,6 @@
 // Function to create a popup window with the auth note
 document.getElementById("authButton").addEventListener("click", function() {
-    const width = 350;
+    const width = 450;
     const height = 800; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -180,7 +180,7 @@ document.getElementById("authButton").addEventListener("click", function() {
        
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
-    const width = 350;
+    const width = 400;
     const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -301,6 +301,138 @@ document.getElementById("statusButton").addEventListener("click", function() {
     `);
 
     newWindow.document.close();
+});
+
+// Function to create a popup window with the inspection note
+document.getElementById("inspectionNote").addEventListener("click", function() {
+    const width = 450;
+    const height = 650;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Inspection Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+                input {
+                    width: calc(100% - 10px);
+                    padding: 5px;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Inspection Note</h1>
+            <div id="noteContent">
+                <p>Please take pictures of all four corners of the vehicle, odometer, VIN, and license plate. 
+                Please note any signs of abuse, rust/corrosion, collision, modifications, or commercial use. 
+                Please verify the posted labor rate and get a picture if possible. 
+                Please provide photos of brake rotors and license plate/registration.</p> 
+                <p>The technician is to demonstrate failure(s) to the following:</p>  
+                <ul id="failureList">
+                    <li id="failure1">Failure 1</li>  
+                    <li id="failure2">Failure 2</li>
+                </ul>
+                <p>Please reach out to the repair facility 1-2 hours before arrival.</p> 
+                <p>Thank you!</p>
+                <h2>Input Failed Parts</h2>
+                <div id="failedPartsContainer">
+                    <input type="text" class="failedPart" placeholder="Enter failed part">
+                </div>
+                <button id="addFailedPartButton">Add Another Failed Part</button>
+            </div>
+            <button onclick="copyFormattedText()">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy formatted text
+                function copyFormattedText() {
+                    const noteContent = document.getElementById('noteContent');
+                    const failedParts = Array.from(document.querySelectorAll('.failedPart')).map(input => input.value.trim()).filter(part => part !== '');
+
+                    let formattedText = '';
+
+                    // Append the existing note content
+                    noteContent.childNodes.forEach(node => {
+                        if (node.tagName === 'P') {
+                            formattedText += node.innerText + '\\n\\n';  
+                        } else if (node.tagName === 'UL') {
+                            // Update the list with current failed parts
+                            node.innerHTML = ''; // Clear existing list items
+                            failedParts.forEach(part => {
+                                const li = document.createElement('li');
+                                li.textContent = part;
+                                node.appendChild(li);
+                                formattedText += '- ' + part + '\\n';  
+                            });
+                            formattedText += '\\n';
+                        }
+                    });
+
+                    // Copy the formatted text to the clipboard
+                    navigator.clipboard.writeText(formattedText).then(() => {
+                        alert('Formatted content copied to clipboard');
+                    }).catch(error => {
+                        alert('Error copying text: ' + error);
+                    });
+                }
+
+                // Function to add a new failed part input field
+                document.getElementById('addFailedPartButton').addEventListener('click', function() {
+                    const failedPartsContainer = document.getElementById('failedPartsContainer');
+                    const failedPartInputs = failedPartsContainer.querySelectorAll('.failedPart');
+
+                    // Limit to a maximum of 10 input fields
+                    if (failedPartInputs.length < 10) {
+                        const newInput = document.createElement('input');
+                        newInput.type = 'text';
+                        newInput.className = 'failedPart';
+                        newInput.placeholder = 'Enter failed part';
+                        failedPartsContainer.appendChild(newInput);
+                    }
+                });
+            </script>
+        </body>
+        </html>
+    `);
 });
 
 // Function to create a popup window with the labor negotiation note
@@ -686,23 +818,6 @@ document.getElementById("chemDiagRef").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-//Function to launch main websites
-document.getElementById('launchButton').addEventListener('click', function() {
-    // Array of URLs you want to open
-    let urls = [
-        'https://lemonsquad.com/login',
-        'https://www.faxvin.com/vin-decoder',
-        'https://plq.fortedata.com/',
-        'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
-        'https://www.prodemand.com/#|||||||||||||||||/Home'
-    ];
-
-    // Loop through each URL and open it in a new tab
-    urls.forEach(function(url) {
-        window.open(url, '_blank');
-    });
-});
-
 // Function to launch labor rate negotiation script
 document.getElementById("laborNegButton").addEventListener("click", function() {
     const width = 400;
@@ -842,6 +957,23 @@ document.getElementById("laborNegButton").addEventListener("click", function() {
 
         handleLaborRate();
     };
+});
+
+//Function to launch main websites
+document.getElementById('launchButton').addEventListener('click', function() {
+    // Array of URLs you want to open
+    let urls = [
+        'https://lemonsquad.com/login',
+        'https://www.faxvin.com/vin-decoder',
+        'https://plq.fortedata.com/',
+        'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
+        'https://www.prodemand.com/#|||||||||||||||||/Home'
+    ];
+
+    // Loop through each URL and open it in a new tab
+    urls.forEach(function(url) {
+        window.open(url, '_blank');
+    });
 });
 
 // Function to clear the input fields in the notepads
