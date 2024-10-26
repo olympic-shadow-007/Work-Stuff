@@ -108,7 +108,7 @@ button:hover {
 }
 
 /* Button Positioning */
-.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton, .electricalDiag, .chemDiagRef, .otherDiag, .inspectionNote {
+.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton, .electricalDiag, .chemDiagRef, .otherDiag, .inspectionNote, .ptTransferButton {
     position: absolute;
 }
 
@@ -121,8 +121,8 @@ button:hover {
 .electricalDiag { top: 110px; left: 225px; }
 .chemDiagRef { top: 150px; left: 225px;}
 .laborNegButton { top: 90px; right: 300px; }
+.ptTransferButton { top: 50px; right: 300px;}
 .launchButton { top: 90px; right: 75px; }
-
 
 /* Notepad Styles */
 .callerNotepad, .partNotepad {
