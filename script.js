@@ -185,7 +185,7 @@ document.getElementById("statusButton").addEventListener("click", function() {
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Labor Negotiation Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Status Note", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -548,6 +548,71 @@ document.getElementById("laborButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
+// Function to create a popup window with the PT Transfer Script
+document.getElementById("ptTransferButton").addEventListener("click", function() {
+    const width = 400;
+    const height = 300;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "PT Transfer Script", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 16px;
+                }
+                span {
+                    font-size: 14px;
+                }
+                div {
+                    margin: 0;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>PT Transfer Script</h1>
+            <p>Your claim number is (XXXXXXX). I am assigning your claim to a Powertrain adjuster. That adjuster will be reaching back out to you in the next 24 business hours. Please prepare an itemized estimate for when they call.</p>
+            <span>*If the RF is not prepared to start the claim, you can save the pre-claim by hitting [Pend Breakdown]. This will not open a claim, but will document all information.</span>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
 // Function to create a popup window with the payment info
 document.getElementById("paymentInfoButton").addEventListener("click", function() {
     const width = 450;
@@ -626,7 +691,7 @@ document.getElementById("otherDiag").addEventListener("click", function() {
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Other Diag References", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -685,7 +750,7 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Electrical Diag References", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -751,7 +816,7 @@ document.getElementById("chemDiagRef").addEventListener("click", function() {
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Chemical Diag References", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
