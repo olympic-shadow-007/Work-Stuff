@@ -733,8 +733,8 @@ document.getElementById("otherDiag").addEventListener("click", function() {
         </head>
         <body>
             <h1>Diag We Can Help With</h1>
-            <li>Noise isolation (chassis ears) - 0.2</li> 
-            <li>M-Bar testing - 0.5-1.0</li>
+            <li>Noise isolation (chassis ears) - 0.2</li>
+            <li>Haha ;-)</li> 
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -746,7 +746,7 @@ document.getElementById("otherDiag").addEventListener("click", function() {
 // Function to create a popup window with electrical diag references
 document.getElementById("electricalDiag").addEventListener("click", function() {
     const width = 450;
-    const height = 350;
+    const height = 200;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -792,15 +792,9 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
         </head>
         <body>
             <h1>Diag We Can Help With</h1>
-            <li>Scan System for codes - 0.3</li>
-            <li>Electrical diag - 0.3</li>
-            <li>Electrical circuit testing - 0.5</li>
-            <li>Electronics reset - 0.3</li>
-            <li>Starting/Charging voltage tests - 0.5</li>
-            <li>Blend door actuator check - 0.3</li>
-            <li>Reprogram radio/LCD - 0.3</li>
-            <li>Wiring repair for covered components - 0.2 per wire</li>
-            <span>Only for covered components AND harness coverage</span>
+            <li>Araceli said not to use this</li>
+            <li>Franklin will get you</li>
+            <li>Use ProDemand for diag references</li>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -812,7 +806,7 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
 // Function to create a popup window with the chemical diag references
 document.getElementById("chemDiagRef").addEventListener("click", function() {
     const width = 450;
-    const height = 500;
+    const height = 200;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -858,23 +852,9 @@ document.getElementById("chemDiagRef").addEventListener("click", function() {
         </head>
         <body>
             <h1>Diag We Can Help With</h1>
-            <li>Scan System for codes - 0.3</li>
-            <li>Coolant pressure test - 0.4</li>
-            <li>Radiator drain/flush - 1.4</li>
-            <li>Cooling system flush after WP R&R - 0.5</li>
-            <li>Evac/recharge (A/C) - 1.4</li>
-            <li>Partial charge (A/C) - 0.6</li>
-            <li>Dye test (A/C) - 0.6</li>
-            <li>Pressure test (A/C) - 0.3</li>
-            <li>Sniffer test (A/C) - 0.5</li>
-            <li>Flushing lines - 0.5</li>
-            <li>Bleeding lines (steering, brakes) - 0.8</li>
-            <li>Smoke test of emissions system - 0.6</li>
-            <li>Fuel pressure test - 0.5</li>
-            <li>Drain and fill of fuel tank - 0.5</li>
-            <span>Unless Identifix shows otherwise</span>
-            <li>Dye Test (oil, A/C, etc) - 0.5-1.0</li>
-            <span>Dependent on vehicle and type of test</span>
+            <li>Araceli said not to use this</li>
+            <li>Franklin will get you</li>
+            <li>Use ProDemand for diag references</li>
             <button onclick="window.close()">Close</button>
         </body>
         </html>
