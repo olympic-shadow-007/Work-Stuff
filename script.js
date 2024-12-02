@@ -1024,9 +1024,9 @@ document.getElementById('launchButton').addEventListener('click', function() {
 // Function to clear the input fields in the notepads
 function clearInputcaller() {
     document.getElementById('callerName').value = '';
-    document.getElementById('email').value = '';
+    document.getElementById('shop').value = '';
     document.getElementById('zipCode').value = '';
-    document.getElementById('vin').value = '';
+    document.getElementById('LOL').value = '';
     document.getElementById('vehicleMileage').value ='';
     document.getElementById('laborRate').value = '';
     document.getElementById('avgLaborRate').value = '';
