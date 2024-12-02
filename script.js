@@ -1026,11 +1026,11 @@ function clearInputcaller() {
     document.getElementById('callerName').value = '';
     document.getElementById('shop').value = '';
     document.getElementById('zipCode').value = '';
-    document.getElementById('LOL').value = '';
-    document.getElementById('vehicleMileage').value ='';
-    document.getElementById('laborRate').value = '';
     document.getElementById('avgLaborRate').value = '';
+    document.getElementById('laborRate').value ='';
     document.getElementById('negRate').value = '';
+    document.getElementById('distance').value = '';
+    document.getElementById('LOL').value = '';
     document.getElementById('acomments').value = '';
 }
 
