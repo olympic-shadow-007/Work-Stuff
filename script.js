@@ -1037,8 +1037,8 @@ function clearInputcaller() {
 function clearInputPart() {
     document.getElementById('contractType').value = '';
     document.getElementById('seq').value = '';
-    document.getElementById('msrp').value = '';
-    document.getElementById('partCost').value = '';
+    document.getElementById('partOOP').value = '';
+    document.getElementById('laborOOP').value = '';
     document.getElementById('bcomments').value = '';
 }
 
