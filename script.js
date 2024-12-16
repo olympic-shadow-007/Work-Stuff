@@ -743,14 +743,14 @@ document.getElementById("otherDiag").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-// Function to create a popup window with electrical diag references
-document.getElementById("electricalDiag").addEventListener("click", function() {
+// Function to create a popup window with the PNLC note
+document.getElementById("PNLCnote").addEventListener("click", function() {
     const width = 450;
-    const height = 200;
+    const height = 450;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Electrical Diag References", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "PNLC Note", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -766,12 +766,14 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
                     box-sizing: border-box;
                 }
                 h1 {
-                    font-size: 18px;
+                    font-size: 20px;
                     text-align: center;
                     margin-bottom: 20px;
                 }
-                div {
-                    margin: 0;
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
                 }
                 button {
                     display: block;
@@ -788,19 +790,84 @@ document.getElementById("electricalDiag").addEventListener("click", function() {
                 button:hover {
                     background-color: #781c1c;
                 }
+                input {
+                    width: calc(100% - 10px);
+                    padding: 5px;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
             </style>
         </head>
         <body>
-            <h1>Diag We Can Help With</h1>
-            <li>Araceli said not to use this</li>
-            <li>Franklin will get you</li>
-            <li>Use ProDemand for diag references</li>
+            <h1>Inspection Note</h1>
+            <div id="noteContent">
+                <p>SA called in to check elgibility for coverage for part listed below. Per the contract, this part is PNLC. 
+                Informed SA, they understood. EOC.</p>
+                <ul id="failureList">
+                    <li id="failure1">Part 1 - Part No</li>  
+                    <li id="failure2">Part 2 - Part No</li>
+                </ul>
+                <h2>Input Failed Parts</h2>
+                <div id="failedPartsContainer">
+                    <input type="text" class="failedPart" placeholder="Enter failed part - part no">
+                </div>
+                <button id="addFailedPartButton">Add Another Failed Part</button>
+            </div>
+            <button onclick="copyFormattedText()">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy formatted text
+                function copyFormattedText() {
+                    const noteContent = document.getElementById('noteContent');
+                    const failedParts = Array.from(document.querySelectorAll('.failedPart')).map(input => input.value.trim()).filter(part => part !== '');
+
+                    let formattedText = '';
+
+                    // Append the existing note content
+                    noteContent.childNodes.forEach(node => {
+                        if (node.tagName === 'P') {
+                            formattedText += node.innerText + '\\n\\n';  
+                        } else if (node.tagName === 'UL') {
+                            // Update the list with current failed parts
+                            node.innerHTML = ''; // Clear existing list items
+                            failedParts.forEach(part => {
+                                const li = document.createElement('li');
+                                li.textContent = part;
+                                node.appendChild(li);
+                                formattedText += '- ' + part + '\\n';  
+                            });
+                            formattedText += '\\n';
+                        }
+                    });
+
+                    // Copy the formatted text to the clipboard
+                    navigator.clipboard.writeText(formattedText).then(() => {
+                        alert('Formatted content copied to clipboard');
+                    }).catch(error => {
+                        alert('Error copying text: ' + error);
+                    });
+                }
+
+                // Function to add a new failed part input field
+                document.getElementById('addFailedPartButton').addEventListener('click', function() {
+                    const failedPartsContainer = document.getElementById('failedPartsContainer');
+                    const failedPartInputs = failedPartsContainer.querySelectorAll('.failedPart');
+
+                    // Limit to a maximum of 10 input fields
+                    if (failedPartInputs.length < 10) {
+                        const newInput = document.createElement('input');
+                        newInput.type = 'text';
+                        newInput.className = 'failedPart';
+                        newInput.placeholder = 'Enter failed part';
+                        failedPartsContainer.appendChild(newInput);
+                    }
+                });
+            </script>
         </body>
         </html>
     `);
-
-    newWindow.document.close();
 });
 
 // Function to create a popup window with the chemical diag references
