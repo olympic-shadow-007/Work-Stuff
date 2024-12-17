@@ -1,7 +1,7 @@
 // Function to create a popup window with the auth note
 document.getElementById("authButton").addEventListener("click", function() {
     const width = 450;
-    const height = 800; 
+    const height = 850; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -118,6 +118,10 @@ document.getElementById("authButton").addEventListener("click", function() {
                 List payment method: <br>
                 <input type="text" id="paymentMethod" placeholder="What is RF payment method?">
             </div>
+            <div>
+                Remaining LOL after this claim: <br>
+                <input type="text" id="LOL" placeholder="Enter the remaining LOL">
+            </div>
             <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
 
@@ -140,6 +144,7 @@ document.getElementById("authButton").addEventListener("click", function() {
                     const taskSet = document.getElementById('taskSet').value;
                     const saName = document.getElementById('saName').value;
                     const paymentMethod = document.getElementById('paymentMethod').value;
+                    const LOL = document.getElementById('LOL').value;
 
                     const allInfo = 
                         "Type of contract: " + contractType + "\\n" +
@@ -158,7 +163,8 @@ document.getElementById("authButton").addEventListener("click", function() {
                         "Did we attempt to contact the CH about OOP cost? " + oopAttempt + "\\n" +
                         "If unsuccessful, has note and task been set? " + taskSet + "\\n" +
                         "Auth number was given to " + saName + "\\n" +
-                        "Their payment method is " + paymentMethod;
+                        "Their payment method is " + paymentMethod + "\\n" +
+                        "Remaining LOL after this claim: " + LOL;
 
                     // Use the navigator.clipboard API to copy the text
                     navigator.clipboard.writeText(allInfo)
@@ -177,6 +183,7 @@ document.getElementById("authButton").addEventListener("click", function() {
 
     newWindow.document.close();
 });
+
        
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
