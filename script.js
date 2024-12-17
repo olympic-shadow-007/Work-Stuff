@@ -1,6 +1,6 @@
 // Function to create a popup window with the auth note
 document.getElementById("authButton").addEventListener("click", function() {
-    const width = 450;
+    const width = 400;
     const height = 850; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -92,7 +92,7 @@ document.getElementById("authButton").addEventListener("click", function() {
             </div>
             <div>
                 Are there any OOP Costs: <br>
-                <input type="text" id="oopCosts" placeholder="Are there any OOP Costs?">
+                <input type="text" id="oopCosts" placeholder="Are there any OOP?">
             </div>
             <div>
                 List the part difference: <br>
@@ -151,7 +151,7 @@ document.getElementById("authButton").addEventListener("click", function() {
                         "The failure was verified by " + testPerformed + "\\n" +
                         "The contract covered " + coveredParts + "\\n" +
                         "List of PNLC items: " + PNLC + "\\n" +
-                        "We are using " + whosPart + " because it was verified MCE under $250 or OE/OES " + "\\n" +
+                        "We are using " + whosPart + ". It was verified MCE under $250 or OE/OES " + "\\n" +
                         "Labor was verified using " + verifyLabor + "\\n" +
                         "The claim history has been reviewed: " + historyReview + "\\n" +
                         "Is SR needed or been reviewed: " + serviceReview + "\\n" +
@@ -187,7 +187,7 @@ document.getElementById("authButton").addEventListener("click", function() {
        
 // Function to create a popup window with the status note
 document.getElementById("statusButton").addEventListener("click", function() {
-    const width = 400;
+    const width = 350;
     const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -309,6 +309,7 @@ document.getElementById("statusButton").addEventListener("click", function() {
 
     newWindow.document.close();
 });
+
 
 // Function to create a popup window with the inspection note
 document.getElementById("inspectionNote").addEventListener("click", function() {
@@ -442,6 +443,7 @@ document.getElementById("inspectionNote").addEventListener("click", function() {
     `);
 });
 
+
 // Function to create a popup window with the labor negotiation note
 document.getElementById("laborButton").addEventListener("click", function() {
     const width = 350;
@@ -555,200 +557,6 @@ document.getElementById("laborButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-// Function to create a popup window with the PT Transfer Script
-document.getElementById("ptTransferButton").addEventListener("click", function() {
-    const width = 400;
-    const height = 300;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "PT Transfer Script", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 18px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                p {
-                    font-size: 16px;
-                }
-                span {
-                    font-size: 14px;
-                }
-                div {
-                    margin: 0;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>PT Transfer Script</h1>
-            <p>Your claim number is (XXXXXXX). I am assigning your claim to a Powertrain adjuster. That adjuster will be reaching back out to you in the next 24 business hours. Please prepare an itemized estimate for when they call.</p>
-            <span>*If the RF is not prepared to start the claim, you can save the pre-claim by hitting [Pend Breakdown]. This will not open a claim, but will document all information.</span>
-            <button onclick="window.close()">Close</button>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
-
-// Function to create a popup window with the payment info
-document.getElementById("paymentInfoButton").addEventListener("click", function() {
-    const width = 450;
-    const height = 475;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Payment Info", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 20px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                h2 {
-                    font-size: 16px;
-                    text-align: center;
-                    margin-bottom: 10px;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Info Needed for Payment</h1>
-            <h2>Payments email or fax</h2>
-            <p>Advise final invoice will need to include:</p>
-            <li>CH Name</li>
-            <li>Full VIN</li>
-            <li>Year/Make/Model</li>
-            <li>Vehicle mileage</li>
-            <li>RF name and address</li>
-            <li>Parts and labor breakdown</li>
-            <li>CH Signature</li>
-            <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
-            <p>If recieved after 3pm MT payment will be made next day</p>
-            <p>Don't forget to use Auth # in subject line</p>
-            <button onclick="window.close()">Close</button>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
-
-// Function to create a popup window with the other diag references
-document.getElementById("otherDiag").addEventListener("click", function() {
-    const width = 450;
-    const height = 200;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Other Diag References", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 18px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                div {
-                    margin: 0;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Diag We Can Help With</h1>
-            <li>Noise isolation (chassis ears) - 0.2</li>
-            <li>Haha ;-)</li> 
-            <button onclick="window.close()">Close</button>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
 
 // Function to create a popup window with the PNLC note
 document.getElementById("PNLCnote").addEventListener("click", function() {
@@ -877,14 +685,87 @@ document.getElementById("PNLCnote").addEventListener("click", function() {
     `);
 });
 
-// Function to create a popup window with the chemical diag references
-document.getElementById("chemDiagRef").addEventListener("click", function() {
+
+// Function to create a popup window with the payment info
+document.getElementById("paymentInfoButton").addEventListener("click", function() {
+    const width = 450;
+    const height = 475;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Payment Info", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Info Needed for Payment</h1>
+            <h2>Payments email or fax</h2>
+            <p>Advise final invoice will need to include:</p>
+            <li>CH Name</li>
+            <li>Full VIN</li>
+            <li>Year/Make/Model</li>
+            <li>Vehicle mileage</li>
+            <li>RF name and address</li>
+            <li>Parts and labor breakdown</li>
+            <li>CH Signature</li>
+            <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
+            <p>If recieved after 3pm MT payment will be made next day</p>
+            <p>Don't forget to use Auth # in subject line</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+
+// Function to create a popup window with the other diag references
+document.getElementById("otherDiag").addEventListener("click", function() {
     const width = 450;
     const height = 200;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Chemical Diag References", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Other Diag References", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -926,9 +807,8 @@ document.getElementById("chemDiagRef").addEventListener("click", function() {
         </head>
         <body>
             <h1>Diag We Can Help With</h1>
-            <li>Araceli said not to use this</li>
-            <li>Franklin will get you</li>
-            <li>Use ProDemand for diag references</li>
+            <li>Noise isolation (chassis ears) - 0.2</li>
+            <li>Haha ;-)</li> 
             <button onclick="window.close()">Close</button>
         </body>
         </html>
@@ -936,6 +816,209 @@ document.getElementById("chemDiagRef").addEventListener("click", function() {
 
     newWindow.document.close();
 });
+
+
+// Function to create a popup window for inspection review
+document.getElementById("inspectionButton").addEventListener("click", function() {
+    const width = 450;
+    const height = 700; 
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Inspection Review", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin-bottom: 10px;
+                }
+                input, textarea {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+                textarea {
+                    resize: vertical;
+                    height: 100px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Inspection Review</h1>
+            <div>
+                Reason for Inspection: <br>
+                <input type="text" id="reasonForInspection" placeholder="Enter the reason for inspection">
+            </div>
+            <div>
+                Labor Rate: <br>
+                <input type="text" id="laborRate" placeholder="Enter the labor rate">
+            </div>
+            <div>
+                Mileage: <br>
+                <input type="text" id="mileage" placeholder="Enter the mileage">
+            </div>
+            <div>
+                Fluid Condition: <br>
+                <input type="text" id="fluidCondition" placeholder="Describe the fluid condition">
+            </div>
+            <div>
+                Modifications/Collision/Commercial: <br>
+                <input type="text" id="modifications" placeholder="Describe any modifications, collision, or commercial usage">
+            </div>
+            <div>
+                Days into Contract: <br>
+                <input type="text" id="daysIntoContract" placeholder="Enter days into contract">
+            </div>
+            <div>
+                Miles into Contract: <br>
+                <input type="text" id="milesIntoContract" placeholder="Enter miles into contract">
+            </div>
+            <div>
+                Inspector findings/photo review (in your own words): <br>
+                <textarea id="inspectorFindings" placeholder="Summarize the inspector findings and photo review"></textarea>
+            </div>
+            <button id="copyButton">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const reasonForInspection = document.getElementById('reasonForInspection').value;
+                    const laborRate = document.getElementById('laborRate').value;
+                    const mileage = document.getElementById('mileage').value;
+                    const fluidCondition = document.getElementById('fluidCondition').value;
+                    const modifications = document.getElementById('modifications').value;
+                    const daysIntoContract = document.getElementById('daysIntoContract').value;
+                    const milesIntoContract = document.getElementById('milesIntoContract').value;
+                    const inspectorFindings = document.getElementById('inspectorFindings').value;
+
+                    const allInfo = 
+                        "Reason for Inspection: " + reasonForInspection + "\\n" +
+                        "Labor Rate: " + laborRate + "\\n" +
+                        "Mileage: " + mileage + "\\n" +
+                        "Fluid Condition: " + fluidCondition + "\\n" +
+                        "Modifications/Collision/Commercial: " + modifications + "\\n" +
+                        "Days into Contract: " + daysIntoContract + "\\n" +
+                        "Miles into Contract: " + milesIntoContract + "\\n" +
+                        "Inspector findings/photo review: " + inspectorFindings;
+
+                    // Use the navigator.clipboard API to copy the text
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
+                        });
+                });
+            </script>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+
+// Function to create a popup window with the PT Transfer Script
+document.getElementById("ptTransferButton").addEventListener("click", function() {
+    const width = 400;
+    const height = 300;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "PT Transfer Script", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 16px;
+                }
+                span {
+                    font-size: 14px;
+                }
+                div {
+                    margin: 0;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>PT Transfer Script</h1>
+            <p>Your claim number is (XXXXXXX). I am assigning your claim to a Powertrain adjuster. That adjuster will be reaching back out to you in the next 24 business hours. Please prepare an itemized estimate for when they call.</p>
+            <span>*If the RF is not prepared to start the claim, you can save the pre-claim by hitting [Pend Breakdown]. This will not open a claim, but will document all information.</span>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
 
 // Function to launch labor rate negotiation script
 document.getElementById("laborNegButton").addEventListener("click", function() {
@@ -1078,6 +1161,7 @@ document.getElementById("laborNegButton").addEventListener("click", function() {
     };
 });
 
+
 //Function to launch main websites
 document.getElementById('launchButton').addEventListener('click', function() {
     // Array of URLs you want to open
@@ -1094,6 +1178,7 @@ document.getElementById('launchButton').addEventListener('click', function() {
         window.open(url, '_blank');
     });
 });
+
 
 // Function to clear the input fields in the notepads
 function clearInputcaller() {
