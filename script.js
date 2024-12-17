@@ -1189,7 +1189,7 @@ function clearInputcaller() {
     document.getElementById('laborRate').value ='';
     document.getElementById('negRate').value = '';
     document.getElementById('distance').value = '';
-    document.getElementById('LOL').value = '';
+    document.getElementById('numberOfReports').value = '';
     document.getElementById('acomments').value = '';
 }
 
