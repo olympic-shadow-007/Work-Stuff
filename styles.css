@@ -108,7 +108,7 @@ button:hover {
 }
 
 /* Button Positioning */
-.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton, .PNLCnote, .chemDiagRef, .otherDiag, .inspectionNote, .ptTransferButton {
+.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton, .PNLCnote, .inspectionButton, .otherDiag, .inspectionNote, .ptTransferButton {
     position: absolute;
 }
 
@@ -119,7 +119,7 @@ button:hover {
 .PNLCnote { top: 30px; left: 225px; }
 .paymentInfoButton { top: 70px; left: 225px;}
 .otherDiag { top: 110px; left: 225px; }
-.chemDiagRef { top: 150px; left: 225px;}
+.inspectionButton { top: 150px; left: 225px;}
 .laborNegButton { top: 90px; right: 300px; }
 .ptTransferButton { top: 50px; right: 300px;}
 .launchButton { top: 90px; right: 75px; }
