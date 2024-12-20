@@ -617,7 +617,7 @@ document.getElementById("PNLCnote").addEventListener("click", function() {
         <body>
             <h1>Inspection Note</h1>
             <div id="noteContent">
-                <p>SA called in to check elgibility for coverage for part listed below. Per the contract, this part is PNLC. 
+                <p>SA called in to check eligibility for coverage for part listed below. Per the contract, this part is PNLC. 
                 Informed SA, they understood. EOC.</p>
                 <ul id="failureList">
                     <li id="failure1">Part 1 - Part No</li>  
