@@ -1,6 +1,260 @@
-// Function to create a popup window with the auth note
-document.getElementById("authButton").addEventListener("click", function() {
+// Function to launch labor rate negotiation script
+document.getElementById("laborNegScript").addEventListener("click", function() {
     const width = 400;
+    const height = 300;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Negotiation Script", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Wait for the new window to fully load before injecting content
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    color: #444;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    text-align: center;
+                }
+                input[type="text"], input[type="number"] {
+                    width: calc(100% - 20px);
+                    padding: 8px;
+                    margin-bottom: 15px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Labor Rate Negotiation</h1>
+            <p>Loading...</p>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close(); 
+    newWindow.onload = function() {
+        let laborRate, avgLaborRate, newLaborRate;
+
+        function displayQuestion(text, inputType = 'text', callback) {
+            newWindow.document.body.innerHTML = `
+                <h1>Labor Rate Negotiation</h1>
+                <p>${text}</p>
+                <input type="${inputType}" id="response" style="width: 100%; padding: 5px; margin-bottom: 10px;">
+                <button id="nextButton">Next</button>
+            `;
+
+            newWindow.document.getElementById("nextButton").addEventListener("click", function() {
+                const response = newWindow.document.getElementById("response").value.trim();
+                callback(response);
+            });
+        }
+
+        function handleLaborRate() {
+            displayQuestion("What is the current posted labor rate at your Repair Facility?", "number", function(response) {
+                laborRate = parseFloat(response);
+                handleAvgLaborRate();
+            });
+        }
+
+        function handleAvgLaborRate() {
+            displayQuestion("What is the average labor rate in the area?", "number", function(response) {
+                avgLaborRate = parseFloat(response);
+                compareRates();
+            });
+        }
+
+        function compareRates() {
+            if (laborRate <= avgLaborRate) {
+                displayQuestion("Thanks for that, so most shops have been working with us by coming down on the hourly rate to help customers. Is there any flexibility for a lower hourly rate for this customer? (Y/N)", "text", function(response) {
+                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                        newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
+                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                        handleNewLaborRate();
+                    }
+                });
+            } else {
+                displayQuestion(`The average labor rate in your area is $${avgLaborRate}, are you able to match this? (Y/N)`, "text", function(response) {
+                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                        const difference = (laborRate + avgLaborRate)/2;
+                        displayQuestion(`Are you able to match us at $${difference}? (Y/N)`, "text", function(response) {
+                            if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                                newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
+                            } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                                newLaborRate = difference;
+                                newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
+                            }
+                        });
+                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                        newLaborRate = avgLaborRate;
+                        newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
+                    }
+                });
+            }
+        }      
+
+        function handleNewLaborRate() {
+            displayQuestion("What is the new labor rate you would like to set?", "number", function(response) {
+                newLaborRate = parseFloat(response);
+                if (newLaborRate < laborRate) {
+                    newWindow.document.body.innerHTML = `<p>Thanks! Your new labor rate is now set to $${newLaborRate}.</p>`;
+                } else {
+                    newWindow.document.body.innerHTML = `<p>The new labor rate has been updated to $${newLaborRate}. Thank you!</p>`;
+                }
+            });
+        }
+
+        handleLaborRate();
+    };
+});
+
+// Function to create a popup window with the labor rate negotiation note
+document.getElementById("laborNegNote").addEventListener("click", function() {
+    const width = 350;
+    const height = 550; 
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Labor Rate Negotiation Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Labor Negotiation Note</h1>
+            <div>
+                Current labor rate:<br>
+                <input type="text" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
+            </div>
+            <div>
+                Avg labor rate:<br>
+                <input type="text" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
+            </div>
+            <div>
+                Flexible on rate:<br>
+                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
+            </div>
+            <div>
+                Distance used:<br>
+                <input type="text" id="distanceUsed" placeholder="Enter distance used">
+            </div>
+            <div>
+                How many reports:<br>
+                <input type="text" id="reportsCount" placeholder="Enter number of reports">
+            </div>
+            <button id="copyButton">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const laborRate = document.getElementById('laborRate').value;
+                    const avgLaborRate = document.getElementById('avgLaborRate').value;
+                    const flexibleRate = document.getElementById('flexibleRate').value;
+                    const distanceUsed = document.getElementById('distanceUsed').value;
+                    const reportsCount = document.getElementById('reportsCount').value;
+
+                    const allInfo = 
+                        "Current labor rate: " + laborRate + "\\n" +
+                        "Avg labor rate: " + avgLaborRate + "\\n" +
+                        "Flexible on rate: " + flexibleRate + "\\n" +
+                        "Distance used: " + distanceUsed + "\\n" +
+                        "How many reports: " + reportsCount;
+
+                    // Use the navigator.clipboard API to copy the text
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
+                        });
+                });
+            </script>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with the auth note
+document.getElementById("authNote").addEventListener("click", function() {
+    const width = 450;
     const height = 850; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -148,23 +402,24 @@ document.getElementById("authButton").addEventListener("click", function() {
 
                     const allInfo = 
                         "Type of contract: " + contractType + "\\n" +
-                        "The failure was verified by " + testPerformed + "\\n" +
-                        "The contract covered " + coveredParts + "\\n" +
-                        "List of PNLC items: " + PNLC + "\\n" +
-                        "We are using " + whosPart + ". It was verified MCE under $250 or OE/OES " + "\\n" +
-                        "Labor was verified using " + verifyLabor + "\\n" +
-                        "The claim history has been reviewed: " + historyReview + "\\n" +
-                        "Is SR needed or been reviewed: " + serviceReview + "\\n" +
-                        "The related TSB's: " + relatedTSB + "\\n" +
-                        "The OOP cost difference is " + oopCosts + "\\n" +
-                        "List the cost difference: " + "\\n" +
-                        "Parts - " + partsDifference + "\\n" +
-                        "Labor - " + laborDifference + "\\n" +
+                        "The failure was verified by: " + testPerformed + " (see breakdown for details)\\n" +
+                        "The contract covered: " + coveredParts + "\\n" +
+                        "List of PNLC items: " + PNLC + "\\n \\n" +
+                        "We are using " + whosPart + "\\n" + 
+                        "It was verified MCE under $250 or OE/OES at the time of call" + "\\n" +
+                        "Labor was verified using " + verifyLabor + "\\n \\n" +
+                        "Has the claim history been reviewed? " + historyReview + "\\n" +
+                        "Is SR needed or been reviewed? " + serviceReview + "\\n" +
+                        "Any related TSB's? " + relatedTSB + "\\n \\n" +
+                        "" + oopCosts + " there are OOP costs\\n" +
+                        "The difference is: " + "\\n" +
+                        "Parts - $" + partsDifference + "\\n" +
+                        "Labor - $" + laborDifference + "\\n \\n" +
                         "Did we attempt to contact the CH about OOP cost? " + oopAttempt + "\\n" +
-                        "If unsuccessful, has note and task been set? " + taskSet + "\\n" +
+                        "If unsuccessful, has note and task been set? " + taskSet + "\\n \\n" +
                         "Auth number was given to " + saName + "\\n" +
-                        "Their payment method is " + paymentMethod + "\\n" +
-                        "Remaining LOL after this claim: " + LOL;
+                        "Their payment method is " + paymentMethod + "\\n \\n" +
+                        "Remaining LOL after this claim: $" + LOL;
 
                     // Use the navigator.clipboard API to copy the text
                     navigator.clipboard.writeText(allInfo)
@@ -184,9 +439,244 @@ document.getElementById("authButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-       
+// Function to create a popup window with the OOP breakdown note
+document.getElementById("oopBreakdown").addEventListener("click", function() {
+    const width = 350;
+    const height = 475; 
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "OOP Breakdown Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin-bottom: 10px;
+                }
+                input {
+                    width: 100%;
+                    padding: 10px;
+                    margin-top: 5px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>OOP Breakdown Note</h1>
+            <div>
+                Parts OOP:<br>
+                <input type="text" id="partOOP" placeholder="Enter the parts OOP (e.g., $50)">
+            </div>
+            <div>
+                Labor OOP:<br>
+                <input type="text" id="laborOOP" placeholder="Enter the labor OOP (e.g., $45)">
+            </div>
+            <div>
+                Deductible:<br>
+                <input type="text" id="ded" placeholder="Enter CH deductible">
+            </div>
+            <div>
+                Total OOP:<br>
+                <input type="text" id="totalOOP" placeholder="What is the total OOP (including ded)?">
+            </div>
+            <div>
+            <button id="copyButton">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy inputs to the clipboard
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    const partOOP = document.getElementById('partOOP').value;
+                    const laborOOP = document.getElementById('laborOOP').value;
+                    const ded = document.getElementById('ded').value;
+                    const totalOOP = document.getElementById('totalOOP').value;
+
+                    const allInfo = 
+                        "OBC to CH to get OOP approval. No answer, left VM. Tasked to customer service to follow up." + "\\n \\n" +
+                        "Parts OOP: $" + partOOP + "\\n" +
+                        "Labor OOP: $" + laborOOP + "\\n" +
+                        "Deductible: $" + ded + "\\n" +
+                        "Total OOP: $" + totalOOP;
+
+                    // Use the navigator.clipboard API to copy the text
+                    navigator.clipboard.writeText(allInfo)
+                        .then(() => {
+                            alert('Information copied to clipboard!');
+                        })
+                        .catch(err => {
+                            console.error('Could not copy text: ', err);
+                            alert('Failed to copy text.');
+                        });
+                });
+            </script>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with the PNLC note
+document.getElementById("PNLCnote").addEventListener("click", function() {
+    const width = 450;
+    const height = 450;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "PNLC Note", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+                input {
+                    width: calc(100% - 10px);
+                    padding: 5px;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Inspection Note</h1>
+            <div id="noteContent">
+                <p>SA called in to check eligibility for coverage for part listed below. Per the contract, this part is PNLC. 
+                Informed SA, they understood. EOC.</p>
+                <ul id="failureList">
+                    <li id="failure1">Part 1 - Part No</li>  
+                    <li id="failure2">Part 2 - Part No</li>
+                </ul>
+                <h2>Input Failed Parts</h2>
+                <div id="failedPartsContainer">
+                    <input type="text" class="failedPart" placeholder="Enter failed part - part no">
+                </div>
+                <button id="addFailedPartButton">Add Another Failed Part</button>
+            </div>
+            <button onclick="copyFormattedText()">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                // Function to copy formatted text
+                function copyFormattedText() {
+                    const noteContent = document.getElementById('noteContent');
+                    const failedParts = Array.from(document.querySelectorAll('.failedPart')).map(input => input.value.trim()).filter(part => part !== '');
+
+                    let formattedText = '';
+
+                    // Append the existing note content
+                    noteContent.childNodes.forEach(node => {
+                        if (node.tagName === 'P') {
+                            formattedText += node.innerText + '\\n\\n';  
+                        } else if (node.tagName === 'UL') {
+                            // Update the list with current failed parts
+                            node.innerHTML = ''; // Clear existing list items
+                            failedParts.forEach(part => {
+                                const li = document.createElement('li');
+                                li.textContent = part;
+                                node.appendChild(li);
+                                formattedText += '- ' + part + '\\n';  
+                            });
+                            formattedText += '\\n';
+                        }
+                    });
+
+                    // Copy the formatted text to the clipboard
+                    navigator.clipboard.writeText(formattedText).then(() => {
+                        alert('Formatted content copied to clipboard');
+                    }).catch(error => {
+                        alert('Error copying text: ' + error);
+                    });
+                }
+
+                // Function to add a new failed part input field
+                document.getElementById('addFailedPartButton').addEventListener('click', function() {
+                    const failedPartsContainer = document.getElementById('failedPartsContainer');
+                    const failedPartInputs = failedPartsContainer.querySelectorAll('.failedPart');
+
+                    // Limit to a maximum of 10 input fields
+                    if (failedPartInputs.length < 10) {
+                        const newInput = document.createElement('input');
+                        newInput.type = 'text';
+                        newInput.className = 'failedPart';
+                        newInput.placeholder = 'Enter failed part - part no';
+                        failedPartsContainer.appendChild(newInput);
+                    }
+                });
+            </script>
+        </body>
+        </html>
+    `);
+});
+
 // Function to create a popup window with the status note
-document.getElementById("statusButton").addEventListener("click", function() {
+document.getElementById("statusNote").addEventListener("click", function() {
     const width = 350;
     const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
@@ -310,15 +800,14 @@ document.getElementById("statusButton").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-
 // Function to create a popup window with the inspection note
-document.getElementById("inspectionNote").addEventListener("click", function() {
+document.getElementById("setInspectionNote").addEventListener("click", function() {
     const width = 450;
     const height = 650;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "Inspection Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Set Inspection Note", `width=${width},height=${height},top=${top},left=${left}`);
 
     // Inject content into the new window
     newWindow.document.write(`
@@ -443,383 +932,8 @@ document.getElementById("inspectionNote").addEventListener("click", function() {
     `);
 });
 
-
-// Function to create a popup window with the labor negotiation note
-document.getElementById("laborButton").addEventListener("click", function() {
-    const width = 350;
-    const height = 550; 
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Labor Negotiation Note", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 18px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                div {
-                    margin-bottom: 10px;
-                }
-                input {
-                    width: 100%;
-                    padding: 10px;
-                    margin-top: 5px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Labor Negotiation Note</h1>
-            <div>
-                Current labor rate:<br>
-                <input type="text" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
-            </div>
-            <div>
-                Avg labor rate:<br>
-                <input type="text" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
-            </div>
-            <div>
-                Flexible on rate:<br>
-                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
-            </div>
-            <div>
-                Distance used:<br>
-                <input type="text" id="distanceUsed" placeholder="Enter distance used">
-            </div>
-            <div>
-                How many reports:<br>
-                <input type="text" id="reportsCount" placeholder="Enter number of reports">
-            </div>
-            <button id="copyButton">Copy to Clipboard</button>
-            <button onclick="window.close()">Close</button>
-
-            <script>
-                // Function to copy inputs to the clipboard
-                document.getElementById('copyButton').addEventListener('click', function() {
-                    const laborRate = document.getElementById('laborRate').value;
-                    const avgLaborRate = document.getElementById('avgLaborRate').value;
-                    const flexibleRate = document.getElementById('flexibleRate').value;
-                    const distanceUsed = document.getElementById('distanceUsed').value;
-                    const reportsCount = document.getElementById('reportsCount').value;
-
-                    const allInfo = 
-                        "Current labor rate: " + laborRate + "\\n" +
-                        "Avg labor rate: " + avgLaborRate + "\\n" +
-                        "Flexible on rate: " + flexibleRate + "\\n" +
-                        "Distance used: " + distanceUsed + "\\n" +
-                        "How many reports: " + reportsCount;
-
-                    // Use the navigator.clipboard API to copy the text
-                    navigator.clipboard.writeText(allInfo)
-                        .then(() => {
-                            alert('Information copied to clipboard!');
-                        })
-                        .catch(err => {
-                            console.error('Could not copy text: ', err);
-                            alert('Failed to copy text.');
-                        });
-                });
-            </script>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
-
-
-// Function to create a popup window with the PNLC note
-document.getElementById("PNLCnote").addEventListener("click", function() {
-    const width = 450;
-    const height = 450;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "PNLC Note", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 20px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                h2 {
-                    font-size: 16px;
-                    text-align: center;
-                    margin-bottom: 10px;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-                input {
-                    width: calc(100% - 10px);
-                    padding: 5px;
-                    margin-bottom: 10px;
-                    border: 1px solid #ccc;
-                    border-radius: 4px;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Inspection Note</h1>
-            <div id="noteContent">
-                <p>SA called in to check eligibility for coverage for part listed below. Per the contract, this part is PNLC. 
-                Informed SA, they understood. EOC.</p>
-                <ul id="failureList">
-                    <li id="failure1">Part 1 - Part No</li>  
-                    <li id="failure2">Part 2 - Part No</li>
-                </ul>
-                <h2>Input Failed Parts</h2>
-                <div id="failedPartsContainer">
-                    <input type="text" class="failedPart" placeholder="Enter failed part - part no">
-                </div>
-                <button id="addFailedPartButton">Add Another Failed Part</button>
-            </div>
-            <button onclick="copyFormattedText()">Copy to Clipboard</button>
-            <button onclick="window.close()">Close</button>
-
-            <script>
-                // Function to copy formatted text
-                function copyFormattedText() {
-                    const noteContent = document.getElementById('noteContent');
-                    const failedParts = Array.from(document.querySelectorAll('.failedPart')).map(input => input.value.trim()).filter(part => part !== '');
-
-                    let formattedText = '';
-
-                    // Append the existing note content
-                    noteContent.childNodes.forEach(node => {
-                        if (node.tagName === 'P') {
-                            formattedText += node.innerText + '\\n\\n';  
-                        } else if (node.tagName === 'UL') {
-                            // Update the list with current failed parts
-                            node.innerHTML = ''; // Clear existing list items
-                            failedParts.forEach(part => {
-                                const li = document.createElement('li');
-                                li.textContent = part;
-                                node.appendChild(li);
-                                formattedText += '- ' + part + '\\n';  
-                            });
-                            formattedText += '\\n';
-                        }
-                    });
-
-                    // Copy the formatted text to the clipboard
-                    navigator.clipboard.writeText(formattedText).then(() => {
-                        alert('Formatted content copied to clipboard');
-                    }).catch(error => {
-                        alert('Error copying text: ' + error);
-                    });
-                }
-
-                // Function to add a new failed part input field
-                document.getElementById('addFailedPartButton').addEventListener('click', function() {
-                    const failedPartsContainer = document.getElementById('failedPartsContainer');
-                    const failedPartInputs = failedPartsContainer.querySelectorAll('.failedPart');
-
-                    // Limit to a maximum of 10 input fields
-                    if (failedPartInputs.length < 10) {
-                        const newInput = document.createElement('input');
-                        newInput.type = 'text';
-                        newInput.className = 'failedPart';
-                        newInput.placeholder = 'Enter failed part';
-                        failedPartsContainer.appendChild(newInput);
-                    }
-                });
-            </script>
-        </body>
-        </html>
-    `);
-});
-
-
-// Function to create a popup window with the payment info
-document.getElementById("paymentInfoButton").addEventListener("click", function() {
-    const width = 450;
-    const height = 475;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Payment Info", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 20px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                h2 {
-                    font-size: 16px;
-                    text-align: center;
-                    margin-bottom: 10px;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Info Needed for Payment</h1>
-            <h2>Payments email or fax</h2>
-            <p>Advise final invoice will need to include:</p>
-            <li>CH Name</li>
-            <li>Full VIN</li>
-            <li>Year/Make/Model</li>
-            <li>Vehicle mileage</li>
-            <li>RF name and address</li>
-            <li>Parts and labor breakdown</li>
-            <li>CH Signature</li>
-            <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
-            <p>If recieved after 3pm MT payment will be made next day</p>
-            <p>Don't forget to use Auth # in subject line</p>
-            <button onclick="window.close()">Close</button>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
-
-
-// Function to create a popup window with the other diag references
-document.getElementById("otherDiag").addEventListener("click", function() {
-    const width = 450;
-    const height = 200;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Other Diag References", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Inject content into the new window
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 18px;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                div {
-                    margin: 0;
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                    margin-top: 20px;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Diag We Can Help With</h1>
-            <li>Noise isolation (chassis ears) - 0.2</li>
-            <li>Haha ;-)</li> 
-            <button onclick="window.close()">Close</button>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close();
-});
-
-
-// Function to create a popup window for inspection review
-document.getElementById("inspectionButton").addEventListener("click", function() {
+// Function to create a popup window for inspection review note
+document.getElementById("inspectionReview").addEventListener("click", function() {
     const width = 450;
     const height = 700; 
     const left = (window.innerWidth / 2) - (width / 2);
@@ -926,6 +1040,7 @@ document.getElementById("inspectionButton").addEventListener("click", function()
                     const inspectorFindings = document.getElementById('inspectorFindings').value;
 
                     const allInfo = 
+                        "**********INSPECTION REVEIW**********" + "\\n \\n" +
                         "Reason for Inspection: " + reasonForInspection + "\\n" +
                         "Labor Rate: " + laborRate + "\\n" +
                         "Mileage: " + mileage + "\\n" +
@@ -953,6 +1068,76 @@ document.getElementById("inspectionButton").addEventListener("click", function()
     newWindow.document.close();
 });
 
+// Function to create a popup window with the payment info
+document.getElementById("paymentInfoButton").addEventListener("click", function() {
+    const width = 450;
+    const height = 475;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Payment Info", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Inject content into the new window
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                h2 {
+                    font-size: 16px;
+                    text-align: center;
+                    margin-bottom: 10px;
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Info Needed for Payment</h1>
+            <h2>Payments email or fax</h2>
+            <p>Advise final invoice will need to include:</p>
+            <li>CH Name</li>
+            <li>Full VIN</li>
+            <li>Year/Make/Model</li>
+            <li>Vehicle mileage</li>
+            <li>RF name and address</li>
+            <li>Parts and labor breakdown</li>
+            <li>CH Signature</li>
+            <p>Set expectation for payment by EOD if recieved before 3pm MT</p>
+            <p>If recieved after 3pm MT payment will be made next day</p>
+            <p>Don't forget to use Auth # in subject line</p>
+            <button onclick="window.close()">Close</button>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
 
 // Function to create a popup window with the PT Transfer Script
 document.getElementById("ptTransferButton").addEventListener("click", function() {
@@ -1019,149 +1204,6 @@ document.getElementById("ptTransferButton").addEventListener("click", function()
     newWindow.document.close();
 });
 
-
-// Function to launch labor rate negotiation script
-document.getElementById("laborNegButton").addEventListener("click", function() {
-    const width = 400;
-    const height = 300;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Negotiation Script", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Wait for the new window to fully load before injecting content
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 20px;
-                    color: #444;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                p {
-                    font-size: 16px;
-                    margin-bottom: 10px;
-                    text-align: center;
-                }
-                input[type="text"], input[type="number"] {
-                    width: calc(100% - 20px);
-                    padding: 8px;
-                    margin-bottom: 15px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Labor Rate Negotiation</h1>
-            <p>Loading...</p>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close(); 
-    newWindow.onload = function() {
-        let laborRate, avgLaborRate, newLaborRate;
-
-        function displayQuestion(text, inputType = 'text', callback) {
-            newWindow.document.body.innerHTML = `
-                <h1>Labor Rate Negotiation</h1>
-                <p>${text}</p>
-                <input type="${inputType}" id="response" style="width: 100%; padding: 5px; margin-bottom: 10px;">
-                <button id="nextButton">Next</button>
-            `;
-
-            newWindow.document.getElementById("nextButton").addEventListener("click", function() {
-                const response = newWindow.document.getElementById("response").value.trim();
-                callback(response);
-            });
-        }
-
-        function handleLaborRate() {
-            displayQuestion("What is the current posted labor rate at your Repair Facility?", "number", function(response) {
-                laborRate = parseFloat(response);
-                handleAvgLaborRate();
-            });
-        }
-
-        function handleAvgLaborRate() {
-            displayQuestion("What is the average labor rate in the area?", "number", function(response) {
-                avgLaborRate = parseFloat(response);
-                compareRates();
-            });
-        }
-
-        function compareRates() {
-            if (laborRate <= avgLaborRate) {
-                displayQuestion("Thanks for that, so most shops have been working with us by coming down on the hourly rate to help customers. Is there any flexibility for a lower hourly rate for this customer? (Y/N)", "text", function(response) {
-                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                        newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
-                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                        handleNewLaborRate();
-                    }
-                });
-            } else {
-                displayQuestion(`The average labor rate in your area is $${avgLaborRate}, are you able to match this? (Y/N)`, "text", function(response) {
-                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                        const difference = (laborRate + avgLaborRate)/2;
-                        displayQuestion(`Are you able to match us at $${difference}? (Y/N)`, "text", function(response) {
-                            if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                                newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
-                            } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                                newLaborRate = difference;
-                                newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
-                            }
-                        });
-                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                        newLaborRate = avgLaborRate;
-                        newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
-                    }
-                });
-            }
-        }      
-
-        function handleNewLaborRate() {
-            displayQuestion("What is the new labor rate you would like to set?", "number", function(response) {
-                newLaborRate = parseFloat(response);
-                if (newLaborRate < laborRate) {
-                    newWindow.document.body.innerHTML = `<p>Thanks! Your new labor rate is now set to $${newLaborRate}.</p>`;
-                } else {
-                    newWindow.document.body.innerHTML = `<p>The new labor rate has been updated to $${newLaborRate}. Thank you!</p>`;
-                }
-            });
-        }
-
-        handleLaborRate();
-    };
-});
-
-
 //Function to launch main websites
 document.getElementById('launchButton').addEventListener('click', function() {
     // Array of URLs you want to open
@@ -1178,7 +1220,6 @@ document.getElementById('launchButton').addEventListener('click', function() {
         window.open(url, '_blank');
     });
 });
-
 
 // Function to clear the input fields in the notepads
 function clearInputcaller() {
