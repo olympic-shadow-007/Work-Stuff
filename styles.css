@@ -1,60 +1,3 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('callCenter.jpg') no-repeat center center fixed;
-    background-size: cover; 
-    background-position: center;
-    color: rgb(255, 255, 255);
-}
-
-h1 {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Container Styles */
-.container {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.container, .callerNotepad, .partNotepad, .scratchPad {
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
-}
-
-/* Flexbox layout for main content */
-.flex-container {
-    display: flex;
-    flex-wrap: wrap;  
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-/* Container Sizes */
-.callerNotepad, .partNotepad {
-    flex: 1 1 45%; 
-    margin: 20px;
-    max-width: 500px;
-}
-
-.scratchPad {
-    flex: 1 1 90%; 
-    margin: 20px;
-    max-width: 800px; 
-}
-
-/* Search Container */
-.gcse-search-container {
-    width: 400px;
-    margin: 0 auto;
-}
-
 /* Media Queries for larger screens */
 @media (min-width: 1024px) {
     .callerNotepad, .partNotepad {
@@ -76,19 +19,47 @@ h1 {
     }
 }
 
-.gsc-control-cse {
-    border-color: #902424;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url('callCenter.jpg') no-repeat center center fixed;
+    background-size: cover; 
+    background-position: center;
+    color: rgb(255, 255, 255);
 }
 
-input.gsc-input {
-    border-radius: 4px;
-    padding: 5px;
-    border: 1px solid #902424;
-    transition: box-shadow 0.3s;
+/* Container Styles */
+h1 {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-input.gsc-input:focus {
-    box-shadow: 0 0 8px rgba(144, 36, 36, 0.4);
+.gcse-search-container {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.buttonContainer, .callerNotepad, .partNotepad, .scratchPad {
+    background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.callerNotepad, .partNotepad {
+    flex: 1 1 45%; 
+    margin: 20px;
+    max-width: 500px;
+}
+
+.scratchPad {
+    flex: 1 1 90%; 
+    margin: 20px;
+    max-width: 800px; 
 }
 
 /* Button Styles */
@@ -108,20 +79,20 @@ button:hover {
 }
 
 /* Button Positioning */
-.authNoteButton, .statusNoteButton, .laborNoteButton, .laborNegButton, .launchButton, .paymentInfoButton, .PNLCnote, .inspectionButton, .otherDiag, .inspectionNote, .ptTransferButton {
+.laborNegScript, .laborNegNote, .authNote, .oopBreakdown, .PNLCnote, .statusNote, .setInspectionNote, .inspectionReview, .paymentInfoButton, .ptTransferButton, .launchButton {
     position: absolute;
 }
 
-.authNoteButton { top: 30px; left: 30px; }
-.statusNoteButton { top: 70px; left: 30px; }
-.inspectionNote { top: 110px; left: 30px; }
-.laborNoteButton { top: 150px; left: 30px; }
+.laborNegScript { top: 30px; left: 30px; }
+.laborNegNote { top: 70px; left: 30px; }
+.authNote { top: 110px; left: 30px; }
+.oopBreakdown { top: 150px; left: 30px; }
 .PNLCnote { top: 30px; left: 225px; }
-.paymentInfoButton { top: 70px; left: 225px;}
-.otherDiag { top: 110px; left: 225px; }
-.inspectionButton { top: 150px; left: 225px;}
-.laborNegButton { top: 90px; right: 300px; }
-.ptTransferButton { top: 50px; right: 300px;}
+.statusNote { top: 70px; left: 225px;}
+.setInspectionNote { top: 110px; left: 225px; }
+.inspectionReview { top: 150px; left: 225px;}
+.paymentInfoButton { top: 70px; right: 300px; }
+.ptTransferButton { top: 110px; right: 300px;}
 .launchButton { top: 90px; right: 75px; }
 
 /* Notepad Styles */
