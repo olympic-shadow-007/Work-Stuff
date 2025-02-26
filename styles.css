@@ -64,6 +64,8 @@ h1 {
 
 /* Button Styles */
 button {
+    height: auto;
+    width: auto;
     padding: 10px 15px;
     background-color: #902424;
     color: white;
@@ -81,6 +83,8 @@ button:hover {
 /* Button Positioning */
 .laborNegScript, .laborNegNote, .authNote, .oopBreakdown, .PNLCnote, .statusNote, .setInspectionNote, .inspectionReview, .paymentInfoButton, .ptTransferButton, .launchButton {
     position: absolute;
+    height: auto;
+    width: 175px;
 }
 
 .laborNegScript { top: 30px; left: 30px; }
