@@ -1,142 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Adjuster Assistant</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script async src="https://cse.google.com/cse.js?cx=e1b24be6428e64fdd"></script>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="buttonContainer">
+      <h1>Adjuster Assistant</h1>
 
-    <div class="container">
-        <h1>Adjuster Assistant</h1>
-        
-        <div class="gcse-search-container">
-            <div class="gcse-search" style="width: 100%;"></div>
-        </div>
+      <div class="gcse-search-container">
+        <div class="gcse-search" style="width: 100%"></div>
+      </div>
 
-        <div class="callerNotepad">
-            <label for="callerName">Caller's Name:</label>
-            <input type="text" id="callerName" placeholder="Enter the caller's name" />
+      <button class="laborNegScript" id="laborNegScript">Labor Negotiation Script</button>
 
-            <label for="shop">Shop:</label>
-            <input type="text" id="shop" placeholder="Enter the name of shop" />
+      <button class="laborNegNote" id="laborNegNote">Labor Negotiation Note</button>
 
-            <label for="zipCode">ZIP Code:</label>
-            <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
+      <button class="authNote" id="authNote">Authorization Note</button>
 
-            <label for="laborRate">Current Labor Rate:</label>
-            <input type="text" id="laborRate" placeholder="Enter the current labor rate" />
+      <button class="oopBreakdown" id="oopBreakdown">OOP Breakdown Note</button>
 
-            <label for="negRate">Negotiated Labor Rate:</label>
-            <input type="text" id="negRate" placeholder="Enter the negotiated labor rate">
+      <button class="PNLCnote" id="PNLCnote">PNLC Note</button>
 
-            <label for="avgLaborRate">Average Labor Rate:</label>
-            <input type="text" id="avgLaborRate" placeholder="Enter the average labor rate">
+      <button class="statusNote" id="statusNote">Status Note</button>
 
-            <label for="distance">Distance Used:</label>
-            <input type="text" id="distance" placeholder="Enter the distance used">
+      <button class="setInspectionNote" id="setInspectionNote">Set Inspection Note</button>
 
-            <label for="numberOfReports">Number of Reports:</label>
-            <input type="text" id="numberOfReports" placeholder="Enter the number of reports">
+      <button class="inspectionReview" id="inspectionReview">Inspection Review Note</button>
 
-            <label for="comments">Comments:</label>
-            <textarea id="acomments" placeholder="Enter any additional comments"></textarea>
+      <button class="paymentInfoButton" id="paymentInfoButton">Payments Info</button>
 
-            <button onclick="clearInputcaller()">Clear Input</button>
-        </div>
+      <button class="launchButton" id="launchButton">LAUNCH!!!</button>
 
-        <div class="partNotepad">
-            <label for="contractType">Contract Type:</label>
-            <input type="text" id="contractType" placeholder="Enter the contract type">
-
-            <label for="seq">Contract Sequence:</label>
-            <input type="text" id="seq" placeholder="Enter the contract sequence">
-
-            <label for="partOOP">Part OOP:</label>
-            <input type="text" id="partOOP" placeholder="Enter the OOP for parts">
-
-            <label for="laborOOP">Labor OOP:</label>
-            <input type="text" id="laborOOP" placeholder="Enter the OOP for labor">
-            
-            <label for="comments">Comments/Remaining LOL:</label>
-            <textarea id="bcomments" placeholder="Enter any additional comments"></textarea>
-
-            <button onclick="clearInputPart()">Clear Input</button>
-            
-            <label>Payments Email:</label>
-            <span>payments@americanautoshield.com</span>
-
-            <label>Payments Fax No:</label>
-            <span>303-456-1039</span>
-
-            <label>Payments Address:</label>
-            <span>14033 Denver West Parkway</span><br>
-            <span>Suite 200</span><br>
-            <span>Lakewood, CO 80401</span>
-
-            <label>AAS Claims Dept:</label>
-            <span>1-800-531-1925</span>
-        </div>
-
+      <button class="ptTransferButton" id="ptTransferButton">PT Transfer Script</button>
     </div>
 
-    <div class="buttonContainer">
-        <div class="authNoteButton">
-            <button id="authButton">Auth Note</button>
-        </div>
+    <div class="callerNotepad">
+      <label for="callerName">Caller's Name:</label>
+      <input type="text" id="callerName" placeholder="Enter the caller's name"/>
 
-        <div class="statusNoteButton">
-            <button id="statusButton">Status Note</button>
-        </div>
-        
-        <div class="inspectionNote">
-            <button id="inspectionNote">Inspection Note</button>
-        </div>
+      <label for="shop">Shop:</label>
+      <input type="text" id="shop" placeholder="Enter the name of shop" />
 
-        <div class="laborNoteButton">
-            <button id="laborButton">Labor Negotiation Note</button>
-        </div>
+      <label for="zipCode">ZIP Code:</label>
+      <input type="text" id="zipCode" placeholder="Enter the ZIP code" />
 
-        <div class="paymentInfoButton">
-            <button id="paymentInfoButton">Payments Info</button>
-        </div>
+      <label for="laborRate">Current Labor Rate:</label>
+      <input type="text" id="laborRate" placeholder="Enter the current labor rate"/>
 
-        <div class="otherDiag">
-            <button id="otherDiag">Other Diag References</button>
-        </div>
+      <label for="negRate">Negotiated Labor Rate:</label>
+      <input type="text" id="negRate" placeholder="Enter the negotiated labor rate"/>
 
-        <div class="PNLCnote">
-            <button id="PNLCnote">PNLC Note</button>
-        </div>
+      <label for="avgLaborRate">Average Labor Rate:</label>
+      <input type="text" id="avgLaborRate" placeholder="Enter the average labor rate"/>
 
-        <div class="inspectionButton">
-            <button id="inspectionButton">Inspection Review Note</button>
-        </div>
-        
-        <div class="laborNegButton">
-            <button id="laborNegButton">Labor Rate Negotiation Script</button>
-        </div>
+      <label for="distance">Distance Used:</label>
+      <input type="text" id="distance" placeholder="Enter the distance used" />
 
-        <div class="launchButton">
-            <button id="launchButton">LAUNCH!!!</button>
-        </div>
+      <label for="numberOfReports">Number of Reports:</label>
+      <input type="text" id="numberOfReports" placeholder="Enter the number of reports"/>
 
-        <div class="ptTransferButton">
-            <button id="ptTransferButton">PT Transfer Script</button>
-        </div>
+      <label for="comments">Comments:</label>
+      <textarea id="acomments" placeholder="Enter any additional comments"></textarea>
 
+      <button onclick="clearInputcaller()">Clear Input</button>
+    </div>
+
+    <div class="partNotepad">
+      <label for="contractType">Contract Type:</label>
+      <input type="text" id="contractType" placeholder="Enter the contract type"/>
+
+      <label for="seq">Contract Sequence:</label>
+      <input type="text" id="seq" placeholder="Enter the contract sequence" />
+
+      <label for="partOOP">Part OOP:</label>
+      <input type="text" id="partOOP" placeholder="Enter the OOP for parts" />
+
+      <label for="laborOOP">Labor OOP:</label>
+      <input type="text" id="laborOOP" placeholder="Enter the OOP for labor" />
+
+      <label for="comments">Comments/Remaining LOL:</label>
+      <textarea id="bcomments" placeholder="Enter any additional comments"></textarea>
+
+      <button onclick="clearInputPart()">Clear Input</button>
+
+      <label>Payments Email:</label>
+      <span>payments@americanautoshield.com</span>
+
+      <label>Payments Fax No:</label>
+      <span>303-456-1039</span>
+
+      <label>Payments Address:</label>
+      <span>14033 Denver West Parkway</span><br />
+      <span>Suite 200</span><br />
+      <span>Lakewood, CO 80401</span>
+
+      <label>AAS Claims Dept:</label>
+      <span>1-800-531-1925</span>
     </div>
 
     <div class="scratchPad">
-        <label for="bottomComments">Scratch Pad</label>
-        <textarea id="bottomComments"></textarea>
-    
-        <button onclick="clearInputScratch()">Clear Input</button>
-    </div>
-    
-    <script src="script.js"></script>
+      <label for="bottomComments">Scratch Pad</label>
+      <textarea id="bottomComments"></textarea>
 
-</body>
+      <button onclick="clearInputScratch()">Clear Input</button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
 </html>
