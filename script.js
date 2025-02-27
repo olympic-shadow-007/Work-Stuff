@@ -197,23 +197,23 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
             <h1>Labor Negotiation Note</h1>
             <div>
                 Current labor rate:<br>
-                <input type="text" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
+                <input type="number" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
             </div>
             <div>
                 Avg labor rate:<br>
-                <input type="text" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
+                <input type="number" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
             </div>
             <div>
                 Flexible on rate:<br>
-                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
+                <input type="number" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
             </div>
             <div>
                 Distance used:<br>
-                <input type="text" id="distanceUsed" placeholder="Enter distance used">
+                <input type="number" id="distanceUsed" placeholder="Enter distance used">
             </div>
             <div>
                 How many reports:<br>
-                <input type="text" id="reportsCount" placeholder="Enter number of reports">
+                <input type="number" id="reportsCount" placeholder="Enter number of reports">
             </div>
             <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
@@ -442,7 +442,7 @@ document.getElementById("authNote").addEventListener("click", function() {
 // Function to create a popup window with the OOP breakdown note
 document.getElementById("oopBreakdown").addEventListener("click", function() {
     const width = 350;
-    const height = 475; 
+    const height = 420; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -497,19 +497,15 @@ document.getElementById("oopBreakdown").addEventListener("click", function() {
             <h1>OOP Breakdown Note</h1>
             <div>
                 Parts OOP:<br>
-                <input type="text" id="partOOP" placeholder="Enter the parts OOP (e.g., $50)">
+                <input type="number" id="partOOP" placeholder="Enter the parts OOP (e.g., $50)">
             </div>
             <div>
                 Labor OOP:<br>
-                <input type="text" id="laborOOP" placeholder="Enter the labor OOP (e.g., $45)">
+                <input type="number" id="laborOOP" placeholder="Enter the labor OOP (e.g., $45)">
             </div>
             <div>
                 Deductible:<br>
-                <input type="text" id="ded" placeholder="Enter CH deductible">
-            </div>
-            <div>
-                Total OOP:<br>
-                <input type="text" id="totalOOP" placeholder="What is the total OOP (including ded)?">
+                <input type="number" id="ded" placeholder="Enter CH deductible">
             </div>
             <div>
             <button id="copyButton">Copy to Clipboard</button>
@@ -521,7 +517,7 @@ document.getElementById("oopBreakdown").addEventListener("click", function() {
                     const partOOP = document.getElementById('partOOP').value;
                     const laborOOP = document.getElementById('laborOOP').value;
                     const ded = document.getElementById('ded').value;
-                    const totalOOP = document.getElementById('totalOOP').value;
+                    const totalOOP = (Number(partOOP) + Number(laborOOP) + Number(ded));
 
                     const allInfo = 
                         "OBC to CH to get OOP approval. No answer, left VM. Tasked to customer service to follow up." + "\\n \\n" +
