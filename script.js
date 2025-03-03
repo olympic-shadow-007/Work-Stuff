@@ -205,7 +205,7 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
             </div>
             <div>
                 Flexible on rate:<br>
-                <input type="number" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
+                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
             </div>
             <div>
                 Distance used:<br>
