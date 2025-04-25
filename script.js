@@ -1,148 +1,7 @@
-// Function to launch labor rate negotiation script
-document.getElementById("laborNegScript").addEventListener("click", function() {
-    const width = 400;
-    const height = 300;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-
-    let newWindow = window.open("", "Negotiation Script", `width=${width},height=${height},top=${top},left=${left}`);
-
-    // Wait for the new window to fully load before injecting content
-    newWindow.document.write(`
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    margin: 0;
-                    padding: 20px;
-                    box-sizing: border-box;
-                }
-                h1 {
-                    font-size: 20px;
-                    color: #444;
-                    text-align: center;
-                    margin-bottom: 20px;
-                }
-                p {
-                    font-size: 16px;
-                    margin-bottom: 10px;
-                    text-align: center;
-                }
-                input[type="text"], input[type="number"] {
-                    width: calc(100% - 20px);
-                    padding: 8px;
-                    margin-bottom: 15px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
-                    font-size: 14px;
-                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-                }
-                button {
-                    display: block;
-                    width: 100%;
-                    padding: 10px;
-                    background-color: #902424;
-                    color: white;
-                    font-size: 16px;
-                    border: none;
-                    border-radius: 5px;
-                    cursor: pointer;
-                }
-                button:hover {
-                    background-color: #781c1c;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Labor Rate Negotiation</h1>
-            <p>Loading...</p>
-        </body>
-        </html>
-    `);
-
-    newWindow.document.close(); 
-    newWindow.onload = function() {
-        let laborRate, avgLaborRate, newLaborRate;
-
-        function displayQuestion(text, inputType = 'text', callback) {
-            newWindow.document.body.innerHTML = `
-                <h1>Labor Rate Negotiation</h1>
-                <p>${text}</p>
-                <input type="${inputType}" id="response" style="width: 100%; padding: 5px; margin-bottom: 10px;">
-                <button id="nextButton">Next</button>
-            `;
-
-            newWindow.document.getElementById("nextButton").addEventListener("click", function() {
-                const response = newWindow.document.getElementById("response").value.trim();
-                callback(response);
-            });
-        }
-
-        function handleLaborRate() {
-            displayQuestion("What is the current posted labor rate at your Repair Facility?", "number", function(response) {
-                laborRate = parseFloat(response);
-                handleAvgLaborRate();
-            });
-        }
-
-        function handleAvgLaborRate() {
-            displayQuestion("What is the average labor rate in the area?", "number", function(response) {
-                avgLaborRate = parseFloat(response);
-                compareRates();
-            });
-        }
-
-        function compareRates() {
-            if (laborRate <= avgLaborRate) {
-                displayQuestion("Thanks for that, so most shops have been working with us by coming down on the hourly rate to help customers. Is there any flexibility for a lower hourly rate for this customer? (Y/N)", "text", function(response) {
-                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                        newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
-                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                        handleNewLaborRate();
-                    }
-                });
-            } else {
-                displayQuestion(`The average labor rate in your area is $${avgLaborRate}, are you able to match this? (Y/N)`, "text", function(response) {
-                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                        const difference = (laborRate + avgLaborRate)/2;
-                        displayQuestion(`Are you able to match us at $${difference}? (Y/N)`, "text", function(response) {
-                            if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
-                                newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
-                            } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                                newLaborRate = difference;
-                                newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
-                            }
-                        });
-                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
-                        newLaborRate = avgLaborRate;
-                        newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
-                    }
-                });
-            }
-        }      
-
-        function handleNewLaborRate() {
-            displayQuestion("What is the new labor rate you would like to set?", "number", function(response) {
-                newLaborRate = parseFloat(response);
-                if (newLaborRate < laborRate) {
-                    newWindow.document.body.innerHTML = `<p>Thanks! Your new labor rate is now set to $${newLaborRate}.</p>`;
-                } else {
-                    newWindow.document.body.innerHTML = `<p>The new labor rate has been updated to $${newLaborRate}. Thank you!</p>`;
-                }
-            });
-        }
-
-        handleLaborRate();
-    };
-});
-
 // Function to create a popup window with the labor rate negotiation note
 document.getElementById("laborNegNote").addEventListener("click", function() {
     const width = 350;
-    const height = 550; 
+    const height = 400; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -196,24 +55,16 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
         <body>
             <h1>Labor Negotiation Note</h1>
             <div>
-                Current labor rate:<br>
-                <input type="number" id="laborRate" placeholder="Enter current labor rate (e.g., $50)">
+                RF Contact:<br>
+                <input type="text" id="contact" placeholder="Who are you talking to?">
             </div>
             <div>
-                Avg labor rate:<br>
-                <input type="number" id="avgLaborRate" placeholder="Enter average labor rate (e.g., $45)">
+                Posted Labor Rate:<br>
+                <input type="number" id="posted" placeholder="Enter posted labor rate (e.g., $45)">
             </div>
             <div>
-                Flexible on rate:<br>
-                <input type="text" id="flexibleRate" placeholder="(Y/N) - Enter negotiated rate">
-            </div>
-            <div>
-                Distance used:<br>
-                <input type="number" id="distanceUsed" placeholder="Enter distance used">
-            </div>
-            <div>
-                How many reports:<br>
-                <input type="number" id="reportsCount" placeholder="Enter number of reports">
+                Negotiated Rate:<br>
+                <input type="text" id="negRate" placeholder="Enter negotiated rate (e.g., $45)">
             </div>
             <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
@@ -221,18 +72,15 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
             <script>
                 // Function to copy inputs to the clipboard
                 document.getElementById('copyButton').addEventListener('click', function() {
-                    const laborRate = document.getElementById('laborRate').value;
-                    const avgLaborRate = document.getElementById('avgLaborRate').value;
-                    const flexibleRate = document.getElementById('flexibleRate').value;
-                    const distanceUsed = document.getElementById('distanceUsed').value;
-                    const reportsCount = document.getElementById('reportsCount').value;
+                    const contact = document.getElementById('contact').value;
+                    const posted = document.getElementById('posted').value;
+                    const negRate = document.getElementById('negRate').value;
 
                     const allInfo = 
-                        "Current labor rate: " + laborRate + "\\n" +
-                        "Avg labor rate: " + avgLaborRate + "\\n" +
-                        "Flexible on rate: " + flexibleRate + "\\n" +
-                        "Distance used: " + distanceUsed + "\\n" +
-                        "How many reports: " + reportsCount;
+                        "***Labor Negotiation Note***" + "\\n" +
+                        "RF Contact: " + contact + "\\n" +
+                        "Posted Labor Rate: $" + posted + "\\n" +
+                        "Negotiated Rate: $" + negRate + "\\n";
 
                     // Use the navigator.clipboard API to copy the text
                     navigator.clipboard.writeText(allInfo)
@@ -242,6 +90,197 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
                         .catch(err => {
                             console.error('Could not copy text: ', err);
                             alert('Failed to copy text.');
+                        });
+                });
+            </script>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close();
+});
+
+// Function to create a popup window with the CARFAX Review note
+document.getElementById("carfaxReview").addEventListener("click", function() {
+    const width = 400;
+    const height = 620; 
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "CARFAX Review", `width=${width},height=${height},top=${top},left=${left}`);
+
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 18px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                div {
+                    margin-bottom: 15px;
+                }
+                label {
+                    font-weight: bold;
+                    display: block;
+                    margin-bottom: 5px;
+                }
+                .radio-group input {
+                    margin-right: 5px;
+                }
+                input[type="text"] {
+                    width: 100%;
+                    padding: 8px;
+                    border: 1px solid #ccc;
+                    border-radius: 4px;
+                }
+                button {
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    margin-top: 20px;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>CARFAX Review</h1>
+            <div>
+                <label>Are there reports of branded/salvage title?</label>
+                <div class="radio-group">
+                    <input type="radio" name="branded" value="yes"> Yes
+                    <input type="radio" name="branded" value="no"> No
+                </div>
+            </div>
+            <div>
+                <label>Are there any accidents reported?</label>
+                <div class="radio-group">
+                    <input type="radio" name="accidents" value="yes"> Yes
+                    <input type="radio" name="accidents" value="no"> No
+                </div>
+            </div>
+            <div>
+                <label>Does the CH keep up with maintenance?</label>
+                <div class="radio-group">
+                    <input type="radio" name="maintenance" value="yes"> Yes
+                    <input type="radio" name="maintenance" value="no"> No
+                </div>
+            </div>
+            <div>
+                <label>How many owners?</label>
+                <input type="text" id="owners">
+            </div>
+            <div>
+                <label>When did CH purchase the vehicle?</label>
+                <input type="text" id="purchaseVehicle">
+            </div>
+            <div>
+                <label>When did the CH purchase the contract?</label>
+                <input type="text" id="purchaseContract">
+            </div>
+            <div>
+                <label>Are there any SRs around when the contract was purchased?</label>
+                <div class="radio-group">
+                    <input type="radio" name="srs" value="yes"> Yes
+                    <input type="radio" name="srs" value="no"> No
+                </div>
+            </div>
+            <div>
+                <label>Are there any red flags?</label>
+                <div class="radio-group">
+                    <input type="radio" name="redflags" value="yes"> Yes
+                    <input type="radio" name="redflags" value="no"> No
+                </div>
+            </div>
+
+            <button id="copyButton">Copy to Clipboard</button>
+            <button onclick="window.close()">Close</button>
+
+            <script>
+                document.getElementById('copyButton').addEventListener('click', function() {
+                    function getRadioValue(name) {
+                        const radios = document.getElementsByName(name);
+                        for (let i = 0; i < radios.length; i++) {
+                            if (radios[i].checked) {
+                                return radios[i].value;
+                            }
+                        }
+                        return null;
+                    }
+
+                    const owners = document.getElementById("owners").value.trim();
+                    const purchaseVehicle = document.getElementById("purchaseVehicle").value.trim();
+                    const purchaseContract = document.getElementById("purchaseContract").value.trim();
+
+                    let note = "";
+
+                    const branded = getRadioValue("branded");
+                    if (branded === "yes") {
+                        note += "There are reports of a branded/salvage title. I sent the claim to client relations for review. ";
+                    } else if (branded === "no") {
+                        note += "There are no reports of branded/salvage title. ";
+                    }
+
+                    const accidents = getRadioValue("accidents");
+                    if (accidents === "yes") {
+                        note += "There are accidents reported. ";
+                    } else if (accidents === "no") {
+                        note += "There are no accidents reported. ";
+                    }
+
+                    const maintenance = getRadioValue("maintenance");
+                    if (maintenance === "yes") {
+                        note += "The CH keeps up with maintenance, according to CARFAX. ";
+                    } else if (maintenance === "no") {
+                        note += "There are few to no SRs reported on CARFAX. ";
+                    }
+
+
+                    if (owners || purchaseVehicle || purchaseContract) {
+                        note += \`There are \${owners} reported owners. The CH purchased the vehicle in \${purchaseVehicle}. The CH purchased the contract on \${purchaseContract}. \`;
+                    }
+
+                    const srsAnswer = getRadioValue("srs");
+                    if (srsAnswer === "yes") {
+                        note += "There are SRs around the time of the contract purchase, and I will be reaching out to the CH to get those to verify this is not pre-existing. ";
+                    } else if (srsAnswer === "no") {
+                        note += "There were no SRs around when the contract was purchased. ";
+                    }
+
+                    if (getRadioValue("redflags") === "no") {
+                        note += "There are no signs of red flags.";
+                    }
+
+                    const finalNote = note.trim();
+
+                    if (finalNote === "") {
+                        alert("Please fill out at least one field.");
+                        return;
+                    }
+
+                    navigator.clipboard.writeText(finalNote)
+                        .then(() => {
+                            alert("CARFAX Review note copied to clipboard!");
+                        })
+                        .catch(err => {
+                            console.error("Copy failed: ", err);
+                            alert("Failed to copy to clipboard.");
                         });
                 });
             </script>
@@ -345,10 +384,6 @@ document.getElementById("authNote").addEventListener("click", function() {
                 <input type="text" id="relatedTSB" placeholder="Are there any TSBs? For what?">
             </div>
             <div>
-                Are there any OOP Costs: <br>
-                <input type="text" id="oopCosts" placeholder="Are there any OOP?">
-            </div>
-            <div>
                 List the part difference: <br>
                 <input type="text" id="partsDifference" placeholder="How much is the part OOP?">
             </div>
@@ -357,12 +392,8 @@ document.getElementById("authNote").addEventListener("click", function() {
                 <input type="text" id="laborDifference" placeholder="What is the labor OOP?">
             </div>
             <div>
-                Did we attempt to contact the CH about OOP cost: <br>
-                <input type="text" id="oopAttempt" placeholder="Did we attempt to contact the CH about OOP cost?">
-            </div>
-            <div>
-                If unsuccessful, has note and task been set: <br>
-                <input type="text" id="taskSet" placeholder="If unsuccessful, has note and task been set?">
+                Has OOP task been set: <br>
+                <input type="text" id="taskSet" placeholder="Has note and task been set?">
             </div>
             <div>
                 Who was auth number given to: <br>
@@ -391,10 +422,8 @@ document.getElementById("authNote").addEventListener("click", function() {
                     const historyReview = document.getElementById('historyReview').value;
                     const serviceReview = document.getElementById('serviceReview').value;
                     const relatedTSB = document.getElementById('relatedTSB').value;
-                    const oopCosts = document.getElementById('oopCosts').value;
                     const partsDifference = document.getElementById('partsDifference').value;
                     const laborDifference = document.getElementById('laborDifference').value;
-                    const oopAttempt = document.getElementById('oopAttempt').value;
                     const taskSet = document.getElementById('taskSet').value;
                     const saName = document.getElementById('saName').value;
                     const paymentMethod = document.getElementById('paymentMethod').value;
@@ -411,12 +440,10 @@ document.getElementById("authNote").addEventListener("click", function() {
                         "Has the claim history been reviewed? " + historyReview + "\\n" +
                         "Is SR needed or been reviewed? " + serviceReview + "\\n" +
                         "Any related TSB's? " + relatedTSB + "\\n \\n" +
-                        "" + oopCosts + " there are OOP costs\\n" +
-                        "The difference is: " + "\\n" +
+                        "OOP Costs: \\n" +
                         "Parts - $" + partsDifference + "\\n" +
                         "Labor - $" + laborDifference + "\\n \\n" +
-                        "Did we attempt to contact the CH about OOP cost? " + oopAttempt + "\\n" +
-                        "If unsuccessful, has note and task been set? " + taskSet + "\\n \\n" +
+                        "Has the OOP note and task been set? " + taskSet + "\\n \\n" +
                         "Auth number was given to " + saName + "\\n" +
                         "Their payment method is " + paymentMethod + "\\n \\n" +
                         "Remaining LOL after this claim: $" + LOL;
@@ -439,16 +466,15 @@ document.getElementById("authNote").addEventListener("click", function() {
     newWindow.document.close();
 });
 
-// Function to create a popup window with the OOP breakdown note
-document.getElementById("oopBreakdown").addEventListener("click", function() {
+// Function to create a popup window with the quick auth note
+document.getElementById("quickAuth").addEventListener("click", function() {
     const width = 350;
     const height = 420; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
-    let newWindow = window.open("", "OOP Breakdown Note", `width=${width},height=${height},top=${top},left=${left}`);
+    let newWindow = window.open("", "Quick Auth Note", `width=${width},height=${height},top=${top},left=${left}`);
 
-    // Inject content into the new window
     newWindow.document.write(`
         <html>
         <head>
@@ -467,14 +493,16 @@ document.getElementById("oopBreakdown").addEventListener("click", function() {
                     margin-bottom: 20px;
                 }
                 div {
-                    margin-bottom: 10px;
+                    margin-bottom: 15px;
                 }
-                input {
-                    width: 100%;
-                    padding: 10px;
+                label {
+                    font-weight: bold;
+                }
+                .radio-group {
                     margin-top: 5px;
-                    border: 1px solid #ccc;
-                    border-radius: 5px;
+                }
+                .radio-group input {
+                    margin-right: 5px;
                 }
                 button {
                     display: block;
@@ -494,46 +522,78 @@ document.getElementById("oopBreakdown").addEventListener("click", function() {
             </style>
         </head>
         <body>
-            <h1>OOP Breakdown Note</h1>
+            <h1>Quick Auth Note</h1>
             <div>
-                Parts OOP:<br>
-                <input type="number" id="partOOP" placeholder="Enter the parts OOP (e.g., $50)">
+                <label>Was the call transferred?</label>
+                <div class="radio-group">
+                    <input type="radio" name="transferred" value="yes"> Yes
+                    <input type="radio" name="transferred" value="no"> No
+                </div>
             </div>
             <div>
-                Labor OOP:<br>
-                <input type="number" id="laborOOP" placeholder="Enter the labor OOP (e.g., $45)">
+                <label>Do we need to order parts?</label>
+                <div class="radio-group">
+                    <input type="radio" name="parts" value="yes"> Yes
+                    <input type="radio" name="parts" value="no"> No
+                </div>
             </div>
             <div>
-                Deductible:<br>
-                <input type="number" id="ded" placeholder="Enter CH deductible">
+                <label>Did you provide auth number and payment info?</label>
+                <div class="radio-group">
+                    <input type="radio" name="auth" value="yes"> Yes
+                    <input type="radio" name="auth" value="no"> No
+                </div>
             </div>
             <div>
+                <label>Did you verify RF payment info?</label>
+                <div class="radio-group">
+                    <input type="radio" name="rf" value="yes"> Yes
+                    <input type="radio" name="rf" value="no"> No
+                </div>
+            </div>
+
             <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
 
             <script>
-                // Function to copy inputs to the clipboard
                 document.getElementById('copyButton').addEventListener('click', function() {
-                    const partOOP = document.getElementById('partOOP').value;
-                    const laborOOP = document.getElementById('laborOOP').value;
-                    const ded = document.getElementById('ded').value;
-                    const totalOOP = (Number(partOOP) + Number(laborOOP) + Number(ded));
+                    function getRadioValue(name) {
+                        const radios = document.getElementsByName(name);
+                        for (let i = 0; i < radios.length; i++) {
+                            if (radios[i].checked) {
+                                return radios[i].value;
+                            }
+                        }
+                        return null;
+                    }
 
-                    const allInfo = 
-                        "OBC to CH to get OOP approval. No answer, left VM. Tasked to customer service to follow up." + "\\n \\n" +
-                        "Parts OOP: $" + partOOP + "\\n" +
-                        "Labor OOP: $" + laborOOP + "\\n" +
-                        "Deductible: $" + ded + "\\n" +
-                        "Total OOP: $" + totalOOP;
+                    let note = "";
 
-                    // Use the navigator.clipboard API to copy the text
-                    navigator.clipboard.writeText(allInfo)
-                        .then(() => {
-                            alert('Information copied to clipboard!');
+                    if (getRadioValue("transferred") === "yes") {
+                        note += "I was transferred a call from customer service. ";
+                    }
+                    if (getRadioValue("parts") === "yes") {
+                        note += "I ordered parts and provided the SA with the ETA. ";
+                    }
+                    if (getRadioValue("auth") === "yes") {
+                        note += "I provided the SA with the auth number and payment info (payments@americanautoshield.com). ";
+                    }
+                    if (getRadioValue("rf") === "yes") {
+                        note += "I verified that the payment info on the RF profile is correct.";
+                    }
+
+                    if (note.trim() === "") {
+                        alert("Please answer at least one question.");
+                        return;
+                    }
+
+                    navigator.clipboard.writeText(note.trim())
+                        .then(function() {
+                            alert('Quick Auth Note copied to clipboard!');
                         })
-                        .catch(err => {
-                            console.error('Could not copy text: ', err);
-                            alert('Failed to copy text.');
+                        .catch(function(err) {
+                            console.error('Failed to copy: ', err);
+                            alert('Clipboard copy failed.');
                         });
                 });
             </script>
@@ -1064,6 +1124,147 @@ document.getElementById("inspectionReview").addEventListener("click", function()
     newWindow.document.close();
 });
 
+// Function to launch labor rate negotiation script
+document.getElementById("laborNegScript").addEventListener("click", function() {
+    const width = 400;
+    const height = 300;
+    const left = (window.innerWidth / 2) - (width / 2);
+    const top = (window.innerHeight / 2) - (height / 2);
+
+    let newWindow = window.open("", "Negotiation Script", `width=${width},height=${height},top=${top},left=${left}`);
+
+    // Wait for the new window to fully load before injecting content
+    newWindow.document.write(`
+        <html>
+        <head>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f4f4f4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                h1 {
+                    font-size: 20px;
+                    color: #444;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+                p {
+                    font-size: 16px;
+                    margin-bottom: 10px;
+                    text-align: center;
+                }
+                input[type="text"], input[type="number"] {
+                    width: calc(100% - 20px);
+                    padding: 8px;
+                    margin-bottom: 15px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                }
+                button {
+                    display: block;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: #902424;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                button:hover {
+                    background-color: #781c1c;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>Labor Rate Negotiation</h1>
+            <p>Loading...</p>
+        </body>
+        </html>
+    `);
+
+    newWindow.document.close(); 
+    newWindow.onload = function() {
+        let laborRate, avgLaborRate, newLaborRate;
+
+        function displayQuestion(text, inputType = 'text', callback) {
+            newWindow.document.body.innerHTML = `
+                <h1>Labor Rate Negotiation</h1>
+                <p>${text}</p>
+                <input type="${inputType}" id="response" style="width: 100%; padding: 5px; margin-bottom: 10px;">
+                <button id="nextButton">Next</button>
+            `;
+
+            newWindow.document.getElementById("nextButton").addEventListener("click", function() {
+                const response = newWindow.document.getElementById("response").value.trim();
+                callback(response);
+            });
+        }
+
+        function handleLaborRate() {
+            displayQuestion("What is the current posted labor rate at your Repair Facility?", "number", function(response) {
+                laborRate = parseFloat(response);
+                handleAvgLaborRate();
+            });
+        }
+
+        function handleAvgLaborRate() {
+            displayQuestion("What is the average labor rate in the area?", "number", function(response) {
+                avgLaborRate = parseFloat(response);
+                compareRates();
+            });
+        }
+
+        function compareRates() {
+            if (laborRate <= avgLaborRate) {
+                displayQuestion("Thanks for that, so most shops have been working with us by coming down on the hourly rate to help customers. Is there any flexibility for a lower hourly rate for this customer? (Y/N)", "text", function(response) {
+                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                        newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
+                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                        handleNewLaborRate();
+                    }
+                });
+            } else {
+                displayQuestion(`The average labor rate in your area is $${avgLaborRate}, are you able to match this? (Y/N)`, "text", function(response) {
+                    if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                        const difference = (laborRate + avgLaborRate)/2;
+                        displayQuestion(`Are you able to match us at $${difference}? (Y/N)`, "text", function(response) {
+                            if (['N', 'n', 'No', 'NO', 'no'].includes(response)) {
+                                newWindow.document.body.innerHTML = `<p>No problem, thanks for considering it. I will update your repair facility profile to $${laborRate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.</p>`;
+                            } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                                newLaborRate = difference;
+                                newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
+                            }
+                        });
+                    } else if (['Y', 'y', 'Yes', 'YES', 'yES', 'yEs', 'YeS', 'yes', 'YeS', 'yEs'].includes(response)) {
+                        newLaborRate = avgLaborRate;
+                        newWindow.document.body.innerHTML = `<p>Thank you. I have updated your repair facility profile and set the labor rate to $${newLaborRate}.</p>`;
+                    }
+                });
+            }
+        }      
+
+        function handleNewLaborRate() {
+            displayQuestion("What is the new labor rate you would like to set?", "number", function(response) {
+                newLaborRate = parseFloat(response);
+                if (newLaborRate < laborRate) {
+                    newWindow.document.body.innerHTML = `<p>Thanks! Your new labor rate is now set to $${newLaborRate}.</p>`;
+                } else {
+                    newWindow.document.body.innerHTML = `<p>The new labor rate has been updated to $${newLaborRate}. Thank you!</p>`;
+                }
+            });
+        }
+
+        handleLaborRate();
+    };
+});
+
 // Function to create a popup window with the payment info
 document.getElementById("paymentInfoButton").addEventListener("click", function() {
     const width = 450;
@@ -1204,10 +1405,9 @@ document.getElementById("ptTransferButton").addEventListener("click", function()
 document.getElementById('launchButton').addEventListener('click', function() {
     // Array of URLs you want to open
     let urls = [
-        'https://lemonsquad.com/login',
         'https://www.faxvin.com/vin-decoder',
-        'https://plq.fortedata.com/',
         'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1&viewRedirect=TermsAndConditionsView&partNumber=',
+        'https://plq.fortedata.com/',
         'https://www.prodemand.com/#|||||||||||||||||/Home'
     ];
 
