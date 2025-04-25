@@ -64,7 +64,7 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
             </div>
             <div>
                 Negotiated Rate:<br>
-                <input type="text" id="negRate" placeholder="Enter negotiated rate (e.g., $45)">
+                <input type="number" id="negRate" placeholder="Enter negotiated rate (e.g., $45)">
             </div>
             <button id="copyButton">Copy to Clipboard</button>
             <button onclick="window.close()">Close</button>
@@ -77,7 +77,7 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
                     const negRate = document.getElementById('negRate').value;
 
                     const allInfo = 
-                        "***Labor Negotiation Note***" + "\\n" +
+                        "***Labor Negotiation Note***" + "\\n \\n" +
                         "RF Contact: " + contact + "\\n" +
                         "Posted Labor Rate: $" + posted + "\\n" +
                         "Negotiated Rate: $" + negRate + "\\n";
@@ -246,7 +246,7 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
 
                     const maintenance = getRadioValue("maintenance");
                     if (maintenance === "yes") {
-                        note += "The CH keeps up with maintenance, according to CARFAX. ";
+                        note += "According to CARFAX, the CH keeps up with maintenance. ";
                     } else if (maintenance === "no") {
                         note += "There are few to no SRs reported on CARFAX. ";
                     }
