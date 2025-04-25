@@ -292,9 +292,9 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
 });
 
 // Function to create a popup window with the auth note
-document.getElementById("authNote").addEventListener("click", function() {
-    const width = 450;
-    const height = 850; 
+document.getElementById("authNote").addEventListener("click", function () {
+    const width = 400;
+    const height = 850;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -321,7 +321,7 @@ document.getElementById("authNote").addEventListener("click", function() {
                 div {
                     margin-bottom: 10px;
                 }
-                input {
+                input, select {
                     width: 100%;
                     padding: 10px;
                     margin-top: 5px;
@@ -352,7 +352,7 @@ document.getElementById("authNote").addEventListener("click", function() {
                 <input type="text" id="contractType" placeholder="What is the type of contract?">
             </div>
             <div>
-                How was failure was verified: <br>
+                How was failure verified: <br>
                 <input type="text" id="testPerformed" placeholder="What tests were performed?">
             </div>
             <div>
@@ -365,23 +365,44 @@ document.getElementById("authNote").addEventListener("click", function() {
             </div>
             <div>
                 What part was used and why: <br>
-                <input type="text" id="whosPart" placeholder="Who's part was used and why?">
+                <select id="whosPart">
+                    <option value="">--Select--</option>
+                    <option value="RF Parts">RF Parts</option>
+                    <option value="AAS Parts">AAS Parts</option>
+                </select>
             </div>
             <div>
                 How was labor verified: <br>
-                <input type="text" id="verifyLabor" placeholder="Did you use Prodemand or Forte?">
+                <select id="verifyLabor">
+                    <option value="">--Select--</option>
+                    <option value="ProDemand">ProDemand</option>
+                    <option value="Forte">Forte</option>
+                    <option value="Unable to find labor">Unable to find labor</option>
+                </select>
             </div>
             <div>
                 Has claim history been reviewed: <br>
-                <input type="text" id="historyReview" placeholder="Did you review the claim history?">
+                <select id="historyReview">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
             <div>
-                Is SR needed or been reviewed: <br>
-                <input type="text" id="serviceReview" placeholder="Is there a SR that needs reviewed?">
+                Is SR needed and been reviewed: <br>
+                <select id="serviceReview">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
             <div>
                 Are there are any related TSB's: <br>
-                <input type="text" id="relatedTSB" placeholder="Are there any TSBs? For what?">
+                <select id="relatedTSB">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
             </div>
             <div>
                 List the part difference: <br>
@@ -392,8 +413,13 @@ document.getElementById("authNote").addEventListener("click", function() {
                 <input type="text" id="laborDifference" placeholder="What is the labor OOP?">
             </div>
             <div>
-                Has OOP task been set: <br>
-                <input type="text" id="taskSet" placeholder="Has note and task been set?">
+                Is OOP note created and task set: <br>
+                <select id="taskSet">
+                    <option value="">--Select--</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="NA">NA</option>
+                </select>
             </div>
             <div>
                 Who was auth number given to: <br>
@@ -401,7 +427,12 @@ document.getElementById("authNote").addEventListener("click", function() {
             </div>
             <div>
                 List payment method: <br>
-                <input type="text" id="paymentMethod" placeholder="What is RF payment method?">
+                <select id="paymentMethod">
+                    <option value="">--Select--</option>
+                    <option value="CC by Email">CC by Email</option>
+                    <option value="CC by Fax">CC by Fax</option>
+                    <option value="Check">Check</option>
+                </select>
             </div>
             <div>
                 Remaining LOL after this claim: <br>
@@ -412,7 +443,7 @@ document.getElementById("authNote").addEventListener("click", function() {
 
             <script>
                 // Function to copy inputs to the clipboard
-                document.getElementById('copyButton').addEventListener('click', function() {
+                document.getElementById('copyButton').addEventListener('click', function () {
                     const contractType = document.getElementById('contractType').value;
                     const testPerformed = document.getElementById('testPerformed').value;
                     const coveredParts = document.getElementById('coveredParts').value;
@@ -429,13 +460,13 @@ document.getElementById("authNote").addEventListener("click", function() {
                     const paymentMethod = document.getElementById('paymentMethod').value;
                     const LOL = document.getElementById('LOL').value;
 
-                    const allInfo = 
+                    const allInfo =
                         "Type of contract: " + contractType + "\\n" +
                         "The failure was verified by: " + testPerformed + " (see breakdown for details)\\n" +
                         "The contract covered: " + coveredParts + "\\n" +
                         "List of PNLC items: " + PNLC + "\\n \\n" +
-                        "We are using " + whosPart + "\\n" + 
-                        "It was verified MCE under $250 or OE/OES at the time of call" + "\\n" +
+                        "We are using " + whosPart + "\\n" +
+                        "It was verified MCE under $250 or OE/OES at the time of call\\n" +
                         "Labor was verified using " + verifyLabor + "\\n \\n" +
                         "Has the claim history been reviewed? " + historyReview + "\\n" +
                         "Is SR needed or been reviewed? " + serviceReview + "\\n" +
@@ -448,11 +479,8 @@ document.getElementById("authNote").addEventListener("click", function() {
                         "Their payment method is " + paymentMethod + "\\n \\n" +
                         "Remaining LOL after this claim: $" + LOL;
 
-                    // Use the navigator.clipboard API to copy the text
                     navigator.clipboard.writeText(allInfo)
-                        .then(() => {
-                            alert('Information copied to clipboard!');
-                        })
+                        .then(() => alert('Information copied to clipboard!'))
                         .catch(err => {
                             console.error('Could not copy text: ', err);
                             alert('Failed to copy text.');
