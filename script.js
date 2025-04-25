@@ -228,7 +228,7 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
                     const purchaseVehicle = document.getElementById("purchaseVehicle").value.trim();
                     const purchaseContract = document.getElementById("purchaseContract").value.trim();
 
-                    let note = "";
+                    let note = "*****CARFAX Review***** \\n \\n";
 
                     const branded = getRadioValue("branded");
                     if (branded === "yes") {
