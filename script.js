@@ -103,7 +103,7 @@ document.getElementById("laborNegNote").addEventListener("click", function() {
 // Function to create a popup window with the CARFAX Review note
 document.getElementById("carfaxReview").addEventListener("click", function() {
     const width = 400;
-    const height = 620; 
+    const height = 650; 
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
 
@@ -161,6 +161,13 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
         </head>
         <body>
             <h1>CARFAX Review</h1>
+            <div>
+                <label>Personal or Commercial Use?</label>
+                <div class="radio-group">
+                    <input type="radio" name="usage" value="Personal"> Personal
+                    <input type="radio" name="usage" value="Commercial"> Commercial
+                </div>
+            </div>
             <div>
                 <label>Are there reports of branded/salvage title?</label>
                 <div class="radio-group">
@@ -230,6 +237,11 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
 
                     let note = "*****CARFAX Review***** \\n \\n";
 
+                    const usage = getRadioValue("usage");
+                    if (usage) {
+                        note += \`CARFAX shows this vehicle is used for \${usage.toLowerCase()} purposes. \`;
+                    }
+
                     const branded = getRadioValue("branded");
                     if (branded === "yes") {
                         note += "There are reports of a branded/salvage title. I sent the claim to client relations for review. ";
@@ -250,7 +262,6 @@ document.getElementById("carfaxReview").addEventListener("click", function() {
                     } else if (maintenance === "no") {
                         note += "There are few to no SRs reported on CARFAX. ";
                     }
-
 
                     if (owners || purchaseVehicle || purchaseContract) {
                         note += \`There are \${owners} reported owners. The CH purchased the vehicle in \${purchaseVehicle}. The CH purchased the contract on \${purchaseContract}. \`;
@@ -369,6 +380,7 @@ document.getElementById("authNote").addEventListener("click", function () {
                     <option value="">--Select--</option>
                     <option value="RF Parts">RF Parts</option>
                     <option value="AAS Parts">AAS Parts</option>
+                    <option value="RF and AAS Parts">RF and AAS Parts</option>
                 </select>
             </div>
             <div>
