@@ -1,198 +1,221 @@
-/* General Styles */
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('callCenter.jpg') no-repeat center center fixed;
-    background-size: cover; 
-    background-position: center;
-    color: rgb(255, 255, 255);
+  font-family: Arial, sans-serif;
+  background: url('callCenter.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+  min-height: 100vh;
+  padding: 16px;
 }
 
-/* Container Styles */
+/* ── Top bar ── */
+.topBar {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
 h1 {
-    text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  margin-bottom: 12px;
 }
 
 .gcse-search-container {
-    width: 400px;
-    margin: 0 auto;
+  max-width: 480px;
+  margin: 0 auto;
 }
 
-.buttonContainer, .callerNotepad, .partNotepad, .scratchPad {
-    background-color: rgba(0, 0, 0, 0.7);
-    text-align: center;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px;
+/* ── Button grid ── */
+.buttonContainer {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px;
 }
 
-.callerNotepad, .partNotepad {
-    flex: 1 1 45%; 
-    margin: 20px;
-    max-width: 500px;
-}
-
-.scratchPad {
-    flex: 1 1 90%; 
-    margin: 20px;
-    max-width: 800px; 
-}
-
-/* Button Styles */
+/* ── Shared button styles ── */
 button {
-    height: auto;
-    width: auto;
-    padding: 10px 15px;
-    background-color: #902424;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+  padding: 10px 14px;
+  background-color: #902424;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: clamp(12px, 1.4vw, 14px);
+  transition: background-color 0.3s, transform 0.2s;
+  white-space: normal;
+  line-height: 1.3;
 }
 
 button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
+  background-color: #781c1c;
+  transform: translateY(-2px);
 }
 
-/* Button Positioning */
-.laborNegNote, .carfaxReview, .authNote, .quickAuth, .PNLCnote, .statusNote, .setInspectionNote, .inspectionReview, .laborNegScript, .paymentInfoButton, .ptTransferButton, .launchButton {
-    position: absolute;
-    height: auto;
-    width: 175px;
+/* LAUNCH gets a bit of extra weight */
+.launchButton {
+  font-weight: bold;
+  letter-spacing: 0.03em;
 }
 
-.laborNegNote { top: 30px; left: 30px;}
-.carfaxReview { top: 70px; left: 30px;}
-.authNote { top: 110px; left: 30px;}
-.quickAuth { top: 150px; left: 30px;}
-.PNLCnote { top: 30px; left: 225px;}
-.statusNote { top: 70px; left: 225px;}
-.setInspectionNote { top: 110px; left: 225px;}
-.inspectionReview { top: 150px; left: 225px;}
-.paymentInfoButton { top: 70px; right: 225px;}
-.ptTransferButton { top: 110px; right: 225px;}
-.launchButton { top: 90px; right: 30px;}
-.laborNegScript { top: 30px; right: 225px;}
-
-/* Notepad Styles */
-.callerNotepad, .partNotepad {
-    width: 20vw;
-    height: 100vwx;
-    top: 200px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    position: absolute;
-    transition: transform 0.3s, box-shadow 0.3s;
+/* ── Notepads row ── */
+.notepadsRow {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: flex-start;
 }
 
-.callerNotepad { left: 20px; }
-
-.partNotepad { right: 20px; }
-
-.callerNotepad:hover, .partNotepad:hover, .scratchPad:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2); 
+/* ── Shared notepad styles ── */
+.callerNotepad,
+.partNotepad {
+  flex: 1 1 280px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.partNotepad label, .callerNotepad label {
-    display: block;
-    margin-top: 10px;
+.callerNotepad:hover,
+.partNotepad:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* Input Styles for Notepads */
+.callerNotepad label,
+.partNotepad label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 3px;
+  font-size: clamp(12px, 1.3vw, 14px);
+}
+
 .callerNotepad input,
 .callerNotepad textarea,
 .partNotepad input,
 .partNotepad textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.7);
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: #222;
+  font-size: clamp(12px, 1.3vw, 14px);
 }
 
 .callerNotepad textarea {
-    height: 100px;
-    resize: vertical;
+  height: 90px;
+  resize: vertical;
 }
 
 .partNotepad textarea {
-    height: 145px;
-    resize: vertical;
+  height: 120px;
+  resize: vertical;
 }
 
-/* Button Styles for Notepads */
-.callerNotepad button, .partNotepad button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #902424;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+.callerNotepad button,
+.partNotepad button {
+  margin-top: 16px;
+  width: 100%;
 }
 
-.callerNotepad button:hover, .partNotepad button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
+/* Payment info block inside partNotepad */
+.paymentInfo {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: clamp(12px, 1.3vw, 13px);
+  line-height: 1.7;
 }
 
-/* Scratch Pad Styles */
+.paymentInfo label {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.paymentInfo span {
+  display: block;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Scratch pad ── */
 .scratchPad {
-    width: 42vw;
-    height: 100vwx;
-    margin: auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    position: absolute;
-    top: 675px; 
-    left: 0;
-    right: 0;
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.scratchPad:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
 }
 
 .scratchPad label {
-    font-size: 24px;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  font-size: clamp(16px, 2vw, 22px);
+  display: block;
+  margin-bottom: 10px;
 }
 
 .scratchPad textarea {
-    width: 100%;
-    height: 150px;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    background-color: rgba(255, 255, 255, 0.7);
-    resize: vertical;
+  width: 100%;
+  height: 150px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.75);
+  color: #222;
+  resize: vertical;
+  font-size: clamp(12px, 1.3vw, 14px);
 }
 
-/* Button Styles for Scratch Pad */
 .scratchPad button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 15px;
-    background-color: #902424;
-    color: #ffffff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+  margin-top: 14px;
+  padding: 10px 30px;
+  width: auto;
 }
 
-.scratchPad button:hover {
-    background-color: #781c1c;
-    transform: translateY(-2px);
+/* ── Tablet: stack notepads ── */
+@media (max-width: 700px) {
+  .notepadsRow {
+    flex-direction: column;
+  }
+
+  .callerNotepad,
+  .partNotepad {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+/* ── Mobile: tighten spacing ── */
+@media (max-width: 480px) {
+  body { padding: 10px; }
+
+  .buttonContainer {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+    padding: 12px;
+  }
+
+  button { font-size: 12px; padding: 9px 10px; }
+
+  .topBar, .callerNotepad, .partNotepad, .scratchPad {
+    padding: 14px;
+    border-radius: 8px;
+  }
 }
