@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjuster Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<script async src="https://cse.google.com/cse.js?cx=e1b24be6428e64fdd"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0e0707;--surface:#1a0d0d;--surface2:#211212;--surface3:#2a1818;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#ede8e2;--text2:#9e9088;--text3:#665e5a;
+  --red:#8c2222;--red-h:#a02828;--red-light:rgba(140,34,34,0.13);--red-txt:#de6e5a;
+  --green:#4a9e6f;--green-bg:rgba(74,158,111,0.12);
+  --amber:#b87c30;--amber-bg:rgba(184,124,48,0.12);
+  --r:7px;--rlg:11px;--shadow:0 4px 16px rgba(0,0,0,0.45),0 2px 4px rgba(0,0,0,0.2)
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.5}
+.shell{display:flex;min-height:100vh}
+
+/* SIDEBAR */
+.sidebar{width:228px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow:hidden}
+.sb-brand{padding:20px 18px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+.sb-brand-row{display:flex;align-items:center;gap:11px}
+.sb-icon{width:34px;height:34px;background:var(--red);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-icon i{font-size:18px;color:#fff}
+.sb-title{font-size:15px;font-weight:600;color:#fff;letter-spacing:-0.01em;line-height:1.15}
+.sb-sub{font-size:10.5px;color:var(--text3);letter-spacing:0.04em;text-transform:uppercase;margin-top:2px}
+.sb-nav{padding:10px 8px;flex:1;overflow-y:auto}
+.nav-lbl{font-size:10px;text-transform:uppercase;letter-spacing:0.09em;color:var(--text3);padding:10px 8px 5px}
+.nav-btn{display:flex;align-items:center;gap:9px;width:100%;padding:8px 10px;border-radius:var(--r);border:none;background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13.5px;cursor:pointer;text-align:left;transition:background .12s,color .12s;position:relative;white-space:nowrap}
+.nav-btn i{font-size:16px;flex-shrink:0}
+.nav-btn:hover{background:var(--surface3);color:var(--text)}
+.nav-btn.active{background:var(--red-light);color:#fff;font-weight:500}
+.nav-btn.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--red);border-radius:0 2px 2px 0}
+.nav-div{height:1px;background:var(--border);margin:8px}
+.launch-btn{margin:8px;padding:9px 14px;background:var(--red);color:#fff;border:none;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .12s,transform .08s;width:calc(100% - 16px)}
+.launch-btn:hover{background:var(--red-h)}
+.launch-btn:active{transform:scale(0.98)}
+.launch-btn i{font-size:15px}
+.sb-foot{padding:10px 16px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.pg-hdr{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 24px 14px;display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.pg-hdr-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pg-hdr h1{font-size:15px;font-weight:600;letter-spacing:-0.01em}
+.search-row{display:flex;justify-content:center}
+.gcse-wrap{width:100%;max-width:500px}
+.pg-body{padding:22px 24px;flex:1;overflow-y:auto}
+
+/* TABS */
+.tab{display:none}.tab.active{display:block}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:var(--r);border:1px solid var(--border2);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;transition:background .12s,transform .08s}
+.btn:hover{background:var(--surface3)}.btn:active{transform:scale(0.98)}.btn i{font-size:15px}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}.btn-red:hover{background:var(--red-h);border-color:var(--red-h)}
+.btn-ghost{border-color:transparent;background:transparent;color:var(--text2)}.btn-ghost:hover{background:var(--surface3);border-color:var(--border);color:var(--text)}
+.btn-sm{padding:4px 10px;font-size:12px}.btn-sm i{font-size:13px}
+
+/* TEMPLATE GRID */
+.tmpl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:10px}
+.tmpl-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;cursor:pointer;transition:border-color .12s,box-shadow .12s,transform .1s}
+.tmpl-card:hover{border-color:var(--red);box-shadow:0 2px 10px rgba(140,34,34,0.22);transform:translateY(-2px)}
+.tmpl-card .icon{font-size:20px;color:var(--red-txt);margin-bottom:6px}
+.tmpl-card h3{font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text)}
+.tmpl-card p{font-size:11.5px;color:var(--text3);line-height:1.4}
+
+/* NOTE PANEL */
+.note-panel{margin-top:20px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--rlg);overflow:hidden;animation:fadeUp .18s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.np-hdr{padding:13px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--surface3)}
+.np-hdr h2{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px;color:var(--text)}
+.np-hdr h2 i{color:var(--red-txt)}
+.np-body{padding:20px}
+
+/* AUTOFILL BADGE */
+.af-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-bg);border:1px solid rgba(74,158,111,0.25);color:var(--green);font-size:11.5px;font-weight:500;padding:4px 10px;border-radius:100px;margin-bottom:14px}
+.af-badge i{font-size:13px}
+
+/* FORMS */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.f{display:flex;flex-direction:column;gap:5px}
+.f.full{grid-column:1/-1}
+.f label{font-size:11.5px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:0.04em}
+.f input,.f textarea,.f select{padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13.5px;transition:border-color .12s,box-shadow .12s;width:100%}
+.f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(140,34,34,0.15);background:var(--surface2)}
+.f input.af,.f textarea.af{border-color:rgba(74,158,111,0.4);background:rgba(74,158,111,0.05)}
+.f textarea{resize:vertical;min-height:80px;line-height:1.6}
+.f select option{background:var(--surface)}
+.fsec{grid-column:1/-1;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text3);padding-top:14px;margin-top:2px;border-top:1px solid var(--border)}
+.rg{display:flex;gap:18px;flex-wrap:wrap;padding-top:2px}
+.rg label{display:flex;align-items:center;gap:6px;font-size:13px;text-transform:none;letter-spacing:0;cursor:pointer;color:var(--text);font-weight:400}
+.rg input[type=radio]{width:auto;accent-color:var(--red)}
+.copy-row{display:flex;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.out{width:100%;min-height:130px;padding:13px 15px;border:1px solid var(--border2);border-radius:var(--r);background:var(--bg);font-family:'DM Mono',monospace;font-size:12.5px;line-height:1.75;color:var(--text);resize:vertical;margin-top:14px}
+.out:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(140,34,34,0.12)}
+.out-lbl{font-size:11.5px;color:var(--text2);margin-bottom:2px;display:flex;align-items:center;gap:6px}
+
+/* PARTS */
+.plist{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.prow{display:flex;gap:7px;align-items:center}
+.prow input{flex:1}
+.prm{flex-shrink:0;padding:7px 9px;background:var(--surface3);border:1px solid var(--border2);border-radius:var(--r);color:var(--red-txt);cursor:pointer;font-size:13px;transition:background .12s}
+.prm:hover{background:rgba(140,34,34,0.2)}
+.addp{margin-top:6px;padding:6px 12px;background:transparent;border:1px dashed var(--border2);border-radius:var(--r);color:var(--text2);cursor:pointer;font-size:12.5px;font-family:'DM Sans',sans-serif;transition:background .12s,color .12s}
+.addp:hover{background:var(--surface3);color:var(--text)}
+
+/* LABOR SCRIPT */
+.ls-step{background:var(--surface3);border:1px solid var(--border2);border-left:4px solid var(--red);border-radius:var(--r);padding:15px 17px;font-size:14px;line-height:1.75;color:var(--text);margin-bottom:14px}
+.ls-done{background:var(--green-bg);border:1px solid rgba(74,158,111,0.25);border-radius:var(--r);padding:15px 17px;font-size:14px;color:var(--green);line-height:1.75;margin-bottom:14px}
+.ls-in-row{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+.ls-in-row input{flex:1;padding:8px 11px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px}
+.ls-in-row input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(140,34,34,0.12)}
+.yn{display:flex;gap:8px;margin-bottom:12px}
+.by{background:var(--green-bg);color:var(--green);border:1px solid rgba(74,158,111,0.3);padding:8px 22px;border-radius:var(--r);font-family:'DM Sans';font-size:13.5px;font-weight:600;cursor:pointer;transition:background .12s}
+.by:hover{background:rgba(74,158,111,0.22)}
+.bn{background:rgba(140,34,34,0.12);color:var(--red-txt);border:1px solid rgba(140,34,34,0.3);padding:8px 22px;border-radius:var(--r);font-family:'DM Sans';font-size:13.5px;font-weight:600;cursor:pointer;transition:background .12s}
+.bn:hover{background:rgba(140,34,34,0.22)}
+.ls-info{background:var(--surface3);border:1px solid var(--border2);border-radius:var(--r);padding:9px 14px;margin-bottom:14px;font-size:12.5px;color:var(--text2);display:flex;gap:20px;flex-wrap:wrap}
+.ls-info span{display:flex;align-items:center;gap:5px}
+.ls-info strong{color:var(--text)}
+
+/* NOTEPAD TAB */
+.np-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.npc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden}
+.npc-hdr{padding:11px 16px;background:var(--surface3);border-bottom:1px solid var(--border);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text2);display:flex;align-items:center;gap:7px}
+.npc-hdr i{color:var(--red-txt);font-size:14px}
+.npc-body{padding:16px;display:flex;flex-direction:column;gap:10px}
+.fr{display:flex;flex-direction:column;gap:4px}
+.fr label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;font-weight:500}
+.fr input,.fr textarea{padding:7px 10px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13.5px;width:100%}
+.fr input:focus,.fr textarea:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 3px rgba(140,34,34,0.12)}
+.fr textarea{resize:vertical;min-height:70px;line-height:1.6}
+
+/* INFO BLOCKS */
+.ib{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rlg);overflow:hidden;margin-bottom:16px}
+.ib-hdr{padding:11px 16px;background:var(--surface3);border-bottom:1px solid var(--border);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text2);display:flex;align-items:center;gap:7px}
+.ib-hdr i{color:var(--red-txt);font-size:14px}
+.cg{display:grid;grid-template-columns:1fr 1fr}
+.ci{padding:13px 18px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ci:nth-child(even){border-right:none}
+.ci .cl{font-size:10.5px;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);font-weight:600;margin-bottom:4px}
+.ci .cv{font-size:13px;color:var(--text);font-family:'DM Mono',monospace;line-height:1.65;word-break:break-all}
+.ck{padding:14px 18px;font-size:12.5px;color:var(--text2);line-height:2}
+.ck span{display:block}.ck span::before{content:"✓  ";color:var(--green)}
+.in{padding:10px 18px 14px;font-size:12.5px;color:var(--amber)}
+
+/* CALLOUT */
+.callout{background:var(--surface3);border:1px solid var(--border2);border-left:4px solid var(--red);border-radius:var(--r);padding:13px 16px;font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px}
+.callout strong{color:var(--red-txt)}
+.callout.am{border-left-color:var(--amber);background:var(--amber-bg)}
+
+/* MODAL */
+.mb{position:fixed;inset:0;background:rgba(0,0,0,0.65);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px}
+.mb.open{display:flex}
+.mbox{background:var(--surface);border:1px solid var(--border2);border-top:3px solid var(--red);border-radius:var(--rlg);box-shadow:var(--shadow);width:100%;max-width:520px;max-height:90vh;overflow-y:auto;animation:fadeUp .18s ease}
+.mhdr{padding:16px 20px 13px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.mhdr h2{font-size:15px;font-weight:600;display:flex;align-items:center;gap:9px}
+.mhdr h2 i{color:var(--red-txt)}
+.mbdy{padding:20px}
+.mftr{padding:13px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--surface3);border:1px solid var(--border2);color:var(--text);padding:10px 16px;border-radius:var(--r);font-size:13px;font-weight:500;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;z-index:2000;transform:translateY(70px);opacity:0;transition:transform .22s,opacity .22s}
+.toast.show{transform:translateY(0);opacity:1}
+.toast i{font-size:16px}
+.toast.ok i{color:var(--green)}
+.toast.info i{color:#6da8f0}
+
+@media(max-width:700px){
+  .sidebar{width:56px}
+  .sb-title,.sb-sub,.nav-btn span,.launch-btn span,.nav-lbl{display:none}
+  .nav-btn{justify-content:center;padding:10px}
+  .nav-btn.active::before{display:none}
+  .launch-btn{justify-content:center}
+  .sb-brand{padding:14px 11px}
+  .pg-body{padding:14px 16px}
+  .fg{grid-template-columns:1fr}
+  .tmpl-grid{grid-template-columns:1fr 1fr}
+  .np-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-brand-row">
+      <div class="sb-icon"><i class="ti ti-headset"></i></div>
+      <div>
+        <div class="sb-title">AAS</div>
+        <div class="sb-sub">American Auto Shield</div>
+      </div>
+    </div>
+  </div>
+  <nav class="sb-nav">
+    <div class="nav-lbl">Sections</div>
+    <button class="nav-btn active" onclick="showTab('notes',this)"><i class="ti ti-clipboard-text"></i><span>Note Templates</span></button>
+    <button class="nav-btn" onclick="showTab('script',this)"><i class="ti ti-stairs"></i><span>Labor Neg. Script</span></button>
+    <button class="nav-btn" onclick="showTab('notepad',this)"><i class="ti ti-notebook"></i><span>Call Notepad</span></button>
+    <button class="nav-btn" onclick="showTab('info',this)"><i class="ti ti-info-circle"></i><span>AAS Info</span></button>
+    <div class="nav-div"></div>
+    <div class="nav-lbl">Quick Ref</div>
+    <button class="nav-btn" onclick="openModal('mPayment')"><i class="ti ti-credit-card"></i><span>Payment Info</span></button>
+    <button class="nav-btn" onclick="openModal('mPT')"><i class="ti ti-phone-transfer"></i><span>PT Transfer</span></button>
+  </nav>
+  <button class="launch-btn" onclick="launchSites()"><i class="ti ti-external-link"></i><span>Launch Sites</span></button>
+  <div class="sb-foot">Adjuster Assistant v2.1</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- NOTES TAB -->
+  <div class="tab active" id="tab-notes">
+    <div class="pg-hdr">
+      <div class="pg-hdr-top"><h1>Note Templates</h1></div>
+      <div class="search-row"><div class="gcse-wrap"><div class="gcse-search"></div></div></div>
+    </div>
+    <div class="pg-body">
+      <div class="tmpl-grid">
+        <div class="tmpl-card" onclick="openNote('laborNeg')"><div class="icon"><i class="ti ti-currency-dollar"></i></div><h3>Labor Negotiation Note</h3><p>RF contact, posted rate &amp; negotiated rate</p></div>
+        <div class="tmpl-card" onclick="openNote('carfax')"><div class="icon"><i class="ti ti-car"></i></div><h3>CARFAX Review</h3><p>Usage, title, accidents, maintenance &amp; history</p></div>
+        <div class="tmpl-card" onclick="openNote('auth')"><div class="icon"><i class="ti ti-check"></i></div><h3>Authorization Note</h3><p>Contract type, parts, labor, OOP &amp; payment</p></div>
+        <div class="tmpl-card" onclick="openNote('quickAuth')"><div class="icon"><i class="ti ti-bolt"></i></div><h3>Quick Auth Note</h3><p>Transfer, parts, auth #, RF payment info</p></div>
+        <div class="tmpl-card" onclick="openNote('pnlc')"><div class="icon"><i class="ti ti-ban"></i></div><h3>PNLC Note</h3><p>Part not listed in contract note</p></div>
+        <div class="tmpl-card" onclick="openNote('status')"><div class="icon"><i class="ti ti-clock-pause"></i></div><h3>Status Note</h3><p>Delay reason, next steps &amp; pending items</p></div>
+        <div class="tmpl-card" onclick="openNote('setInspection')"><div class="icon"><i class="ti ti-camera"></i></div><h3>Set Inspection Note</h3><p>Photo instructions &amp; failure demo list</p></div>
+        <div class="tmpl-card" onclick="openNote('inspectionReview')"><div class="icon"><i class="ti ti-clipboard-check"></i></div><h3>Inspection Review Note</h3><p>Labor rate, mileage, findings &amp; photo review</p></div>
+      </div>
+      <div class="note-panel" id="note-panel" style="display:none">
+        <div class="np-hdr">
+          <h2 id="np-title"><i class="ti ti-pencil"></i><span>Note</span></h2>
+          <button class="btn btn-ghost btn-sm" onclick="closeNotePanel()"><i class="ti ti-x"></i></button>
+        </div>
+        <div class="np-body" id="np-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT TAB -->
+  <div class="tab" id="tab-script">
+    <div class="pg-hdr">
+      <div class="pg-hdr-top"><h1>Labor Rate Negotiation Script</h1></div>
+      <div class="search-row"><div class="gcse-wrap"><div class="gcse-search"></div></div></div>
+    </div>
+    <div class="pg-body"><div style="max-width:600px" id="ls-wrap"></div></div>
+  </div>
+
+  <!-- NOTEPAD TAB -->
+  <div class="tab" id="tab-notepad">
+    <div class="pg-hdr">
+      <div class="pg-hdr-top">
+        <h1>Call Notepad</h1>
+        <button class="btn" onclick="clearNotepad()"><i class="ti ti-rotate-left"></i>Clear all</button>
+      </div>
+    </div>
+    <div class="pg-body">
+      <div class="np-grid">
+        <div class="npc">
+          <div class="npc-hdr"><i class="ti ti-user"></i>Caller Info</div>
+          <div class="npc-body">
+            <div class="fr"><label>Caller's Name</label><input id="np_caller" type="text" placeholder="Who are you talking to?"></div>
+            <div class="fr"><label>Shop Name</label><input id="np_shop" type="text" placeholder="Shop name"></div>
+            <div class="fr"><label>ZIP Code</label><input id="np_zip" type="text" placeholder="ZIP code"></div>
+            <div class="fr"><label>Current Labor Rate ($)</label><input id="np_rate" type="text" placeholder="0.00"></div>
+            <div class="fr"><label>Negotiated Labor Rate ($)</label><input id="np_neg" type="text" placeholder="0.00"></div>
+            <div class="fr"><label>Average Labor Rate ($)</label><input id="np_avg" type="text" placeholder="0.00"></div>
+            <div class="fr"><label>Distance Used</label><input id="np_dist" type="text" placeholder="Miles"></div>
+            <div class="fr"><label>Number of Reports</label><input id="np_reports" type="text" placeholder="0"></div>
+            <div class="fr"><label>Comments</label><textarea id="np_comments" placeholder="Notes..."></textarea></div>
+          </div>
+        </div>
+        <div class="npc">
+          <div class="npc-hdr"><i class="ti ti-tool"></i>Contract &amp; Parts</div>
+          <div class="npc-body">
+            <div class="fr"><label>Contract Type</label><input id="np_contract" type="text" placeholder="e.g. Powertrain Gold"></div>
+            <div class="fr"><label>Contract Sequence</label><input id="np_seq" type="text" placeholder="Sequence #"></div>
+            <div class="fr"><label>Part OOP ($)</label><input id="np_partOOP" type="text" placeholder="0.00"></div>
+            <div class="fr"><label>Labor OOP ($)</label><input id="np_laborOOP" type="text" placeholder="0.00"></div>
+            <div class="fr"><label>Comments / Remaining LOL</label><textarea id="np_bcomments" placeholder="Notes..."></textarea></div>
+          </div>
+        </div>
+      </div>
+      <div class="ib" style="margin-top:16px">
+        <div class="ib-hdr"><i class="ti ti-pencil"></i>Scratch Pad</div>
+        <div style="padding:16px"><textarea id="np_scratch" style="width:100%;min-height:110px;padding:10px 12px;border:1px solid var(--border2);border-radius:var(--r);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13.5px;resize:vertical" placeholder="Free-form notes..."></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO TAB -->
+  <div class="tab" id="tab-info">
+    <div class="pg-hdr"><div class="pg-hdr-top"><h1>AAS Info &amp; Contacts</h1></div></div>
+    <div class="pg-body">
+      <div class="ib">
+        <div class="ib-hdr"><i class="ti ti-address-book"></i>Contact Details</div>
+        <div class="cg">
+          <div class="ci"><div class="cl">Payments Email</div><div class="cv">payments@americanautoshield.com</div></div>
+          <div class="ci"><div class="cl">Payments Fax</div><div class="cv">303-456-1039</div></div>
+          <div class="ci"><div class="cl">AAS Claims Dept</div><div class="cv">1-800-531-1925</div></div>
+          <div class="ci"><div class="cl">Payments Address</div><div class="cv">14033 Denver West Pkwy<br>Suite 200<br>Lakewood, CO 80401</div></div>
+        </div>
+      </div>
+      <div class="ib">
+        <div class="ib-hdr"><i class="ti ti-checklist"></i>Invoice Requirements</div>
+        <div class="ck">
+          <span>CH Name</span><span>Full VIN</span><span>Year / Make / Model</span><span>Vehicle Mileage</span>
+          <span>RF Name &amp; Address</span><span>Parts &amp; Labor Breakdown</span><span>CH Signature</span><span>Auth # in Subject Line</span>
+        </div>
+        <div class="in">Payment by EOD if received before <strong>3:00 PM MT</strong> — otherwise next business day.</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- MODALS -->
+<div class="mb" id="mPayment">
+  <div class="mbox">
+    <div class="mhdr"><h2><i class="ti ti-credit-card"></i>Payment Info Script</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('mPayment')"><i class="ti ti-x"></i></button></div>
+    <div class="mbdy">
+      <div class="callout"><strong>Final invoice must include:</strong><br>• CH Name &nbsp;•&nbsp; Full VIN &nbsp;•&nbsp; Year/Make/Model<br>• Vehicle Mileage &nbsp;•&nbsp; RF Name &amp; Address<br>• Parts &amp; Labor Breakdown &nbsp;•&nbsp; CH Signature</div>
+      <div class="callout am">Payment by EOD before <strong>3:00 PM MT</strong>. After 3 PM → next business day.<br><strong>Auth # in the subject line!</strong></div>
+    </div>
+    <div class="mftr"><button class="btn" onclick="closeModal('mPayment')">Close</button></div>
+  </div>
+</div>
+
+<div class="mb" id="mPT">
+  <div class="mbox">
+    <div class="mhdr"><h2><i class="ti ti-phone-transfer"></i>PT Transfer Script</h2><button class="btn btn-ghost btn-sm" onclick="closeModal('mPT')"><i class="ti ti-x"></i></button></div>
+    <div class="mbdy">
+      <div class="callout">Your claim number is <strong>(XXXXXXX)</strong>. I am assigning your claim to a Powertrain adjuster. That adjuster will be reaching back out to you in the next 24 business hours. Please prepare an itemized estimate for when they call.</div>
+      <p style="font-size:12px;color:var(--amber);font-style:italic;margin-top:8px">* If RF is not ready, hit [Pend Breakdown] — saves info without opening a claim.</p>
+    </div>
+    <div class="mftr"><button class="btn" onclick="closeModal('mPT')">Close</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i></i><span id="toast-msg"></span></div>
+
+<script>
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const np = id => { const e=document.getElementById(id); return e?e.value.trim():'' };
+const gr = name => { const r=document.querySelector(`input[name="${name}"]:checked`); return r?r.value:null };
+const ge = id => document.getElementById(id);
+
+function showTab(name,btn){
+  document.querySelectorAll('.tab').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  ge('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+  if(name==='script') initLS();
+}
+
+function openModal(id){ ge(id).classList.add('open') }
+function closeModal(id){ ge(id).classList.remove('open') }
+document.querySelectorAll('.mb').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open')}));
+
+let _tt;
+function toast(msg,type='ok'){
+  const el=ge('toast');
+  ge('toast-msg').textContent=msg;
+  el.className='toast '+type;
+  el.querySelector('i').className=type==='ok'?'ti ti-check':'ti ti-info-circle';
+  el.classList.add('show');
+  clearTimeout(_tt);
+  _tt=setTimeout(()=>el.classList.remove('show'),2600);
+}
+
+function launchSites(){
+  ['https://www.faxvin.com/vin-decoder',
+   'https://www.imcparts.net/webapp/wcs/stores/servlet/LogonForm?storeId=10651&catalogId=10651&langId=-1',
+   'https://plq.fortedata.com/',
+   'https://www.prodemand.com/#|||||||||||||||||/Home']
+  .forEach(u=>window.open(u,'_blank'));
+}
+
+function clearNotepad(){
+  ['np_caller','np_shop','np_zip','np_rate','np_neg','np_avg','np_dist','np_reports',
+   'np_comments','np_contract','np_seq','np_partOOP','np_laborOOP','np_bcomments','np_scratch']
+  .forEach(id=>{const e=ge(id);if(e)e.value=''});
+  toast('Notepad cleared','info');
+}
+
+function copyText(text){
+  if(!text.trim()){toast('Fill in the fields first','info');return}
+  navigator.clipboard.writeText(text).then(()=>toast('Copied to clipboard!')).catch(()=>toast('Copy failed — see text area','info'));
+}
+
+function autofill(id,val){
+  const e=ge(id); if(!e||!val) return;
+  e.value=val; e.classList.add('af');
+  e.addEventListener('input',()=>e.classList.remove('af'),{once:true});
+}
+
+function hasNPData(){
+  return ['np_caller','np_shop','np_zip','np_rate','np_neg','np_avg','np_contract','np_partOOP','np_laborOOP'].some(id=>np(id)!=='');
+}
+
+// ── Note panel ───────────────────────────────────────────────────────────────
+function closeNotePanel(){ ge('note-panel').style.display='none' }
+
+function openNote(type){
+  const panel=ge('note-panel'), titleSpan=ge('np-title').querySelector('span'), body=ge('np-body');
+  const badge=hasNPData()?`<div class="af-badge"><i class="ti ti-wand"></i>Pre-filled from Call Notepad — edit as needed</div>`:'';
+
+  const T={
+    laborNeg:{
+      label:'Labor Negotiation Note',
+      html:`${badge}
+        <div class="fg">
+          <div class="f"><label>RF Contact</label><input type="text" id="ln_c" placeholder="Who are you talking to?"></div>
+          <div class="f"><label>Shop Name</label><input type="text" id="ln_s" placeholder="Shop name"></div>
+          <div class="f"><label>Posted Labor Rate ($)</label><input type="number" id="ln_p" placeholder="e.g. 145"></div>
+          <div class="f"><label>Negotiated Rate ($)</label><input type="number" id="ln_n" placeholder="e.g. 120"></div>
+          <div class="f full"><label>Average Labor Rate ($)</label><input type="number" id="ln_a" placeholder="e.g. 125"></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="ln_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genLN()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('ln_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{ autofill('ln_c',np('np_caller')); autofill('ln_s',np('np_shop')); autofill('ln_p',np('np_rate')); autofill('ln_n',np('np_neg')); autofill('ln_a',np('np_avg')); }
+    },
+    carfax:{
+      label:'CARFAX Review',
+      html:`${badge}
+        <div class="fg">
+          <div class="f full"><label>Personal or Commercial Use?</label><div class="rg"><label><input type="radio" name="cf_use" value="Personal"> Personal</label><label><input type="radio" name="cf_use" value="Commercial"> Commercial</label></div></div>
+          <div class="f full"><label>Branded / Salvage Title?</label><div class="rg"><label><input type="radio" name="cf_br" value="yes"> Yes</label><label><input type="radio" name="cf_br" value="no"> No</label></div></div>
+          <div class="f full"><label>Accidents Reported?</label><div class="rg"><label><input type="radio" name="cf_ac" value="yes"> Yes</label><label><input type="radio" name="cf_ac" value="no"> No</label></div></div>
+          <div class="f full"><label>CH Keeps Up With Maintenance?</label><div class="rg"><label><input type="radio" name="cf_ma" value="yes"> Yes</label><label><input type="radio" name="cf_ma" value="no"> No</label></div></div>
+          <div class="f"><label>Number of Owners</label><input type="text" id="cf_ow" placeholder="e.g. 2"></div>
+          <div class="f"><label>CH Purchased Vehicle (when)</label><input type="text" id="cf_pv" placeholder="e.g. 2021"></div>
+          <div class="f"><label>CH Purchased Contract (when)</label><input type="text" id="cf_pc" placeholder="e.g. 03/2022"></div>
+          <div class="f">&nbsp;</div>
+          <div class="f full"><label>SRs Around Contract Purchase Date?</label><div class="rg"><label><input type="radio" name="cf_sr" value="yes"> Yes</label><label><input type="radio" name="cf_sr" value="no"> No</label></div></div>
+          <div class="f full"><label>Any Red Flags?</label><div class="rg"><label><input type="radio" name="cf_fl" value="yes"> Yes</label><label><input type="radio" name="cf_fl" value="no"> No</label></div></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="cf_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genCF()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('cf_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{}
+    },
+    auth:{
+      label:'Authorization Note',
+      html:`${badge}
+        <div class="fg">
+          <div class="f full"><label>Type of Contract</label><input type="text" id="an_ct" placeholder="e.g. Powertrain Gold"></div>
+          <div class="f full"><label>How Was Failure Verified</label><input type="text" id="an_fv" placeholder="Tests performed..."></div>
+          <div class="f full"><label>What Was Covered by the Contract</label><input type="text" id="an_cv" placeholder="Covered parts..."></div>
+          <div class="f full"><label>PNLC Items</label><input type="text" id="an_pn" placeholder="List PNLC items, or N/A"></div>
+          <div class="f"><label>What Part Was Used?</label><select id="an_wp"><option value="">--Select--</option><option>RF Parts</option><option>AAS Parts</option><option>RF and AAS Parts</option></select></div>
+          <div class="f"><label>How Was Labor Verified?</label><select id="an_lv"><option value="">--Select--</option><option>ProDemand</option><option>Forte</option><option>Unable to find labor</option></select></div>
+          <div class="f"><label>Claim History Reviewed?</label><select id="an_ch"><option value="">--Select--</option><option>Yes</option><option>No</option></select></div>
+          <div class="f"><label>SR Needed / Reviewed?</label><select id="an_sr"><option value="">--Select--</option><option>Yes</option><option>No</option></select></div>
+          <div class="f"><label>Related TSBs?</label><select id="an_ts"><option value="">--Select--</option><option>Yes</option><option>No</option></select></div>
+          <div class="f"><label>OOP Note &amp; Task Set?</label><select id="an_tk"><option value="">--Select--</option><option>Yes</option><option>No</option><option>NA</option></select></div>
+          <div class="fsec">OOP &amp; Payment</div>
+          <div class="f"><label>Part OOP ($)</label><input type="text" id="an_po" placeholder="0.00"></div>
+          <div class="f"><label>Labor OOP ($)</label><input type="text" id="an_lo" placeholder="0.00"></div>
+          <div class="f"><label>Auth # Given To (SA Name)</label><input type="text" id="an_sa" placeholder="SA name..."></div>
+          <div class="f"><label>Payment Method</label><select id="an_pm"><option value="">--Select--</option><option>CC by Email</option><option>CC by Fax</option><option>Check</option></select></div>
+          <div class="f full"><label>Remaining LOL After This Claim ($)</label><input type="text" id="an_ll" placeholder="0.00"></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="an_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genAN()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('an_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{ autofill('an_ct',np('np_contract')); autofill('an_po',np('np_partOOP')); autofill('an_lo',np('np_laborOOP')); autofill('an_sa',np('np_caller')); }
+    },
+    quickAuth:{
+      label:'Quick Auth Note',
+      html:`${badge}
+        <div class="fg">
+          <div class="f full"><label>Was the call transferred?</label><div class="rg"><label><input type="radio" name="qa_x" value="yes"> Yes</label><label><input type="radio" name="qa_x" value="no"> No</label></div></div>
+          <div class="f full"><label>Do we need to order parts?</label><div class="rg"><label><input type="radio" name="qa_p" value="yes"> Yes</label><label><input type="radio" name="qa_p" value="no"> No</label></div></div>
+          <div class="f full"><label>Auth number &amp; payment info provided?</label><div class="rg"><label><input type="radio" name="qa_a" value="yes"> Yes</label><label><input type="radio" name="qa_a" value="no"> No</label></div></div>
+          <div class="f full"><label>RF payment info verified?</label><div class="rg"><label><input type="radio" name="qa_r" value="yes"> Yes</label><label><input type="radio" name="qa_r" value="no"> No</label></div></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="qa_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genQA()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('qa_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{}
+    },
+    pnlc:{
+      label:'PNLC Note',
+      html:`${badge}
+        <div class="callout">SA called in to check eligibility for coverage for part(s) listed below. Per the contract, this part is PNLC. Informed SA, they understood. EOC.</div>
+        <div class="f" style="margin-bottom:8px"><label>Failed Parts / Part Numbers</label></div>
+        <div class="plist" id="pnlc_p"><div class="prow"><input type="text" class="pnlc-part" placeholder="Part name – Part No"><button class="prm" onclick="rmPart(this)"><i class="ti ti-x"></i></button></div></div>
+        <button class="addp" onclick="addPart('pnlc_p','pnlc-part','Part name – Part No')">+ Add another part</button>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="pnlc_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genPNLC()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('pnlc_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{}
+    },
+    status:{
+      label:'Status Note',
+      html:`${badge}
+        <div class="fg">
+          <div class="f full"><label>Why is the claim delayed?</label><input type="text" id="sn_d" placeholder="What are we waiting on?"></div>
+          <div class="f full"><label>Is CH aware of the delay?</label><input type="text" id="sn_aw" placeholder="Yes / No / Details..."></div>
+          <div class="f full"><label>What is needed from CH?</label><input type="text" id="sn_ch" placeholder="Documents needed..."></div>
+          <div class="f full"><label>What is needed from RF?</label><input type="text" id="sn_rf" placeholder="Documents needed..."></div>
+          <div class="f full"><label>Next Steps</label><input type="text" id="sn_nx" placeholder="What happens next?"></div>
+          <div class="f full"><label>Conversations Needed</label><input type="text" id="sn_co" placeholder="Who do we need to call?"></div>
+          <div class="f full"><label>What Have You Already Completed?</label><input type="text" id="sn_dn" placeholder="Completed tasks..."></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="sn_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genSN()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('sn_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{}
+    },
+    setInspection:{
+      label:'Set Inspection Note',
+      html:`${badge}
+        <div class="callout" style="font-size:12.5px;line-height:1.75">Please take pictures of all four corners of the vehicle, odometer, VIN, and license plate. Note any signs of abuse, rust/corrosion, collision, modifications, or commercial use. Verify the posted labor rate and get a picture if possible. Provide photos of brake rotors and license plate/registration.</div>
+        <div class="f" style="margin:12px 0 6px"><label>Failures to Demonstrate</label></div>
+        <div class="plist" id="si_p"><div class="prow"><input type="text" class="si-part" placeholder="Failed part name"><button class="prm" onclick="rmPart(this)"><i class="ti ti-x"></i></button></div></div>
+        <button class="addp" onclick="addPart('si_p','si-part','Failed part name')">+ Add another part</button>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="si_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genSI()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('si_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{}
+    },
+    inspectionReview:{
+      label:'Inspection Review Note',
+      html:`${badge}
+        <div class="fg">
+          <div class="f full"><label>Reason for Inspection</label><input type="text" id="ir_re" placeholder="Why was inspection ordered?"></div>
+          <div class="f"><label>Labor Rate</label><input type="text" id="ir_lr" placeholder="$0.00"></div>
+          <div class="f"><label>Mileage</label><input type="text" id="ir_mi" placeholder="e.g. 85,000"></div>
+          <div class="f full"><label>Fluid Condition</label><input type="text" id="ir_fl" placeholder="Describe fluid condition..."></div>
+          <div class="f full"><label>Modifications / Collision / Commercial</label><input type="text" id="ir_mo" placeholder="Any modifications found?"></div>
+          <div class="f"><label>Days Into Contract</label><input type="text" id="ir_dy" placeholder="e.g. 45"></div>
+          <div class="f"><label>Miles Into Contract</label><input type="text" id="ir_ml" placeholder="e.g. 1,200"></div>
+          <div class="f full"><label>Inspector Findings / Photo Review</label><textarea id="ir_fi" placeholder="Summarize in your own words..."></textarea></div>
+        </div>
+        <div class="out-lbl" style="margin-top:16px"><i class="ti ti-file-text" style="font-size:13px"></i>Generated note</div>
+        <textarea class="out" id="ir_out" readonly placeholder="Click Generate..."></textarea>
+        <div class="copy-row">
+          <button class="btn btn-red" onclick="genIR()"><i class="ti ti-refresh"></i>Generate</button>
+          <button class="btn" onclick="copyText(ge('ir_out').value)"><i class="ti ti-copy"></i>Copy</button>
+        </div>`,
+      fill:()=>{ autofill('ir_lr',np('np_rate')); }
+    }
+  };
+
+  const cfg=T[type]; if(!cfg) return;
+  titleSpan.textContent=cfg.label;
+  body.innerHTML=cfg.html;
+  panel.style.display='block';
+  requestAnimationFrame(()=>cfg.fill&&cfg.fill());
+  panel.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── Parts helpers ─────────────────────────────────────────────────────────────
+function addPart(cid,cls,ph){
+  const c=ge(cid); if(c.querySelectorAll('.prow').length>=10) return;
+  const d=document.createElement('div'); d.className='prow';
+  d.innerHTML=`<input type="text" class="${cls}" placeholder="${ph}"><button class="prm" onclick="rmPart(this)"><i class="ti ti-x"></i></button>`;
+  c.appendChild(d);
+}
+function rmPart(btn){
+  const c=btn.closest('.plist');
+  if(c.querySelectorAll('.prow').length>1) btn.closest('.prow').remove();
+}
+
+// ── Note generators ───────────────────────────────────────────────────────────
+function genLN(){
+  const c=ge('ln_c').value,s=ge('ln_s').value,p=ge('ln_p').value,n=ge('ln_n').value,a=ge('ln_a').value;
+  ge('ln_out').value=`***Labor Negotiation Note***\n\n`+(s?`Shop: ${s}\n`:'')+`RF Contact: ${c}\nPosted Labor Rate: $${p}\n`+(a?`Average Labor Rate: $${a}\n`:'')+`Negotiated Rate: $${n}`;
+}
+
+function genCF(){
+  let n='*****CARFAX Review*****\n\n';
+  const use=gr('cf_use'); if(use) n+=`CARFAX shows this vehicle is used for ${use.toLowerCase()} purposes. `;
+  const br=gr('cf_br'); if(br==='yes') n+='There are reports of a branded/salvage title. I sent the claim to client relations for review. '; else if(br==='no') n+='There are no reports of branded/salvage title. ';
+  const ac=gr('cf_ac'); if(ac==='yes') n+='There are accidents reported. '; else if(ac==='no') n+='There are no accidents reported. ';
+  const ma=gr('cf_ma'); if(ma==='yes') n+='According to CARFAX, the CH keeps up with maintenance. '; else if(ma==='no') n+='There are few to no SRs reported on CARFAX. ';
+  const ow=ge('cf_ow').value,pv=ge('cf_pv').value,pc=ge('cf_pc').value;
+  if(ow||pv||pc) n+=`There are ${ow} reported owners. The CH purchased the vehicle in ${pv}. The CH purchased the contract on ${pc}. `;
+  const sr=gr('cf_sr'); if(sr==='yes') n+='There are SRs around the time of the contract purchase, and I will be reaching out to the CH to verify this is not pre-existing. '; else if(sr==='no') n+='There were no SRs around when the contract was purchased. ';
+  if(gr('cf_fl')==='no') n+='There are no signs of red flags.';
+  ge('cf_out').value=n.trim();
+}
+
+function genAN(){
+  const v=id=>{const e=ge(id);return e?e.value:''};
+  ge('an_out').value=
+    `Type of contract: ${v('an_ct')}\n`+
+    `The failure was verified by: ${v('an_fv')} (see breakdown for details)\n`+
+    `The contract covered: ${v('an_cv')}\n`+
+    `List of PNLC items: ${v('an_pn')}\n\n`+
+    `We are using ${v('an_wp')}\n`+
+    `It was verified MCE under $250 or OE/OES at the time of call\n`+
+    `Labor was verified using ${v('an_lv')}\n\n`+
+    `Has the claim history been reviewed? ${v('an_ch')}\n`+
+    `Is SR needed or been reviewed? ${v('an_sr')}\n`+
+    `Any related TSBs? ${v('an_ts')}\n\n`+
+    `OOP Costs:\nParts - $${v('an_po')}\nLabor - $${v('an_lo')}\n\n`+
+    `Has the OOP note and task been set? ${v('an_tk')}\n\n`+
+    `Auth number was given to ${v('an_sa')}\n`+
+    `Their payment method is ${v('an_pm')}\n\n`+
+    `Remaining LOL after this claim: $${v('an_ll')}`;
+}
+
+function genQA(){
+  let n='';
+  if(gr('qa_x')==='yes') n+='I was transferred a call from customer service. ';
+  if(gr('qa_p')==='yes') n+='I ordered parts and provided the SA with the ETA. ';
+  if(gr('qa_a')==='yes') n+='I provided the SA with the auth number and payment info (payments@americanautoshield.com). ';
+  if(gr('qa_r')==='yes') n+='I verified that the payment info on the RF profile is correct.';
+  ge('qa_out').value=n.trim();
+}
+
+function genPNLC(){
+  const parts=Array.from(document.querySelectorAll('.pnlc-part')).map(i=>i.value.trim()).filter(Boolean);
+  ge('pnlc_out').value=`SA called in to check eligibility for coverage for part(s) listed below. Per the contract, this part is PNLC. Informed SA, they understood. EOC.\n\n`+parts.map(p=>`- ${p}`).join('\n');
+}
+
+function genSN(){
+  const v=id=>ge(id).value;
+  ge('sn_out').value=`The claim is delayed because ${v('sn_d')}\nThe CH is aware of the delay: ${v('sn_aw')}\nThe CH needs to send us ${v('sn_ch')}\nThe RF needs to send us ${v('sn_rf')}\nThe next steps are to ${v('sn_nx')}\nWho do we need to talk to: ${v('sn_co')}\nI have already ${v('sn_dn')}`;
+}
+
+function genSI(){
+  const parts=Array.from(document.querySelectorAll('.si-part')).map(i=>i.value.trim()).filter(Boolean);
+  ge('si_out').value=`Please take pictures of all four corners of the vehicle, odometer, VIN, and license plate. Please note any signs of abuse, rust/corrosion, collision, modifications, or commercial use. Please verify the posted labor rate and get a picture if possible. Please provide photos of brake rotors and license plate/registration.\n\nThe technician is to demonstrate failure(s) to the following:\n`+parts.map(p=>`- ${p}`).join('\n')+`\n\nPlease reach out to the repair facility 1-2 hours before arrival.\n\nThank you!`;
+}
+
+function genIR(){
+  const v=id=>ge(id).value;
+  ge('ir_out').value=`**********INSPECTION REVIEW**********\n\nReason for Inspection: ${v('ir_re')}\nLabor Rate: ${v('ir_lr')}\nMileage: ${v('ir_mi')}\nFluid Condition: ${v('ir_fl')}\nModifications/Collision/Commercial: ${v('ir_mo')}\nDays into Contract: ${v('ir_dy')}\nMiles into Contract: ${v('ir_ml')}\nInspector findings/photo review: ${v('ir_fi')}`;
+}
+
+// ── Labor Script ──────────────────────────────────────────────────────────────
+let ls_r=0,ls_a=0;
+
+function initLS(){
+  ls_r=parseFloat(np('np_rate'))||0;
+  ls_a=parseFloat(np('np_avg'))||0;
+  lsRender('start');
+}
+
+function lsInfo(){
+  const c=np('np_caller'),s=np('np_shop');
+  if(!c&&!s) return '';
+  return `<div class="ls-info">${c?`<span><i class="ti ti-user" style="font-size:13px"></i>Caller: <strong>${c}</strong></span>`:''} ${s?`<span><i class="ti ti-building" style="font-size:13px"></i>Shop: <strong>${s}</strong></span>`:''}</div>`;
+}
+
+function lsRender(step,data){
+  const w=ge('ls-wrap'), info=lsInfo();
+  const prefBadge=val=>val>0?`<div class="af-badge" style="margin-bottom:10px"><i class="ti ti-wand"></i>Pre-filled from notepad — edit if needed</div>`:''
+
+  if(step==='start'){
+    w.innerHTML=`${info}${prefBadge(ls_r)}<div class="ls-step">What is the current posted labor rate at your Repair Facility?</div><div class="ls-in-row"><input type="number" id="ls_in" placeholder="e.g. 145" ${ls_r>0?`value="${ls_r}"`:''}><button class="btn btn-red" onclick="lsPosted()"><i class="ti ti-arrow-right"></i>Next</button></div>`;
+  } else if(step==='avg'){
+    w.innerHTML=`${info}${prefBadge(ls_a)}<div class="ls-step">What is the average labor rate in the area?</div><div class="ls-in-row"><input type="number" id="ls_in" placeholder="Average rate" ${ls_a>0?`value="${ls_a}"`:''}><button class="btn btn-red" onclick="lsAvg()"><i class="ti ti-arrow-right"></i>Next</button></div>`;
+  } else if(step==='ask_flex'){
+    w.innerHTML=`${info}<div class="ls-step">Thanks for that — most shops have been working with us by coming down on the hourly rate to help customers. Is there any flexibility for a lower hourly rate for this customer?</div><div class="yn"><button class="by" onclick="lsNewRate()">Yes</button><button class="bn" onclick="lsDone('no_flex',${ls_r})">No</button></div>`;
+  } else if(step==='ask_match'){
+    w.innerHTML=`${info}<div class="ls-step">The average labor rate in your area is <strong>$${ls_a}</strong> — are you able to match this?</div><div class="yn"><button class="by" onclick="lsDone('matched',${ls_a})">Yes</button><button class="bn" onclick="lsMid()">No</button></div>`;
+  } else if(step==='ask_mid'){
+    const mid=((ls_r+ls_a)/2).toFixed(2);
+    w.innerHTML=`${info}<div class="ls-step">Are you able to meet us at <strong>$${mid}</strong>?</div><div class="yn"><button class="by" onclick="lsDone('matched',${mid})">Yes</button><button class="bn" onclick="lsDone('no_flex',${ls_r})">No</button></div>`;
+  } else if(step==='ask_new'){
+    w.innerHTML=`${info}<div class="ls-step">What is the new labor rate you would like to set?</div><div class="ls-in-row"><input type="number" id="ls_in" placeholder="New rate"><button class="btn btn-red" onclick="lsConfirm()"><i class="ti ti-check"></i>Confirm</button></div>`;
+  } else if(step==='done'){
+    w.innerHTML=`${info}<div class="ls-done">${data}</div><button class="btn btn-red" onclick="initLS()"><i class="ti ti-rotate-left"></i>Start over</button>`;
+  }
+}
+
+function lsPosted(){
+  const v=parseFloat(ge('ls_in').value); if(isNaN(v)){toast('Enter a valid number','info');return}
+  ls_r=v; const e=ge('np_rate'); if(e&&!e.value) e.value=v;
+  lsRender('avg');
+}
+function lsAvg(){
+  const v=parseFloat(ge('ls_in').value); if(isNaN(v)){toast('Enter a valid number','info');return}
+  ls_a=v; const e=ge('np_avg'); if(e&&!e.value) e.value=v;
+  lsRender(ls_r<=ls_a?'ask_flex':'ask_match');
+}
+function lsMid(){ lsRender('ask_mid') }
+function lsNewRate(){ lsRender('ask_new') }
+function lsConfirm(){
+  const v=parseFloat(ge('ls_in').value); if(isNaN(v)){toast('Enter a valid number','info');return}
+  lsDone('matched',v);
+}
+function lsDone(type,rate){
+  if(type==='matched'){ const e=ge('np_neg'); if(e&&!e.value) e.value=rate; }
+  const msg=type==='matched'
+    ?`Thank you. I have updated your repair facility profile and set the labor rate to $${rate}.`
+    :`No problem, thanks for considering it. I will update your repair facility profile to $${rate}. Please keep in mind that there could be other times during the claims process that we may ask you to negotiate pricing.`;
+  lsRender('done',msg);
+}
+</script>
+</body>
+</html>
